@@ -84,6 +84,18 @@ function folder_() {
   return f;
 }
 
+function insertAbsent_(ss, name, key, obj) {
+  const sh = ss.getSheetByName(name);
+  const last = sh.getLastRow();
+  if (last > 1) {
+    const keys = sh.getRange(2, 1, last - 1, 1).getValues();
+    for (let i = 0; i < keys.length; i++) {
+      if (String(keys[i][0]) === String(key)) return; // already in cloud — keep cloud copy
+    }
+  }
+  sh.appendRow([key, JSON.stringify(obj)]);
+}
+
 /** WRITE — fire-and-forget posts from the app */
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -93,6 +105,13 @@ function doPost(e) {
     const a = body.action, p = body.payload;
     const ss = db_();
     if (a === "addMsg")          upsert_(ss, "msgs", p.id, p);
+    else if (a === "bootstrap") {
+      // First device connecting: seed the cloud without overwriting anything already there
+      (p.users || []).forEach(function (u) { insertAbsent_(ss, "users", u.u, u); });
+      (p.rooms || []).forEach(function (r) { insertAbsent_(ss, "rooms", r.id, r); });
+      (p.events || []).forEach(function (ev) { insertAbsent_(ss, "events", ev.id, ev); });
+      (p.msgs || []).forEach(function (m) { delete m.dataUrl; insertAbsent_(ss, "msgs", m.id, m); });
+    }
     else if (a === "addFileMsg") {
       // Save the photo/file into Google Drive (free), keep only the link in the DB
       try {

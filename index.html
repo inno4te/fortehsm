@@ -23,7 +23,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);overflow:hidden}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);overflow:hidden;height:100dvh}
 h1,h2,h3,.display{font-family:'Bricolage Grotesque','Plus Jakarta Sans',sans-serif}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,textarea,select{font-family:inherit;font-size:15px;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;outline:none;width:100%}
@@ -188,6 +188,11 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 .toast.on{transform:translateX(-50%);opacity:1}
 .sync-pill{font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 9px;background:var(--accent-tint);color:var(--accent)}
 
+.localbar{display:flex;align-items:center;gap:10px;background:var(--orange-tint);color:#8A4A12;font-size:12.5px;font-weight:700;padding:9px 14px;border-bottom:1.5px solid var(--line);cursor:pointer}
+[data-mode="dark"] .localbar{color:#FFCB96}
+.localbar b{text-decoration:underline}
+.localbar .x2{margin-left:auto;font-weight:800;padding:2px 8px}
+
 /* ---------- MOBILE ---------- */
 .mob-nav{display:none}
 @media(max-width:860px){
@@ -196,7 +201,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
   .main{display:none}
   body[data-screen="chat"] .panel{display:none}
   body[data-screen="chat"] .main{display:flex}
-  .mob-nav{display:flex;background:var(--card);border-top:1.5px solid var(--line);padding:6px 4px calc(8px + env(safe-area-inset-bottom))}
+  .mob-nav{display:flex;background:var(--card);border-top:1.5px solid var(--line);padding:6px 4px calc(8px + env(safe-area-inset-bottom));flex-shrink:0}
   .mob-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:700;color:var(--muted);padding:6px;border-radius:10px}
   .mob-nav button.active{color:var(--accent)}
   .mob-nav svg{width:21px;height:21px}
@@ -204,6 +209,18 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
   .app-cols{flex:1;display:flex;min-height:0}
   .msg{max-width:88%}
   .back-btn{display:flex!important}
+  .main-head{padding:10px 12px;gap:9px}
+  .main-head .av{width:38px;height:38px}
+  .main-head h3{font-size:15.5px}
+  #msgs{padding:14px 12px 8px}
+  .composer{padding:9px 10px calc(10px + env(safe-area-inset-bottom))}
+  .composer-row{gap:6px}
+  .plus-btn,.send-btn{width:42px;height:42px;border-radius:12px}
+  .composer textarea{min-height:42px;padding:10px 12px;font-size:16px}
+  .slash-hint{display:none}
+  .view{padding:18px 14px}
+  .grid{grid-template-columns:1fr}
+  .panel-head{padding:16px 16px 10px}
 }
 .back-btn{display:none}
 .app-cols{flex:1;display:flex;min-height:0;width:100%}
@@ -220,12 +237,12 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
     <div class="stripe" style="margin-bottom:20px"></div>
     <div class="login-err" id="loginErr"></div>
     <div id="loginForm">
-      <div class="field"><label>Username</label><input id="liUser" placeholder="e.g. forteh1" autocomplete="username"></div>
+      <div class="field"><label>Username</label><input id="liUser" placeholder="e.g. inno" autocomplete="username"></div>
       <div class="field"><label>Password</label><input id="liPass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
       <button class="btn btn-grad" onclick="doLogin()">Enter the Family Hall</button>
       <div style="height:10px"></div>
       <button class="btn btn-ghost" onclick="toggleSignup(true)">Create a new family account</button>
-      <div class="login-foot">Family accounts <b>forteh1 – forteh20</b> are ready.<br><span class="hint-chip">ForTe Fam · Making a real difference</span></div>
+      <div class="login-foot">Family accounts: <b>inno · lin · dj · an · ja · mm · ss · ra</b> and <b>forteh9 – forteh20</b><br>Passwords: <b>f0rteh01 – f0rteh20</b> (by slot number)<br><span class="hint-chip">ForTe Fam · Making a real difference</span></div>
     </div>
     <div id="signupForm" style="display:none">
       <div class="field"><label>Choose username</label><input id="suUser" placeholder="e.g. forteh21 or auntie-rose"></div>
@@ -273,10 +290,14 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
       <div class="av" id="chanAvatar">🏠</div>
       <div><h3 id="chanName">Family Hall</h3><div class="sub" id="chanSub">Everyone is here</div></div>
       <div class="spacer"></div>
-      <span class="sync-pill" id="syncPill">Local</span>
+      <span class="sync-pill" id="syncPill" onclick="openModal('mSync')" style="cursor:pointer" title="Family sync status">Local</span>
       <button class="icon-btn" title="Voice call (free)" onclick="startCall(false)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7a2 2 0 0 1 1.7 2z"/></svg></button>
       <button class="icon-btn" title="Video call (free)" onclick="startCall(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></button>
       <button class="icon-btn" title="Channel info" onclick="chanInfo()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>
+    </div>
+    <div class="localbar" id="localbar" style="display:none" onclick="openModal('mSync')">
+      ⚠️ Local mode — your messages stay on <u>this device only</u>.&nbsp;<b>Tap to connect family sync (free)</b>
+      <span class="x2" onclick="event.stopPropagation();this.parentElement.style.display='none'">✕</span>
     </div>
     <div id="msgs"></div>
     <div class="composer">
@@ -374,6 +395,30 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
   <button class="btn btn-grad" onclick="createEvent()">Create event</button>
 </div></div>
 
+<div class="modal-wrap" id="mSync"><div class="modal">
+  <button class="x" onclick="closeModal('mSync')">✕</button>
+  <h3>Family sync (free)</h3>
+  <div id="syncStateOff">
+    <p style="font-size:13.5px;line-height:1.6;color:var(--muted);margin-bottom:14px">
+      Right now ForTe Fam is in <b style="color:var(--ink)">Local mode</b> — each phone keeps its own messages, so the family can't see each other's texts yet.
+      Connecting takes <b style="color:var(--ink)">one person, 3 minutes, $0</b>:</p>
+    <ol style="font-size:13.5px;line-height:1.8;padding-left:20px;color:var(--muted);margin-bottom:14px">
+      <li>Signed in as <b>team21online</b>, open <b>script.google.com</b> → New project</li>
+      <li>Paste in the <b>Code.gs</b> file from the project → Save</li>
+      <li><b>Deploy → New deployment → Web app</b> → Execute as <b>Me</b>, access <b>Anyone</b></li>
+      <li>Copy the Web app URL and paste it below 👇</li>
+    </ol>
+  </div>
+  <div id="syncStateOn" style="display:none">
+    <p style="font-size:13.5px;line-height:1.6;color:var(--muted);margin-bottom:14px">✅ <b style="color:var(--ink)">Family sync is ON.</b> Messages, groups, events, photos and files now reach everyone within a few seconds.</p>
+  </div>
+  <div class="field"><label>Google Apps Script Web App URL</label><input id="syncUrl" placeholder="https://script.google.com/macros/s/…/exec"></div>
+  <button class="btn btn-grad" onclick="saveSync()">Connect family sync</button>
+  <div style="height:10px"></div>
+  <div class="field"><label>Then share this one link with the whole family — sync connects automatically when they open it</label><input id="famLink" readonly onclick="this.select()"></div>
+  <button class="btn btn-ghost" onclick="copyFamLink()">📋 Copy family link</button>
+</div></div>
+
 <div id="imgViewer" onclick="this.classList.remove('on')"><img id="imgViewerImg" alt=""></div>
 <div class="toast" id="toast"></div>
 <script>
@@ -383,12 +428,12 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
    Script backend (team21online Google account) for family-wide sync.
    ===================================================================== */
 const CONFIG = {
-  // Paste your deployed Google Apps Script Web App URL here to enable
-  // cloud sync across all family devices. Leave "" for local-only mode.
-  SCRIPT_URL: "",
-  SYNC_EVERY_MS: 6000,
+  // Family sync backend — Google Apps Script Web App (team21online, free)
+  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbz3pD2pP_bo9fZ8VLef9uHyCi8-GFbNkn9VG4ps5mq1fzZUC-FCMPHlOXkp-TJh4xmdwg/exec",
+  SYNC_EVERY_MS: 4000,
   FAMILY_EMAIL: "team21online@gmail.com"
 };
+function syncUrl(){ return CONFIG.SCRIPT_URL || DB.get("scripturl","") || ""; }
 
 /* ---------- seed data ---------- */
 const THEMES = [
@@ -420,19 +465,48 @@ const DB = {
   get(k,f){ try{const v=localStorage.getItem("ff_"+k);return v?JSON.parse(v):f}catch(e){return f} },
   set(k,v){ localStorage.setItem("ff_"+k,JSON.stringify(v)); }
 };
+/* ---------- accounts: named family slots 1-8, forteh9-20 spare ---------- */
+const NAMED = {1:["inno","Inno (Admin)"],2:["lin","Lin"],3:["dj","DJ"],4:["an","An"],
+               5:["ja","Ja"],6:["mm","MM"],7:["ss","SS"],8:["ra","Ra"]};
+const ALIAS = {}; Object.keys(NAMED).forEach(i=>ALIAS["forteh"+i]=NAMED[i][0]); // old → new
+function aliased(u){ return ALIAS[u]||u; }
 function seedUsers(){
   let users = DB.get("users",null);
   if(!users){
     users={};
     for(let i=1;i<=20;i++){
-      users["forteh"+i]={u:"forteh"+i,pass:"f0rteh"+String(i).padStart(2,"0"),
-        name:"Family Member "+i,emoji:"🙂",theme:"green",dark:false,
+      const uname=NAMED[i]?NAMED[i][0]:"forteh"+i;
+      const dname=NAMED[i]?NAMED[i][1]:"Family Member "+i;
+      users[uname]={u:uname,pass:"f0rteh"+String(i).padStart(2,"0"),
+        name:dname,emoji:"🙂",theme:"green",dark:false,
         color:AV_COLORS[(i-1)%AV_COLORS.length],role:i===1?"Family Admin":"Family",created:Date.now(),lastSeen:0};
     }
-    users.forteh1.name="Innocent (Admin)";
-    DB.set("users",users);
+    DB.set("users",users); DB.set("seedv",2);
   }
-  return users;
+  migrateNames();
+  return DB.get("users",{});
+}
+function migrateNames(){
+  if(DB.get("seedv",1)>=2) return;
+  const us=DB.get("users",{});
+  Object.entries(ALIAS).forEach(([old,neu])=>{
+    if(us[old]&&!us[neu]){
+      const rec=us[old]; delete us[old];
+      rec.u=neu;
+      const slot=Object.keys(NAMED).find(i=>NAMED[i][0]===neu);
+      if(/^Family Member \d+$/.test(rec.name)||rec.name==="Innocent (Admin)") rec.name=NAMED[slot][1];
+      us[neu]=rec;
+    } else if(us[old]) delete us[old];
+  });
+  DB.set("users",us);
+  // re-point old usernames inside messages, rooms, events and session
+  DB.set("msgs", DB.get("msgs",[]).map(m=>{ m.from=aliased(m.from); return m; }));
+  DB.set("rooms", DB.get("rooms",[]).map(r=>{ if(Array.isArray(r.members)) r.members=r.members.map(aliased); return r; }));
+  DB.set("events", DB.get("events",[]).map(ev=>{ ev.by=aliased(ev.by);
+    if(ev.rsvp){ const nr={}; Object.entries(ev.rsvp).forEach(([k,v])=>nr[aliased(k)]=v); ev.rsvp=nr; } return ev; }));
+  const s=DB.get("session",null); if(s&&ALIAS[s]) DB.set("session",ALIAS[s]);
+  const reads=DB.get("reads",{}); DB.set("reads",reads);
+  DB.set("seedv",2);
 }
 function seedRooms(){
   let rooms = DB.get("rooms",null);
@@ -442,7 +516,7 @@ function seedRooms(){
   }
   let msgs = DB.get("msgs",null);
   if(!msgs){
-    msgs=[{id:"m0",room:"hall",from:"forteh1",kind:"text",
+    msgs=[{id:"m0",room:"hall",from:"inno",kind:"text",
       text:"Welcome to ForTe Fam! 🧡💚 This is our Family Hall — everyone lands here. Try the ＋ button or type /help to see what we can do together.",ts:Date.now()-60000}];
     DB.set("msgs",msgs);
   }
@@ -477,7 +551,7 @@ function enter(u){
   DB.set("session",u); ME=DB.get("users",{})[u];
   login.style.display="none"; app.classList.add("on");
   applyTheme(); heartbeat(); renderAll(); startSync();
-  systemNote(ME.name+" joined the hall 👋", false);
+  openRoom("hall"); // land straight in the Family Hall, composer ready
 }
 function logout(){ DB.set("session",null); location.reload(); }
 
@@ -626,6 +700,7 @@ function pushMsg(m){
   const all=msgs(); all.push(m); DB.set("msgs",all);
   cloud("addMsg",m);
   renderPanel(); renderMsgs(true);
+  setTimeout(pollNow,1200); // fetch family replies quickly
 }
 function systemNote(text){ const all=msgs(); all.push({id:"s"+Date.now(),room:"hall",from:ME.u,kind:"system",text,ts:Date.now()}); DB.set("msgs",all); }
 function sendMsg(){
@@ -863,31 +938,74 @@ function heartbeat(){
    If SCRIPT_URL is empty the app runs perfectly in local mode.
    ===================================================================== */
 function cloud(action,payload){
-  if(!CONFIG.SCRIPT_URL) return;
+  const url=syncUrl(); if(!url) return;
   try{
-    fetch(CONFIG.SCRIPT_URL,{method:"POST",mode:"no-cors",
+    fetch(url,{method:"POST",mode:"no-cors",
       headers:{"Content-Type":"text/plain;charset=utf-8"},
       body:JSON.stringify({action,payload})});
   }catch(e){}
 }
+let pollNow=function(){};
 function startSync(){
-  syncPill.textContent = CONFIG.SCRIPT_URL ? "Cloud sync" : "Local";
-  if(!CONFIG.SCRIPT_URL) return;
-  const poll=()=>{
-    const cb="ffSync"+Date.now();
+  const url=syncUrl();
+  refreshSyncUI();
+  if(!url) return;
+  if(syncTimer) clearInterval(syncTimer);
+  // First connection from this device: push everything local up (idempotent upserts)
+  if(DB.get("bootstrapped","")!==url){
+    const boot={users:Object.values(users()),rooms:rooms(),events:DB.get("events",[]),
+      msgs:msgs().filter(m=>!m.dataUrl).slice(-200)};
+    cloud("bootstrap",boot);
+    msgs().filter(m=>m.dataUrl&&!m.fileId).forEach(m=>cloud("addFileMsg",m)); // upload pending media
+    DB.set("bootstrapped",url);
+  }
+  pollNow=()=>{
+    const cb="ffSync"+Date.now()+Math.floor(Math.random()*999);
     window[cb]=function(data){
       try{ mergeCloud(data); }catch(e){}
       delete window[cb]; s.remove();
     };
     const s=document.createElement("script");
-    s.src=CONFIG.SCRIPT_URL+"?action=pull&callback="+cb+"&_="+Date.now();
+    s.src=url+(url.includes("?")?"&":"?")+"action=pull&callback="+cb+"&_="+Date.now();
     s.onerror=()=>{ delete window[cb]; s.remove(); };
     document.body.appendChild(s);
   };
-  poll(); syncTimer=setInterval(poll,CONFIG.SYNC_EVERY_MS);
+  pollNow(); syncTimer=setInterval(pollNow,CONFIG.SYNC_EVERY_MS);
+}
+function refreshSyncUI(){
+  const on=!!syncUrl();
+  syncPill.textContent=on?"✓ Family sync":"Local · tap to fix";
+  syncPill.style.background=on?"var(--accent-tint)":"var(--orange-tint)";
+  syncPill.style.color=on?"var(--accent)":"#B35A12";
+  document.getElementById("localbar").style.display=on?"none":"flex";
+  document.getElementById("syncStateOff").style.display=on?"none":"block";
+  document.getElementById("syncStateOn").style.display=on?"block":"none";
+  document.getElementById("syncUrl").value=syncUrl();
+  document.getElementById("famLink").value=syncUrl()
+    ? location.origin+location.pathname+"?sync="+encodeURIComponent(syncUrl())
+    : "Connect sync first to generate the family link";
+}
+function saveSync(){
+  const u=document.getElementById("syncUrl").value.trim();
+  if(!u.startsWith("https://script.google.com/")) return toast("That doesn't look like a script.google.com Web App URL");
+  DB.set("scripturl",u); DB.set("bootstrapped","");
+  closeModal("mSync"); startSync(); toast("Family sync connected ✓ Share the family link!");
+  setTimeout(()=>openModal("mSync"),600); // show the family link to copy
+}
+function copyFamLink(){
+  const v=document.getElementById("famLink").value;
+  if(!v.startsWith("http")) return toast("Connect sync first");
+  navigator.clipboard?.writeText(v).then(()=>toast("Family link copied — send it to everyone 💚"))
+    .catch(()=>{ document.getElementById("famLink").select(); toast("Long-press the link to copy"); });
 }
 function mergeCloud(data){
   if(!data) return;
+  // normalize any old forteh1-8 usernames still living in the cloud Sheet
+  if(data.users){ const nu={}; Object.values(data.users).forEach(cu=>{ if(ALIAS[cu.u]) return; nu[cu.u]=cu; }); data.users=nu; }
+  if(data.msgs) data.msgs.forEach(m=>{ m.from=aliased(m.from); });
+  if(data.rooms) data.rooms.forEach(r=>{ if(Array.isArray(r.members)) r.members=r.members.map(aliased); });
+  if(data.events) data.events.forEach(ev=>{ ev.by=aliased(ev.by);
+    if(ev.rsvp){ const nr={}; Object.entries(ev.rsvp).forEach(([k,v])=>nr[aliased(k)]=v); ev.rsvp=nr; } });
   if(data.users){ const us=users(); Object.values(data.users).forEach(cu=>{ if(!us[cu.u]||cu.u!==ME.u) us[cu.u]=Object.assign(us[cu.u]||{},cu); }); DB.set("users",us); }
   if(data.rooms){ const rs=rooms(); data.rooms.forEach(cr=>{ if(!rs.find(r=>r.id===cr.id)) rs.push(cr); }); DB.set("rooms",rs); }
   if(data.msgs){ const all=msgs(); let added=false;
@@ -902,6 +1020,14 @@ function mergeCloud(data){
 
 /* ---------- boot ---------- */
 seedUsers(); seedRooms();
+// Family link support: opening ?sync=<url> connects this device automatically
+try{
+  const qs=new URLSearchParams(location.search).get("sync");
+  if(qs && qs.startsWith("https://script.google.com/")){
+    DB.set("scripturl",qs); DB.set("bootstrapped","");
+    history.replaceState(null,"",location.pathname); // clean the address bar
+  }
+}catch(e){}
 const sess=DB.get("session",null);
 if(sess && users()[sess]){ enter(sess); }
 </script>

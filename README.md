@@ -15,9 +15,14 @@ One family hall that blends the best of WhatsApp, Signal and Telegram — chat, 
 
 ## Family accounts (pre-built)
 
-- Usernames: **forteh1 → forteh20**
-- Passwords: **f0rteh01 → f0rteh20** (matching number, two digits)
-- `forteh1` = Family Admin (Innocent)
+| Slot | Username | Password | Slot | Username | Password |
+|---|---|---|---|---|---|
+| 1 | **inno** (Admin) | f0rteh01 | 5 | **ja** | f0rteh05 |
+| 2 | **lin** | f0rteh02 | 6 | **mm** | f0rteh06 |
+| 3 | **dj** | f0rteh03 | 7 | **ss** | f0rteh07 |
+| 4 | **an** | f0rteh04 | 8 | **ra** | f0rteh08 |
+
+- Spare slots: **forteh9 → forteh20** with passwords **f0rteh09 → f0rteh20**
 - Anyone can also **create a new account** from the login screen.
 - Every member can change their **display name, avatar emoji, password, interface color (6 themes), and dark mode** in *My space*.
 
@@ -49,21 +54,12 @@ One family hall that blends the best of WhatsApp, Signal and Telegram — chat, 
 
 (The app already works at this point in **Local mode** — each device keeps its own data.)
 
-### Step 3 — Free cloud sync (recommended)
-This makes every message, group, event and account sync across all family devices.
+### Step 3 — Family sync: ✅ ALREADY CONNECTED
+The deployed Web App URL is now hard-coded into `index.html` (`SCRIPT_URL`), so **family sync is on for everyone automatically** — members just open the plain site URL, log in, and they can message each other. No family link or setup needed.
 
-1. Signed in as **team21online**, open **script.google.com** → New project.
-2. Delete the starter code, paste in the whole of `Code.gs`, Save.
-3. **Deploy → New deployment → Web app**
-   - *Execute as:* **Me**
-   - *Who has access:* **Anyone**
-4. Authorize when asked, then copy the **Web app URL**.
-5. In GitHub, open `index.html` → ✏️ Edit → near the top find:
-   ```js
-   SCRIPT_URL: "",
-   ```
-   and paste the URL between the quotes → Commit. Vercel redeploys automatically.
-6. The chat header pill changes from **Local** to **Cloud sync**. Done — the database is a Google Sheet auto-created in team21online's Drive (`ForTeFam_DB`).
+Messages, groups, events, photos, files and RSVPs reach everyone within ~4 seconds. The database is a Google Sheet (`ForTeFam_DB`) plus a `ForTeFam Files` Drive folder, both auto-created in team21online's Drive. Devices that used the app before this update migrate their old `forteh1–8` history to the new usernames automatically.
+
+If you ever redeploy the Apps Script and get a new URL, update `SCRIPT_URL` in `index.html` on GitHub — or tap the sync pill in the app header and paste it there.
 
 ## Notes & honest limits
 
