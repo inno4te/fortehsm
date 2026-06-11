@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ForTe Fam — Connecting with each other everywhere we are</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%231B7A43'/><stop offset='1' stop-color='%23F2772B'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><text x='50' y='66' font-size='44' font-family='Arial' font-weight='900' fill='white' text-anchor='middle'>FF</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#0B4D2A; --green-soft:#177A45; --green-tint:#E3F0E8;
+  --orange:#F2772B; --orange-soft:#FF8C42; --orange-tint:#FDEEDF;
+  --paper:#F7FAF6; --ink:#152A1E; --muted:#5E7367; --line:#DCE5DC;
+  --card:#FFFFFF; --accent:var(--green); --accent-soft:var(--green-soft); --accent-tint:var(--green-tint);
+  --r:16px; --shadow:0 4px 18px rgba(11,77,42,.09);
+  --grad:linear-gradient(120deg,#0B4D2A 0%,#177A45 42%,#2FA866 64%,var(--orange) 100%);
+}
+[data-mode="dark"]{
+  --paper:#0D1B12; --ink:#E9F2EB; --muted:#8DA496; --line:#22382A;
+  --card:#142519; --green-tint:#173823; --orange-tint:#3A2A1B;
+  --shadow:0 4px 18px rgba(0,0,0,.4);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);overflow:hidden}
+h1,h2,h3,.display{font-family:'Bricolage Grotesque','Plus Jakarta Sans',sans-serif}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font-family:inherit;font-size:15px;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;outline:none;width:100%}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+::placeholder{color:var(--muted)}
+.stripe{height:6px;background:linear-gradient(90deg,var(--green) 0 33.3%,#fff 33.3% 50%,var(--orange-soft) 50% 100%);border-radius:3px}
+.kente{display:flex;gap:0;height:5px}
+.kente i{flex:1}.kente i:nth-child(1){background:var(--green)}.kente i:nth-child(2){background:#fff}.kente i:nth-child(3){background:var(--orange)}
+
+/* ---------- LOGIN ---------- */
+#login{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:
+  radial-gradient(1200px 600px at 15% -10%,var(--green-tint),transparent 60%),
+  radial-gradient(1000px 600px at 110% 110%,var(--orange-tint),transparent 60%),var(--paper);z-index:50;padding:18px;overflow:auto}
+.login-card{width:100%;max-width:420px;background:var(--card);border:1.5px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:34px 30px;position:relative;overflow:hidden}
+.login-card::before{content:"";position:absolute;top:0;left:0;right:0;height:7px;background:var(--grad)}
+.brandmark{width:64px;height:64px;border-radius:18px;background:var(--grad);display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Bricolage Grotesque';font-weight:800;font-size:26px;letter-spacing:-1px;margin-bottom:16px;box-shadow:0 8px 20px rgba(242,119,43,.3)}
+.login-card h1{font-size:30px;font-weight:800;letter-spacing:-.5px;line-height:1.1}
+.login-card h1 span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tagline{color:var(--muted);font-size:14px;margin:8px 0 22px;line-height:1.5}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;border-radius:12px;padding:13px 20px;transition:.18s}
+.btn-grad{background:var(--grad);color:#fff;width:100%;box-shadow:0 6px 16px rgba(27,122,67,.25)}
+.btn-grad:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(242,119,43,.3)}
+.btn-ghost{border:1.5px solid var(--line);background:var(--card);width:100%}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.login-err{background:#FDECEC;color:#B3261E;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:600;margin-bottom:12px;display:none}
+[data-mode="dark"] .login-err{background:#3A2222;color:#FFB4AB}
+.login-foot{margin-top:18px;text-align:center;font-size:13px;color:var(--muted)}
+.login-foot b{color:var(--accent)}
+.hint-chip{display:inline-block;background:var(--accent-tint);color:var(--accent);font-size:11.5px;font-weight:700;border-radius:999px;padding:4px 10px;margin-top:10px}
+
+/* ---------- APP SHELL ---------- */
+#app{display:none;height:100%;}
+#app.on{display:flex}
+.rail{width:74px;background:var(--card);border-right:1.5px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:14px 0;gap:6px;flex-shrink:0}
+.rail .brandmark{width:46px;height:46px;border-radius:14px;font-size:18px;margin-bottom:10px}
+.rail-btn{width:50px;height:50px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--muted);font-size:10px;font-weight:700;position:relative;transition:.15s}
+.rail-btn svg{width:21px;height:21px}
+.rail-btn.active,.rail-btn:hover{background:var(--accent-tint);color:var(--accent)}
+.rail-btn .badge{position:absolute;top:5px;right:7px;min-width:16px;height:16px;border-radius:8px;background:var(--orange);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.rail-spacer{flex:1}
+.me-chip{width:46px;height:46px;border-radius:50%;background:var(--grad);padding:2.5px;cursor:pointer}
+.me-chip i{display:flex;width:100%;height:100%;border-radius:50%;background:var(--card);align-items:center;justify-content:center;font-style:normal;font-size:20px}
+
+.panel{width:300px;background:var(--paper);border-right:1.5px solid var(--line);display:flex;flex-direction:column;flex-shrink:0}
+.panel-head{padding:20px 18px 12px}
+.panel-head h2{font-size:21px;font-weight:800;letter-spacing:-.3px}
+.panel-head .sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+.panel-tools{padding:0 14px 10px;display:flex;gap:8px}
+.panel-body{flex:1;overflow-y:auto;padding:4px 10px 16px}
+.mini-btn{flex:1;font-size:12.5px;font-weight:700;border:1.5px solid var(--line);border-radius:10px;padding:8px;background:var(--card);transition:.15s}
+.mini-btn:hover{border-color:var(--accent);color:var(--accent)}
+.chan{display:flex;align-items:center;gap:11px;padding:10px 10px;border-radius:13px;cursor:pointer;margin-bottom:2px;transition:.12s}
+.chan:hover{background:var(--card)}
+.chan.active{background:var(--accent-tint)}
+.chan .av{width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:var(--card);border:1.5px solid var(--line)}
+.chan.active .av{border-color:var(--accent)}
+.chan .cinfo{flex:1;min-width:0}
+.chan .cname{font-weight:700;font-size:14.5px;display:flex;align-items:center;gap:6px}
+.chan .clast{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.chan .cbadge{min-width:19px;height:19px;border-radius:10px;background:var(--orange);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.dot{width:9px;height:9px;border-radius:50%;background:#3DBE74;flex-shrink:0}
+.dot.off{background:var(--line)}
+.sec-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:14px 10px 6px}
+
+/* ---------- MAIN ---------- */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--paper)}
+.main-head{display:flex;align-items:center;gap:13px;padding:13px 20px;border-bottom:1.5px solid var(--line);background:var(--card)}
+.main-head .av{width:42px;height:42px;border-radius:13px;background:var(--accent-tint);display:flex;align-items:center;justify-content:center;font-size:19px}
+.main-head h3{font-size:17px;font-weight:800}
+.main-head .sub{font-size:12px;color:var(--muted)}
+.main-head .spacer{flex:1}
+.icon-btn{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:.15s}
+.icon-btn:hover{background:var(--accent-tint);color:var(--accent)}
+.icon-btn svg{width:19px;height:19px}
+#msgs{flex:1;overflow-y:auto;padding:22px 22px 10px;display:flex;flex-direction:column;gap:4px}
+.day-sep{align-self:center;font-size:11.5px;font-weight:700;color:var(--muted);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:4px 14px;margin:14px 0 10px}
+.msg{display:flex;gap:11px;max-width:78%;margin-bottom:8px;animation:pop .18s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.msg .mav{width:36px;height:36px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:17px;color:#fff;font-weight:800;margin-top:2px}
+.msg .bub{background:var(--card);border:1.5px solid var(--line);border-radius:4px 18px 18px 18px;padding:9px 14px;box-shadow:var(--shadow)}
+.msg .mname{font-size:12px;font-weight:800;margin-bottom:2px}
+.msg .mtext{font-size:14.5px;line-height:1.5;word-wrap:break-word;white-space:pre-wrap}
+.msg .mtime{font-size:10.5px;color:var(--muted);margin-top:3px}
+.msg.mine{align-self:flex-end;flex-direction:row-reverse}
+.msg.mine .bub{background:var(--accent-tint);border-color:transparent;border-radius:18px 4px 18px 18px}
+.msg.mine .mname{display:none}
+.toolcard{display:flex;align-items:center;gap:12px;background:var(--card);border:1.5px solid var(--line);border-left:5px solid var(--accent);border-radius:12px;padding:11px 14px;margin-top:6px;text-decoration:none;color:var(--ink);transition:.15s;max-width:340px}
+.toolcard:hover{border-color:var(--accent);transform:translateY(-1px)}
+.toolcard .ti{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;background:var(--accent-tint)}
+.toolcard b{font-size:13.5px;display:block}
+.toolcard span{font-size:11.5px;color:var(--muted)}
+.eventcard{background:var(--card);border:1.5px solid var(--line);border-radius:14px;overflow:hidden;margin-top:6px;max-width:340px}
+.eventcard .eh{background:var(--grad);color:#fff;padding:9px 14px;font-weight:800;font-size:13px}
+.eventcard .eb{padding:11px 14px;font-size:13px}
+.eventcard .eb b{font-size:14.5px}
+.eventcard .erow{display:flex;gap:8px;margin-top:8px}
+.eventcard .erow button{flex:1;font-size:12px;font-weight:700;border:1.5px solid var(--line);border-radius:9px;padding:7px;transition:.12s}
+.eventcard .erow button:hover,.eventcard .erow button.sel{background:var(--accent-tint);border-color:var(--accent);color:var(--accent)}
+.composer{padding:12px 16px 16px;background:var(--card);border-top:1.5px solid var(--line)}
+.composer-row{display:flex;gap:9px;align-items:flex-end}
+.composer textarea{resize:none;max-height:120px;min-height:46px;border-radius:14px;line-height:1.45}
+.send-btn{width:46px;height:46px;border-radius:14px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 5px 14px rgba(242,119,43,.3);transition:.15s}
+.send-btn:hover{transform:scale(1.05)}
+.plus-btn{width:46px;height:46px;border-radius:14px;border:1.5px solid var(--line);background:var(--paper);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;color:var(--accent);transition:.15s}
+.plus-btn:hover{border-color:var(--accent);background:var(--accent-tint)}
+.tooltray{display:none;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 4px 4px}
+.tooltray.on{display:grid}
+.tooltray button{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--muted);padding:10px 4px;border-radius:12px;transition:.13s}
+.tooltray button:hover{background:var(--accent-tint);color:var(--accent)}
+.tooltray .tico{width:40px;height:40px;border-radius:12px;background:var(--paper);border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:19px}
+.slash-hint{font-size:11px;color:var(--muted);margin-top:7px;text-align:center}
+.slash-hint code{background:var(--accent-tint);color:var(--accent);border-radius:5px;padding:1px 5px;font-weight:700}
+.msg-img{display:block;max-width:280px;max-height:320px;border-radius:14px;margin-top:6px;cursor:pointer;border:1.5px solid var(--line);object-fit:cover;background:var(--accent-tint)}
+.callcard{background:var(--card);border:1.5px solid var(--line);border-radius:14px;overflow:hidden;margin-top:6px;max-width:320px}
+.callcard .ch{background:linear-gradient(120deg,#0B4D2A,#177A45);color:#fff;padding:9px 14px;font-weight:800;font-size:13px;display:flex;align-items:center;gap:8px}
+.callcard .ch .pulse{width:9px;height:9px;border-radius:50%;background:#7CF2A8;animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.callcard .cb{padding:12px 14px}
+.callcard .join{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--grad);color:#fff;font-weight:800;font-size:14px;border-radius:11px;padding:11px;width:100%;text-decoration:none;transition:.15s}
+.callcard .join:hover{transform:translateY(-1px)}
+.upbar{display:none;align-items:center;gap:10px;font-size:12.5px;font-weight:700;color:var(--accent);padding:8px 4px 2px}
+.upbar.on{display:flex}
+.upbar .spin{width:15px;height:15px;border:2.5px solid var(--accent-tint);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#imgViewer{position:fixed;inset:0;background:rgba(8,18,12,.92);display:none;align-items:center;justify-content:center;z-index:90;cursor:zoom-out;padding:20px}
+#imgViewer.on{display:flex}
+#imgViewer img{max-width:96%;max-height:92%;border-radius:14px}
+
+/* ---------- VIEWS / MODALS ---------- */
+.view{flex:1;overflow-y:auto;padding:26px;display:none}
+.view.on{display:block}
+.view h2{font-size:25px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px}
+.view .vsub{color:var(--muted);font-size:14px;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
+.ev-card{border-top:5px solid var(--accent)}
+.ev-date{display:inline-block;background:var(--accent-tint);color:var(--accent);font-weight:800;font-size:12px;border-radius:8px;padding:4px 10px;margin-bottom:10px}
+.ev-card h4{font-size:16.5px;margin-bottom:5px}
+.ev-card p{font-size:13px;color:var(--muted);line-height:1.5}
+.rsvp-row{display:flex;gap:7px;margin-top:13px}
+.rsvp-row button{flex:1;font-size:12px;font-weight:700;border:1.5px solid var(--line);border-radius:9px;padding:7px;transition:.12s}
+.rsvp-row button.sel{background:var(--accent-tint);border-color:var(--accent);color:var(--accent)}
+.rsvp-count{font-size:11.5px;color:var(--muted);margin-top:9px}
+.member-card{display:flex;align-items:center;gap:13px}
+.member-card .mav{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:21px;color:#fff;font-weight:800;flex-shrink:0}
+.member-card b{font-size:15px}
+.member-card .role{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.modal-wrap{position:fixed;inset:0;background:rgba(20,30,24,.45);display:none;align-items:center;justify-content:center;z-index:60;padding:18px;backdrop-filter:blur(3px)}
+.modal-wrap.on{display:flex}
+.modal{width:100%;max-width:430px;max-height:88vh;overflow-y:auto;background:var(--card);border-radius:22px;padding:26px;position:relative;animation:pop .2s ease}
+.modal h3{font-size:20px;font-weight:800;margin-bottom:16px}
+.modal .x{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.modal .x:hover{background:var(--accent-tint);color:var(--accent)}
+.swatches{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:8px 0 16px}
+.sw{aspect-ratio:1;border-radius:13px;cursor:pointer;border:3px solid transparent;transition:.13s}
+.sw.sel{border-color:var(--ink);transform:scale(1.07)}
+.checkrow{display:flex;align-items:center;gap:10px;padding:9px 4px;font-size:14px;font-weight:600;cursor:pointer}
+.checkrow input{width:auto}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--ink);color:var(--paper);font-size:13.5px;font-weight:700;border-radius:12px;padding:12px 20px;z-index:80;opacity:0;transition:.3s;pointer-events:none}
+.toast.on{transform:translateX(-50%);opacity:1}
+.sync-pill{font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 9px;background:var(--accent-tint);color:var(--accent)}
+
+/* ---------- MOBILE ---------- */
+.mob-nav{display:none}
+@media(max-width:860px){
+  .rail{display:none}
+  .panel{width:100%;border-right:none}
+  .main{display:none}
+  body[data-screen="chat"] .panel{display:none}
+  body[data-screen="chat"] .main{display:flex}
+  .mob-nav{display:flex;background:var(--card);border-top:1.5px solid var(--line);padding:6px 4px calc(8px + env(safe-area-inset-bottom))}
+  .mob-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:700;color:var(--muted);padding:6px;border-radius:10px}
+  .mob-nav button.active{color:var(--accent)}
+  .mob-nav svg{width:21px;height:21px}
+  #app.on{flex-direction:column}
+  .app-cols{flex:1;display:flex;min-height:0}
+  .msg{max-width:88%}
+  .back-btn{display:flex!important}
+}
+.back-btn{display:none}
+.app-cols{flex:1;display:flex;min-height:0;width:100%}
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="login">
+  <div class="login-card">
+    <div class="brandmark">FF</div>
+    <h1>ForTe <span>Fam</span></h1>
+    <div class="tagline">Connecting with each other everywhere we are. One family hall for chats, plans, events and shared tools — built on 100% free services.</div>
+    <div class="stripe" style="margin-bottom:20px"></div>
+    <div class="login-err" id="loginErr"></div>
+    <div id="loginForm">
+      <div class="field"><label>Username</label><input id="liUser" placeholder="e.g. forteh1" autocomplete="username"></div>
+      <div class="field"><label>Password</label><input id="liPass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <button class="btn btn-grad" onclick="doLogin()">Enter the Family Hall</button>
+      <div style="height:10px"></div>
+      <button class="btn btn-ghost" onclick="toggleSignup(true)">Create a new family account</button>
+      <div class="login-foot">Family accounts <b>forteh1 – forteh20</b> are ready.<br><span class="hint-chip">ForTe Fam · Making a real difference</span></div>
+    </div>
+    <div id="signupForm" style="display:none">
+      <div class="field"><label>Choose username</label><input id="suUser" placeholder="e.g. forteh21 or auntie-rose"></div>
+      <div class="field"><label>Display name</label><input id="suName" placeholder="e.g. Auntie Rose"></div>
+      <div class="field"><label>Password</label><input id="suPass" type="password" placeholder="Choose a password"></div>
+      <button class="btn btn-grad" onclick="doSignup()">Join the family</button>
+      <div style="height:10px"></div>
+      <button class="btn btn-ghost" onclick="toggleSignup(false)">← Back to sign in</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app">
+<div class="app-cols">
+  <!-- rail -->
+  <div class="rail">
+    <div class="brandmark">FF</div>
+    <button class="rail-btn active" data-tab="chats" onclick="goTab('chats')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.5-.7L3 21l1.8-4.3A8.4 8.4 0 1 1 21 11.5z"/></svg>Chats<span class="badge" id="chatBadge" style="display:none">0</span></button>
+    <button class="rail-btn" data-tab="events" onclick="goTab('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>Events</button>
+    <button class="rail-btn" data-tab="family" onclick="goTab('family')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Family</button>
+    <button class="rail-btn" data-tab="tools" onclick="goTab('tools')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Tools</button>
+    <div class="rail-spacer"></div>
+    <button class="rail-btn" onclick="openSettings()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3h.1a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5h.1a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8v.1a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>Settings</button>
+    <div class="me-chip" onclick="openSettings()" title="My profile"><i id="meAvatar">🙂</i></div>
+  </div>
+
+  <!-- side panel -->
+  <div class="panel" id="panel">
+    <div class="panel-head">
+      <h2 id="panelTitle">Chats</h2>
+      <div class="sub" id="panelSub">ForTe Fam · everywhere we are</div>
+    </div>
+    <div class="panel-tools" id="panelTools">
+      <button class="mini-btn" onclick="openNewGroup()">＋ New group</button>
+      <button class="mini-btn" onclick="openNewDM()">✉ Direct chat</button>
+    </div>
+    <div class="panel-body" id="panelBody"></div>
+  </div>
+
+  <!-- main -->
+  <div class="main" id="mainChat">
+    <div class="main-head">
+      <button class="icon-btn back-btn" onclick="backToList()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></button>
+      <div class="av" id="chanAvatar">🏠</div>
+      <div><h3 id="chanName">Family Hall</h3><div class="sub" id="chanSub">Everyone is here</div></div>
+      <div class="spacer"></div>
+      <span class="sync-pill" id="syncPill">Local</span>
+      <button class="icon-btn" title="Voice call (free)" onclick="startCall(false)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7a2 2 0 0 1 1.7 2z"/></svg></button>
+      <button class="icon-btn" title="Video call (free)" onclick="startCall(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></button>
+      <button class="icon-btn" title="Channel info" onclick="chanInfo()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>
+    </div>
+    <div id="msgs"></div>
+    <div class="composer">
+      <div class="tooltray" id="tooltray">
+        <button onclick="pickFiles(true)"><span class="tico">🖼️</span>Photos</button>
+        <button onclick="pickFiles(false)"><span class="tico">📎</span>Files</button>
+        <button onclick="startCall(true)"><span class="tico">📞</span>Call now</button>
+        <button onclick="openNewEvent()"><span class="tico">🎉</span>Event</button>
+        <button onclick="insertTool('doc')"><span class="tico">📄</span>New Doc</button>
+        <button onclick="insertTool('sheet')"><span class="tico">📊</span>New Sheet</button>
+        <button onclick="insertTool('slides')"><span class="tico">📽️</span>Slides</button>
+        <button onclick="insertTool('form')"><span class="tico">📝</span>Form</button>
+        <button onclick="insertTool('meet')"><span class="tico">📹</span>Meet</button>
+        <button onclick="insertTool('drive')"><span class="tico">📁</span>Drive</button>
+        <button onclick="insertTool('keep')"><span class="tico">🗒️</span>Keep note</button>
+        <button onclick="insertTool('photos')"><span class="tico">📷</span>Albums</button>
+      </div>
+      <div class="upbar" id="upbar"><span class="spin"></span><span id="upbarText">Preparing…</span></div>
+      <input type="file" id="fileImg" accept="image/*" multiple style="display:none" onchange="handleFiles(this.files)">
+      <input type="file" id="fileAny" multiple style="display:none" onchange="handleFiles(this.files)">
+      <div class="composer-row">
+        <button class="plus-btn" onclick="document.getElementById('tooltray').classList.toggle('on')">＋</button>
+        <button class="plus-btn" title="Send photos or files" onclick="pickFiles(true)" style="font-size:18px">📎</button>
+        <textarea id="msgInput" rows="1" placeholder="Message the family… (try /doc, /call, /event)" onkeydown="composerKey(event)"></textarea>
+        <button class="send-btn" onclick="sendMsg()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+      </div>
+      <div class="slash-hint">Quick tools: <code>/call</code> <code>/doc</code> <code>/sheet</code> <code>/meet</code> <code>/event Title | date</code> <code>/help</code> · 📎 share photos & files</div>
+    </div>
+  </div>
+
+  <!-- other views -->
+  <div class="main view" id="viewEvents">
+    <h2>Family events</h2><div class="vsub">Plan it together — birthdays, calls, reunions, projects.</div>
+    <button class="btn btn-grad" style="width:auto;margin-bottom:20px" onclick="openNewEvent()">＋ Create an event</button>
+    <div class="grid" id="eventsGrid"></div>
+  </div>
+  <div class="main view" id="viewFamily">
+    <h2>The family</h2><div class="vsub">Everyone in ForTe Fam, wherever they are in the world.</div>
+    <div class="grid" id="familyGrid"></div>
+  </div>
+  <div class="main view" id="viewTools">
+    <h2>Free tools hub</h2><div class="vsub">Every tool here is 100% free — opened with your Google account (team21online).</div>
+    <div class="grid" id="toolsGrid"></div>
+  </div>
+</div>
+<!-- mobile nav -->
+<div class="mob-nav">
+  <button class="active" data-tab="chats" onclick="goTab('chats')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.5-.7L3 21l1.8-4.3A8.4 8.4 0 1 1 21 11.5z"/></svg>Chats</button>
+  <button data-tab="events" onclick="goTab('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>Events</button>
+  <button data-tab="family" onclick="goTab('family')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Family</button>
+  <button data-tab="tools" onclick="goTab('tools')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Tools</button>
+  <button onclick="openSettings()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3h.1a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5h.1a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8v.1a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>Me</button>
+</div>
+</div>
+
+<!-- ============ MODALS ============ -->
+<div class="modal-wrap" id="mSettings"><div class="modal">
+  <button class="x" onclick="closeModal('mSettings')">✕</button>
+  <h3>My space</h3>
+  <div class="field"><label>Display name</label><input id="setName"></div>
+  <div class="field"><label>Avatar emoji</label><input id="setEmoji" maxlength="4" placeholder="🙂"></div>
+  <div class="field"><label>My interface color</label>
+    <div class="swatches" id="swatches"></div>
+  </div>
+  <label class="checkrow"><input type="checkbox" id="setDark" onchange="previewDark()"> Dark mode</label>
+  <div class="field" style="margin-top:10px"><label>Change password (optional)</label><input id="setPass" type="password" placeholder="New password"></div>
+  <button class="btn btn-grad" onclick="saveSettings()">Save my space</button>
+  <div style="height:10px"></div>
+  <button class="btn btn-ghost" onclick="logout()">Sign out</button>
+</div></div>
+
+<div class="modal-wrap" id="mGroup"><div class="modal">
+  <button class="x" onclick="closeModal('mGroup')">✕</button>
+  <h3>New family group</h3>
+  <div class="field"><label>Group name</label><input id="grName" placeholder="e.g. Reunion 2026 planning"></div>
+  <div class="field"><label>Emoji</label><input id="grEmoji" maxlength="4" placeholder="🎉"></div>
+  <div class="field"><label>Members</label><div id="grMembers" style="max-height:180px;overflow-y:auto"></div></div>
+  <button class="btn btn-grad" onclick="createGroup()">Create group</button>
+</div></div>
+
+<div class="modal-wrap" id="mDM"><div class="modal">
+  <button class="x" onclick="closeModal('mDM')">✕</button>
+  <h3>Direct chat</h3>
+  <div id="dmList"></div>
+</div></div>
+
+<div class="modal-wrap" id="mEvent"><div class="modal">
+  <button class="x" onclick="closeModal('mEvent')">✕</button>
+  <h3>Create an event</h3>
+  <div class="field"><label>Title</label><input id="evTitle" placeholder="e.g. Sunday family call"></div>
+  <div class="field"><label>Date & time</label><input id="evDate" type="datetime-local"></div>
+  <div class="field"><label>Details</label><textarea id="evDesc" rows="3" placeholder="What's the plan?"></textarea></div>
+  <label class="checkrow"><input type="checkbox" id="evMeet" checked> Attach a Google Meet link</label>
+  <label class="checkrow"><input type="checkbox" id="evShare" checked> Announce in current chat</label>
+  <button class="btn btn-grad" onclick="createEvent()">Create event</button>
+</div></div>
+
+<div id="imgViewer" onclick="this.classList.remove('on')"><img id="imgViewerImg" alt=""></div>
+<div class="toast" id="toast"></div>
+<script>
+/* =====================================================================
+   ForTe Fam — Making a real difference
+   100% free stack: this file (Vercel/GitHub) + optional Google Apps
+   Script backend (team21online Google account) for family-wide sync.
+   ===================================================================== */
+const CONFIG = {
+  // Paste your deployed Google Apps Script Web App URL here to enable
+  // cloud sync across all family devices. Leave "" for local-only mode.
+  SCRIPT_URL: "",
+  SYNC_EVERY_MS: 6000,
+  FAMILY_EMAIL: "team21online@gmail.com"
+};
+
+/* ---------- seed data ---------- */
+const THEMES = [
+  {id:"green", name:"Forte Deep Green", a:"#0B4D2A", s:"#177A45", t:"#E3F0E8"},
+  {id:"orange",name:"Sunset Orange",a:"#E2661D", s:"#FF8C42", t:"#FDEEDF"},
+  {id:"teal",  name:"River Teal",  a:"#0E7C7B", s:"#17A2A0", t:"#E2F3F3"},
+  {id:"purple",name:"Royal Purple",a:"#6C3FB5", s:"#8E63D6", t:"#EFE8FA"},
+  {id:"rose",  name:"Family Rose", a:"#C23B62", s:"#E0608A", t:"#FBE9EF"},
+  {id:"blue",  name:"Sky Blue",    a:"#1D6FB8", s:"#4B96DC", t:"#E6F1FB"}
+];
+const AV_COLORS = ["#1B7A43","#F2772B","#0E7C7B","#6C3FB5","#C23B62","#1D6FB8","#8C6A1F","#3C7A1B"];
+const TOOLS = {
+  doc:   {n:"New Google Doc",    d:"Write together — free",        e:"📄", url:"https://docs.google.com/document/create"},
+  sheet: {n:"New Google Sheet",  d:"Budgets, lists, plans",        e:"📊", url:"https://docs.google.com/spreadsheets/create"},
+  slides:{n:"New Google Slides", d:"Presentations together",       e:"📽️", url:"https://docs.google.com/presentation/create"},
+  form:  {n:"New Google Form",   d:"Polls & sign-ups",             e:"📝", url:"https://docs.google.com/forms/create"},
+  meet:  {n:"Google Meet room",  d:"Free family video call",       e:"📹", url:"https://meet.google.com/new"},
+  drive: {n:"Family Drive",      d:"Our shared files & photos",    e:"📁", url:"https://drive.google.com/"},
+  keep:  {n:"Google Keep note",  d:"Quick shared notes",           e:"🗒️", url:"https://keep.google.com/"},
+  cal:   {n:"Family Calendar",   d:"All our dates in one place",   e:"📅", url:"https://calendar.google.com/"},
+  photos:{n:"Google Photos",     d:"Family photo albums — free",   e:"🖼️", url:"https://photos.google.com/"},
+  maps:  {n:"Share a location",  d:"Where are you? Drop a pin",    e:"📍", url:"https://maps.google.com/"},
+  translate:{n:"Translate",      d:"English ↔ Français & more",    e:"🌍", url:"https://translate.google.com/"},
+  jamb:  {n:"Canva (free)",      d:"Design invites & posters",     e:"🎨", url:"https://www.canva.com/"}
+};
+
+/* ---------- tiny storage layer ---------- */
+const DB = {
+  get(k,f){ try{const v=localStorage.getItem("ff_"+k);return v?JSON.parse(v):f}catch(e){return f} },
+  set(k,v){ localStorage.setItem("ff_"+k,JSON.stringify(v)); }
+};
+function seedUsers(){
+  let users = DB.get("users",null);
+  if(!users){
+    users={};
+    for(let i=1;i<=20;i++){
+      users["forteh"+i]={u:"forteh"+i,pass:"f0rteh"+String(i).padStart(2,"0"),
+        name:"Family Member "+i,emoji:"🙂",theme:"green",dark:false,
+        color:AV_COLORS[(i-1)%AV_COLORS.length],role:i===1?"Family Admin":"Family",created:Date.now(),lastSeen:0};
+    }
+    users.forteh1.name="Innocent (Admin)";
+    DB.set("users",users);
+  }
+  return users;
+}
+function seedRooms(){
+  let rooms = DB.get("rooms",null);
+  if(!rooms){
+    rooms=[{id:"hall",type:"hall",name:"Family Hall",emoji:"🏠",members:"all",created:Date.now()}];
+    DB.set("rooms",rooms);
+  }
+  let msgs = DB.get("msgs",null);
+  if(!msgs){
+    msgs=[{id:"m0",room:"hall",from:"forteh1",kind:"text",
+      text:"Welcome to ForTe Fam! 🧡💚 This is our Family Hall — everyone lands here. Try the ＋ button or type /help to see what we can do together.",ts:Date.now()-60000}];
+    DB.set("msgs",msgs);
+  }
+  if(!DB.get("events",null)) DB.set("events",[]);
+}
+
+/* ---------- state ---------- */
+let ME=null, ROOM="hall", lastRender="", syncTimer=null;
+
+/* ---------- auth ---------- */
+function toggleSignup(on){ loginForm.style.display=on?"none":"block"; signupForm.style.display=on?"block":"none"; loginErr.style.display="none"; }
+function loginFail(t){ loginErr.textContent=t; loginErr.style.display="block"; }
+function doLogin(){
+  const u=liUser.value.trim().toLowerCase(), p=liPass.value;
+  const users=DB.get("users",{});
+  if(!users[u]) return loginFail("We don't know that username yet. Check it, or create a new account.");
+  if(users[u].pass!==p) return loginFail("That password doesn't match. Try again.");
+  enter(u);
+}
+function doSignup(){
+  const u=suUser.value.trim().toLowerCase().replace(/\s+/g,"-"), n=suName.value.trim(), p=suPass.value;
+  if(!u||!n||!p) return loginFail("Please fill in username, display name and password.");
+  const users=DB.get("users",{});
+  if(users[u]) return loginFail("That username already exists in the family.");
+  users[u]={u,pass:p,name:n,emoji:"🙂",theme:"green",dark:false,
+    color:AV_COLORS[Object.keys(users).length%AV_COLORS.length],role:"Family",created:Date.now(),lastSeen:0};
+  DB.set("users",users); cloud("upsertUser",users[u]);
+  toast("Welcome to the family, "+n+"!");
+  enter(u);
+}
+function enter(u){
+  DB.set("session",u); ME=DB.get("users",{})[u];
+  login.style.display="none"; app.classList.add("on");
+  applyTheme(); heartbeat(); renderAll(); startSync();
+  systemNote(ME.name+" joined the hall 👋", false);
+}
+function logout(){ DB.set("session",null); location.reload(); }
+
+/* ---------- theme ---------- */
+function applyTheme(){
+  const th=THEMES.find(t=>t.id===ME.theme)||THEMES[0];
+  const r=document.documentElement.style;
+  r.setProperty("--accent",th.a); r.setProperty("--accent-soft",th.s); r.setProperty("--accent-tint",th.t);
+  document.documentElement.setAttribute("data-mode",ME.dark?"dark":"light");
+  meAvatar.textContent=ME.emoji||"🙂";
+}
+function previewDark(){ document.documentElement.setAttribute("data-mode",setDark.checked?"dark":"light"); }
+
+/* ---------- rendering ---------- */
+function users(){ return DB.get("users",{}); }
+function rooms(){ return DB.get("rooms",[]); }
+function msgs(){ return DB.get("msgs",[]); }
+function roomMsgs(id){ return msgs().filter(m=>m.room===id); }
+function myRooms(){
+  return rooms().filter(r=> r.members==="all" || (Array.isArray(r.members)&&r.members.includes(ME.u)) );
+}
+function roomName(r){
+  if(r.type==="dm"){ const other=r.members.find(m=>m!==ME.u)||ME.u; const ou=users()[other]; return ou?ou.name:other; }
+  return r.name;
+}
+function roomEmoji(r){
+  if(r.type==="dm"){ const other=r.members.find(m=>m!==ME.u)||ME.u; const ou=users()[other]; return ou?ou.emoji:"💬"; }
+  return r.emoji||"💬";
+}
+function fmtTime(ts){ return new Date(ts).toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"}); }
+function fmtDay(ts){ const d=new Date(ts),t=new Date(); return d.toDateString()===t.toDateString()?"Today":d.toLocaleDateString([],{weekday:"long",day:"numeric",month:"short"}); }
+function esc(s){ return (s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+
+function renderAll(){ renderPanel(); renderMsgs(true); renderEvents(); renderFamily(); renderTools(); }
+
+function renderPanel(){
+  const reads=DB.get("reads",{});
+  let html="";
+  const list=myRooms().sort((a,b)=>{
+    const la=roomMsgs(a.id).slice(-1)[0], lb=roomMsgs(b.id).slice(-1)[0];
+    return (lb?lb.ts:b.created)-(la?la.ts:a.created);
+  });
+  const halls=list.filter(r=>r.type==="hall"), grs=list.filter(r=>r.type==="group"), dms=list.filter(r=>r.type==="dm");
+  const sect=(label,arr)=>{
+    if(!arr.length)return"";
+    let h=`<div class="sec-label">${label}</div>`;
+    arr.forEach(r=>{
+      const last=roomMsgs(r.id).slice(-1)[0];
+      const unread=roomMsgs(r.id).filter(m=>m.ts>(reads[r.id]||0)&&m.from!==ME.u).length;
+      h+=`<div class="chan ${r.id===ROOM?'active':''}" onclick="openRoom('${r.id}')">
+        <div class="av">${roomEmoji(r)}</div>
+        <div class="cinfo"><div class="cname">${esc(roomName(r))}</div>
+        <div class="clast">${last?esc((last.from===ME.u?'You: ':'')+(last.kind==='text'?last.text:last.kind==='image'?'🖼️ Photo':last.kind==='file'?'📎 '+(last.name||'File'):last.kind==='call'?'📞 Call':last.kind==='event'?'🎉 Event':'🔗 Shared a tool')).slice(0,46):'Say hello!'}</div></div>
+        ${unread?`<div class="cbadge">${unread}</div>`:""}</div>`;
+    });
+    return h;
+  };
+  html+=sect("Family",halls)+sect("Groups",grs)+sect("Direct chats",dms);
+  panelBody.innerHTML=html;
+  const totalUnread=myRooms().reduce((n,r)=>n+roomMsgs(r.id).filter(m=>m.ts>(reads[r.id]||0)&&m.from!==ME.u).length,0);
+  chatBadge.style.display=totalUnread?"flex":"none"; chatBadge.textContent=totalUnread;
+}
+
+function renderMsgs(scroll){
+  const r=rooms().find(x=>x.id===ROOM); if(!r)return;
+  chanName.textContent=roomName(r); chanAvatar.textContent=roomEmoji(r);
+  chanSub.textContent = r.members==="all" ? Object.keys(users()).length+" family members"
+    : (r.type==="dm"?"Private chat":r.members.length+" members");
+  const list=roomMsgs(ROOM);
+  const sig=ROOM+"|"+list.length+"|"+(list.slice(-1)[0]?.ts||0)+"|"+JSON.stringify(DB.get("events",[]).map(e=>e.rsvp));
+  if(sig===lastRender && !scroll) return;
+  lastRender=sig;
+  let html="", lastDay="";
+  list.forEach(m=>{
+    const day=fmtDay(m.ts);
+    if(day!==lastDay){ html+=`<div class="day-sep">${day}</div>`; lastDay=day; }
+    const u=users()[m.from]||{name:m.from,color:"#888",emoji:"🙂"};
+    const mine=m.from===ME.u;
+    let body="";
+    if(m.kind==="text") body=`<div class="mtext">${linkify(esc(m.text))}</div>`;
+    else if(m.kind==="image"){
+      const src=m.dataUrl||(m.fileId?("https://drive.google.com/thumbnail?id="+m.fileId+"&sz=w800"):"");
+      const full=m.fileId?("https://drive.google.com/file/d/"+m.fileId+"/view"):src;
+      body=`${m.text?`<div class="mtext">${esc(m.text)}</div>`:""}
+      <img class="msg-img" src="${src}" alt="${esc(m.name||'photo')}" loading="lazy"
+        onclick="viewImg('${m.dataUrl?m.id:""}','${m.fileId||""}')"
+        onerror="this.outerHTML='<a class=&quot;toolcard&quot; href=&quot;${full}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;><div class=&quot;ti&quot;>🖼️</div><div><b>${esc(m.name||"Photo")}</b><span>tap to view</span></div></a>'">`;
+    }
+    else if(m.kind==="file"){
+      const href=m.fileId?("https://drive.google.com/file/d/"+m.fileId+"/view"):(m.dataUrl||"#");
+      body=`${m.text?`<div class="mtext">${esc(m.text)}</div>`:""}
+      <a class="toolcard" href="${href}" ${m.dataUrl&&!m.fileId?`download="${esc(m.name)}"`:""} target="_blank" rel="noopener">
+      <div class="ti">${fileEmoji(m.name)}</div><div><b>${esc(m.name||"File")}</b><span>${m.size?fmtSize(m.size)+" · ":""}tap to ${m.fileId?"open":"download"}</span></div></a>`;
+    }
+    else if(m.kind==="call"){
+      body=`<div class="callcard"><div class="ch"><span class="pulse"></span>${m.video?"📹 Video":"📞 Voice"} call started</div>
+      <div class="cb"><div style="font-size:13px;color:var(--muted);margin-bottom:10px">${esc(users()[m.from]?.name||m.from)} is calling the ${esc(roomName(r))} — join free, no account needed.</div>
+      <a class="join" href="${m.url}" target="_blank" rel="noopener">${m.video?"🎥":"🔊"} Join the call</a></div></div>`;
+    }
+    else if(m.kind==="tool"){
+      const t=TOOLS[m.tool]||{n:m.tool,d:"",e:"🔗",url:m.url};
+      body=`<div class="mtext">${esc(m.text||"")}</div>
+      <a class="toolcard" href="${m.url||t.url}" target="_blank" rel="noopener"><div class="ti">${t.e}</div><div><b>${esc(t.n)}</b><span>${esc(t.d)} · tap to open</span></div></a>`;
+    }
+    else if(m.kind==="event"){
+      const ev=DB.get("events",[]).find(e=>e.id===m.eventId);
+      if(ev){
+        const my=(ev.rsvp||{})[ME.u];
+        body=`<div class="eventcard"><div class="eh">🎉 Family event</div><div class="eb">
+          <b>${esc(ev.title)}</b><br><span style="color:var(--muted)">${new Date(ev.date).toLocaleString([],{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</span>
+          ${ev.desc?`<div style="margin-top:5px">${esc(ev.desc)}</div>`:""}
+          ${ev.meet?`<a class="toolcard" style="margin-top:9px" href="${ev.meet}" target="_blank" rel="noopener"><div class="ti">📹</div><div><b>Join on Google Meet</b><span>Free video call</span></div></a>`:""}
+          <div class="erow">
+            <button class="${my==='yes'?'sel':''}" onclick="rsvp('${ev.id}','yes')">✅ Going</button>
+            <button class="${my==='maybe'?'sel':''}" onclick="rsvp('${ev.id}','maybe')">🤔 Maybe</button>
+            <button class="${my==='no'?'sel':''}" onclick="rsvp('${ev.id}','no')">❌ Can't</button>
+          </div></div></div>`;
+      } else body=`<div class="mtext">🎉 (event)</div>`;
+    }
+    else if(m.kind==="system"){ html+=`<div class="day-sep">${esc(m.text)}</div>`; return; }
+    html+=`<div class="msg ${mine?'mine':''}">
+      <div class="mav" style="background:${u.color}">${u.emoji||u.name[0].toUpperCase()}</div>
+      <div class="bub"><div class="mname" style="color:${u.color}">${esc(u.name)}</div>${body}<div class="mtime">${fmtTime(m.ts)}</div></div></div>`;
+  });
+  document.getElementById("msgs").innerHTML=html;
+  if(scroll){ const el=document.getElementById("msgs"); el.scrollTop=el.scrollHeight; }
+  const reads=DB.get("reads",{}); reads[ROOM]=Date.now(); DB.set("reads",reads);
+}
+function linkify(t){ return t.replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">$1</a>'); }
+
+function openRoom(id){ ROOM=id; document.body.dataset.screen="chat"; goTab("chats",true); renderPanel(); renderMsgs(true); }
+function backToList(){ document.body.dataset.screen=""; renderPanel(); }
+function chanInfo(){
+  const r=rooms().find(x=>x.id===ROOM);
+  const who=r.members==="all"?"the whole family":(r.members.map(m=>users()[m]?.name||m).join(", "));
+  toast(roomName(r)+" · "+who);
+}
+
+/* ---------- sending & slash commands ---------- */
+function composerKey(e){
+  if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); sendMsg(); }
+  const ta=e.target; ta.style.height="auto"; ta.style.height=Math.min(ta.scrollHeight,120)+"px";
+}
+function pushMsg(m){
+  m.id="m"+Date.now()+Math.random().toString(36).slice(2,6); m.ts=Date.now(); m.room=ROOM; m.from=ME.u;
+  const all=msgs(); all.push(m); DB.set("msgs",all);
+  cloud("addMsg",m);
+  renderPanel(); renderMsgs(true);
+}
+function systemNote(text){ const all=msgs(); all.push({id:"s"+Date.now(),room:"hall",from:ME.u,kind:"system",text,ts:Date.now()}); DB.set("msgs",all); }
+function sendMsg(){
+  const v=msgInput.value.trim(); if(!v)return;
+  msgInput.value=""; msgInput.style.height="auto";
+  if(v.startsWith("/")) return slash(v);
+  pushMsg({kind:"text",text:v});
+}
+function slash(v){
+  const [cmd,...rest]=v.slice(1).split(" "); const arg=rest.join(" ");
+  const c=cmd.toLowerCase();
+  if(TOOLS[c]) return insertTool(c,arg);
+  if(c==="call"||c==="video") return startCall(true);
+  if(c==="voice") return startCall(false);
+  if(c==="photo"||c==="pic"||c==="file") return pickFiles(c!=="file");
+  if(c==="event"){
+    const [t,d]=arg.split("|").map(s=>s&&s.trim());
+    openNewEvent(); if(t)evTitle.value=t; if(d){const dt=new Date(d); if(!isNaN(dt)) evDate.value=dt.toISOString().slice(0,16);}
+    return;
+  }
+  if(c==="help"){
+    pushMsg({kind:"text",text:"🧭 ForTe Fam quick commands:\n/call or /video — start a free family call\n/voice — voice-only call\n/photo /file — share from your phone\n/doc /sheet /slides /form — create a free Google file\n/meet /drive /photos /cal /keep — open shared spaces\n/event Title | 2026-07-20 18:00 — plan something\n＋ button — the full tool tray"});
+    return;
+  }
+  pushMsg({kind:"text",text:v});
+}
+function insertTool(key,note){
+  const t=TOOLS[key]; if(!t)return;
+  document.getElementById("tooltray").classList.remove("on");
+  pushMsg({kind:"tool",tool:key,text:note||"",url:t.url});
+}
+
+/* ---------- photos & files from phone ---------- */
+const MAX_FILE = 700*1024; // ~700KB after compression — phone-friendly
+function pickFiles(imagesOnly){
+  document.getElementById("tooltray").classList.remove("on");
+  document.getElementById(imagesOnly?"fileImg":"fileAny").click();
+}
+function upbar(on,t){ const b=document.getElementById("upbar"); b.classList.toggle("on",!!on); if(t)upbarText.textContent=t; }
+async function handleFiles(files){
+  const list=[...files]; if(!list.length)return;
+  for(let i=0;i<list.length;i++){
+    const f=list[i];
+    upbar(true,`Sending ${f.name} (${i+1}/${list.length})…`);
+    try{
+      if(f.type.startsWith("image/")){
+        const dataUrl=await compressImage(f);
+        sendFileMsg({kind:"image",name:f.name,mime:"image/jpeg",dataUrl,size:Math.round(dataUrl.length*0.75)});
+      }else{
+        if(f.size>MAX_FILE&&CONFIG.SCRIPT_URL===""){ toast(f.name+" is too big for local mode (max 700KB)"); continue; }
+        if(f.size>4*1024*1024){ toast(f.name+" is too big (max 4MB) — share it via the Drive tool instead"); continue; }
+        const dataUrl=await readAsDataUrl(f);
+        sendFileMsg({kind:"file",name:f.name,mime:f.type||"application/octet-stream",dataUrl,size:f.size});
+      }
+    }catch(e){ toast("Couldn't send "+f.name); }
+  }
+  upbar(false);
+  document.getElementById("fileImg").value=""; document.getElementById("fileAny").value="";
+}
+function readAsDataUrl(f){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(f); }); }
+function compressImage(f){
+  return new Promise((res,rej)=>{
+    const img=new Image();
+    img.onload=()=>{
+      const MAXW=900;
+      const scale=Math.min(1,MAXW/Math.max(img.width,img.height));
+      const c=document.createElement("canvas");
+      c.width=Math.round(img.width*scale); c.height=Math.round(img.height*scale);
+      c.getContext("2d").drawImage(img,0,0,c.width,c.height);
+      let q=0.72, out=c.toDataURL("image/jpeg",q);
+      while(out.length>MAX_FILE*1.34 && q>0.35){ q-=0.12; out=c.toDataURL("image/jpeg",q); }
+      URL.revokeObjectURL(img.src); res(out);
+    };
+    img.onerror=rej;
+    img.src=URL.createObjectURL(f);
+  });
+}
+function sendFileMsg(m){
+  m.id="m"+Date.now()+Math.random().toString(36).slice(2,6); m.ts=Date.now(); m.room=ROOM; m.from=ME.u;
+  const all=msgs();
+  try{ all.push(m); DB.set("msgs",all); }
+  catch(e){ // localStorage full — trim old media then retry
+    all.forEach(x=>{ if(x.dataUrl&&x.fileId) delete x.dataUrl; });
+    try{ DB.set("msgs",all); }catch(e2){ all.pop(); DB.set("msgs",all); toast("Storage full — enable cloud sync to keep sharing"); return; }
+  }
+  cloud("addFileMsg",m); // backend stores file in Drive, replaces dataUrl with a Drive link
+  renderPanel(); renderMsgs(true);
+}
+function fileEmoji(n){
+  n=(n||"").toLowerCase();
+  if(/\.(pdf)$/.test(n))return"📕"; if(/\.(docx?|odt)$/.test(n))return"📄";
+  if(/\.(xlsx?|csv|ods)$/.test(n))return"📊"; if(/\.(pptx?)$/.test(n))return"📽️";
+  if(/\.(mp3|wav|m4a|ogg|opus)$/.test(n))return"🎵"; if(/\.(mp4|mov|webm|3gp)$/.test(n))return"🎬";
+  if(/\.(zip|rar|7z)$/.test(n))return"🗜️"; return"📎";
+}
+function fmtSize(b){ return b>1048576?(b/1048576).toFixed(1)+" MB":Math.max(1,Math.round(b/1024))+" KB"; }
+function viewImg(localId,fileId){
+  const v=document.getElementById("imgViewer"), im=document.getElementById("imgViewerImg");
+  if(localId){ const m=msgs().find(x=>x.id===localId); if(m&&m.dataUrl){ im.src=m.dataUrl; v.classList.add("on"); return; } }
+  if(fileId){ window.open("https://drive.google.com/file/d/"+fileId+"/view","_blank"); }
+}
+
+/* ---------- free family calls (Jitsi — in-browser, no account) ---------- */
+function callRoomUrl(video){
+  const slug="ForTeFam-"+ROOM+"-"+new Date().toISOString().slice(0,10).replace(/-/g,"");
+  return "https://meet.jit.si/"+slug+(video?"":"#config.startWithVideoMuted=true");
+}
+function startCall(video){
+  const url=callRoomUrl(video);
+  pushMsg({kind:"call",video:!!video,url});
+  window.open(url,"_blank");
+}
+
+/* ---------- events ---------- */
+function openNewEvent(){ openModal("mEvent"); }
+function createEvent(){
+  if(!evTitle.value.trim()||!evDate.value) return toast("Give your event a title and a date");
+  const ev={id:"e"+Date.now(),title:evTitle.value.trim(),date:new Date(evDate.value).getTime(),
+    desc:evDesc.value.trim(),by:ME.u,meet:evMeet.checked?"https://meet.google.com/new":"",rsvp:{}};
+  const evs=DB.get("events",[]); evs.push(ev); DB.set("events",evs); cloud("addEvent",ev);
+  if(evShare.checked) pushMsg({kind:"event",eventId:ev.id});
+  closeModal("mEvent"); evTitle.value=evDesc.value=""; renderEvents();
+  toast("Event created 🎉");
+}
+function rsvp(id,ans){
+  const evs=DB.get("events",[]); const ev=evs.find(e=>e.id===id); if(!ev)return;
+  ev.rsvp=ev.rsvp||{}; ev.rsvp[ME.u]=ans; DB.set("events",evs); cloud("rsvp",{id,user:ME.u,ans});
+  lastRender=""; renderMsgs(false); renderEvents();
+}
+function renderEvents(){
+  const evs=DB.get("events",[]).sort((a,b)=>a.date-b.date);
+  eventsGrid.innerHTML = evs.length? evs.map(ev=>{
+    const counts={yes:0,maybe:0,no:0}; Object.values(ev.rsvp||{}).forEach(a=>counts[a]=(counts[a]||0)+1);
+    const my=(ev.rsvp||{})[ME.u];
+    return `<div class="card ev-card"><span class="ev-date">${new Date(ev.date).toLocaleString([],{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</span>
+      <h4>${esc(ev.title)}</h4><p>${esc(ev.desc||"")}</p>
+      ${ev.meet?`<a class="toolcard" style="margin-top:10px" href="${ev.meet}" target="_blank" rel="noopener"><div class="ti">📹</div><div><b>Join on Meet</b><span>Free video call</span></div></a>`:""}
+      <div class="rsvp-row">
+        <button class="${my==='yes'?'sel':''}" onclick="rsvp('${ev.id}','yes')">✅ ${counts.yes}</button>
+        <button class="${my==='maybe'?'sel':''}" onclick="rsvp('${ev.id}','maybe')">🤔 ${counts.maybe}</button>
+        <button class="${my==='no'?'sel':''}" onclick="rsvp('${ev.id}','no')">❌ ${counts.no}</button>
+      </div>
+      <div class="rsvp-count">Created by ${esc(users()[ev.by]?.name||ev.by)}</div></div>`;
+  }).join("") : `<div class="card" style="grid-column:1/-1;text-align:center;color:var(--muted)">No events yet. Create the first one — a Sunday call is a great start. 🧡</div>`;
+}
+
+/* ---------- family & groups & dm ---------- */
+function renderFamily(){
+  const us=Object.values(users()).sort((a,b)=>a.u.localeCompare(b.u,undefined,{numeric:true}));
+  familyGrid.innerHTML=us.map(u=>{
+    const online=Date.now()-(u.lastSeen||0)<70000;
+    return `<div class="card member-card">
+      <div class="mav" style="background:${u.color}">${u.emoji||u.name[0].toUpperCase()}</div>
+      <div style="flex:1"><b>${esc(u.name)}</b><div class="role">${esc(u.role||"Family")} · @${u.u}</div></div>
+      <span class="dot ${online?'':'off'}" title="${online?'online':'offline'}"></span>
+      ${u.u!==ME.u?`<button class="mini-btn" style="flex:none" onclick="startDM('${u.u}')">Chat</button>`:""}</div>`;
+  }).join("");
+}
+function openNewGroup(){
+  grMembers.innerHTML=Object.values(users()).filter(u=>u.u!==ME.u)
+    .map(u=>`<label class="checkrow"><input type="checkbox" value="${u.u}"> ${u.emoji} ${esc(u.name)}</label>`).join("");
+  openModal("mGroup");
+}
+function createGroup(){
+  const name=grName.value.trim(); if(!name)return toast("Name your group first");
+  const members=[ME.u,...[...grMembers.querySelectorAll("input:checked")].map(i=>i.value)];
+  const r={id:"g"+Date.now(),type:"group",name,emoji:grEmoji.value||"👥",members,created:Date.now()};
+  const rs=rooms(); rs.push(r); DB.set("rooms",rs); cloud("addRoom",r);
+  closeModal("mGroup"); grName.value=""; openRoom(r.id);
+  pushMsg({kind:"text",text:"Created the group "+name+" "+(r.emoji)+" — welcome everyone!"});
+}
+function openNewDM(){
+  dmList.innerHTML=Object.values(users()).filter(u=>u.u!==ME.u)
+    .map(u=>`<div class="chan" onclick="startDM('${u.u}')"><div class="av">${u.emoji}</div><div class="cinfo"><div class="cname">${esc(u.name)}</div><div class="clast">@${u.u}</div></div></div>`).join("");
+  openModal("mDM");
+}
+function startDM(other){
+  closeModal("mDM");
+  const key=[ME.u,other].sort().join("~");
+  let r=rooms().find(x=>x.type==="dm"&&x.members.slice().sort().join("~")===key);
+  if(!r){ r={id:"d"+Date.now(),type:"dm",members:[ME.u,other],created:Date.now()};
+    const rs=rooms(); rs.push(r); DB.set("rooms",rs); cloud("addRoom",r); }
+  goTab("chats"); openRoom(r.id);
+}
+
+/* ---------- tools hub ---------- */
+function renderTools(){
+  toolsGrid.innerHTML=Object.entries(TOOLS).map(([k,t])=>
+    `<a class="card toolcard" style="margin:0;max-width:none;border-left-width:5px" href="${t.url}" target="_blank" rel="noopener">
+     <div class="ti">${t.e}</div><div><b>${esc(t.n)}</b><span>${esc(t.d)}</span></div></a>`).join("");
+}
+
+/* ---------- settings ---------- */
+function openSettings(){
+  setName.value=ME.name; setEmoji.value=ME.emoji; setDark.checked=!!ME.dark; setPass.value="";
+  swatches.innerHTML=THEMES.map(t=>`<div class="sw ${ME.theme===t.id?'sel':''}" title="${t.name}" data-id="${t.id}"
+    style="background:linear-gradient(135deg,${t.a},${t.s})" onclick="pickTheme('${t.id}',this)"></div>`).join("");
+  openModal("mSettings");
+}
+function pickTheme(id,el){ ME.theme=id; [...swatches.children].forEach(c=>c.classList.remove("sel")); el.classList.add("sel"); applyTheme(); }
+function saveSettings(){
+  ME.name=setName.value.trim()||ME.name; ME.emoji=setEmoji.value.trim()||"🙂"; ME.dark=setDark.checked;
+  if(setPass.value.trim()) ME.pass=setPass.value.trim();
+  const us=users(); us[ME.u]=ME; DB.set("users",us); cloud("upsertUser",ME);
+  applyTheme(); closeModal("mSettings"); renderAll(); toast("Your space is saved ✓");
+}
+
+/* ---------- tabs / modals / toast ---------- */
+function goTab(tab,silent){
+  document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
+  panel.style.display = tab==="chats"?"flex":"none";
+  mainChat.style.display = tab==="chats"?"flex":"none";
+  viewEvents.classList.toggle("on",tab==="events");
+  viewFamily.classList.toggle("on",tab==="family");
+  viewTools.classList.toggle("on",tab==="tools");
+  if(tab!=="chats") document.body.dataset.screen="chat"; else if(!silent) document.body.dataset.screen="";
+  if(tab==="events")renderEvents(); if(tab==="family")renderFamily();
+}
+function openModal(id){ document.getElementById(id).classList.add("on"); }
+function closeModal(id){ document.getElementById(id).classList.remove("on"); }
+document.querySelectorAll(".modal-wrap").forEach(w=>w.addEventListener("click",e=>{ if(e.target===w)w.classList.remove("on"); }));
+let toastT;
+function toast(t){ const el=document.getElementById("toast"); el.textContent=t; el.classList.add("on"); clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove("on"),2600); }
+
+/* ---------- presence ---------- */
+function heartbeat(){
+  const us=users(); if(us[ME.u]){ us[ME.u].lastSeen=Date.now(); DB.set("users",us); }
+  cloud("ping",{u:ME.u});
+  setTimeout(heartbeat,45000);
+}
+
+/* =====================================================================
+   CLOUD SYNC — Google Apps Script (free, team21online account)
+   Writes: fire-and-forget no-cors POST. Reads: JSONP polling.
+   If SCRIPT_URL is empty the app runs perfectly in local mode.
+   ===================================================================== */
+function cloud(action,payload){
+  if(!CONFIG.SCRIPT_URL) return;
+  try{
+    fetch(CONFIG.SCRIPT_URL,{method:"POST",mode:"no-cors",
+      headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({action,payload})});
+  }catch(e){}
+}
+function startSync(){
+  syncPill.textContent = CONFIG.SCRIPT_URL ? "Cloud sync" : "Local";
+  if(!CONFIG.SCRIPT_URL) return;
+  const poll=()=>{
+    const cb="ffSync"+Date.now();
+    window[cb]=function(data){
+      try{ mergeCloud(data); }catch(e){}
+      delete window[cb]; s.remove();
+    };
+    const s=document.createElement("script");
+    s.src=CONFIG.SCRIPT_URL+"?action=pull&callback="+cb+"&_="+Date.now();
+    s.onerror=()=>{ delete window[cb]; s.remove(); };
+    document.body.appendChild(s);
+  };
+  poll(); syncTimer=setInterval(poll,CONFIG.SYNC_EVERY_MS);
+}
+function mergeCloud(data){
+  if(!data) return;
+  if(data.users){ const us=users(); Object.values(data.users).forEach(cu=>{ if(!us[cu.u]||cu.u!==ME.u) us[cu.u]=Object.assign(us[cu.u]||{},cu); }); DB.set("users",us); }
+  if(data.rooms){ const rs=rooms(); data.rooms.forEach(cr=>{ if(!rs.find(r=>r.id===cr.id)) rs.push(cr); }); DB.set("rooms",rs); }
+  if(data.msgs){ const all=msgs(); let added=false;
+    data.msgs.forEach(cm=>{ const ex=all.find(m=>m.id===cm.id);
+      if(!ex){ all.push(cm); added=true; }
+      else if(cm.fileId&&!ex.fileId){ ex.fileId=cm.fileId; added=true; } });
+    if(added){ all.sort((a,b)=>a.ts-b.ts); DB.set("msgs",all); renderPanel(); lastRender=""; renderMsgs(false); } }
+  if(data.events){ const evs=DB.get("events",[]);
+    data.events.forEach(ce=>{ const ex=evs.find(e=>e.id===ce.id); if(ex){ ex.rsvp=Object.assign(ex.rsvp||{},ce.rsvp||{}); } else evs.push(ce); });
+    DB.set("events",evs); }
+}
+
+/* ---------- boot ---------- */
+seedUsers(); seedRooms();
+const sess=DB.get("session",null);
+if(sess && users()[sess]){ enter(sess); }
+</script>
+</body>
+</html>
