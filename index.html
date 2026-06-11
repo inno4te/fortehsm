@@ -198,9 +198,10 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 @media(max-width:860px){
   .rail{display:none}
   .panel{width:100%;border-right:none}
-  .main{display:none}
-  body[data-screen="chat"] .panel{display:none}
-  body[data-screen="chat"] .main{display:flex}
+  /* Chats tab on phone: show EITHER the list OR the open chat */
+  body[data-tab="chats"] #mainChat{display:none}
+  body[data-tab="chats"][data-screen="chat"] #mainChat{display:flex}
+  body[data-tab="chats"][data-screen="chat"] .panel{display:none}
   .mob-nav{display:flex;background:var(--card);border-top:1.5px solid var(--line);padding:6px 4px calc(8px + env(safe-area-inset-bottom));flex-shrink:0}
   .mob-nav button{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:700;color:var(--muted);padding:6px;border-radius:10px}
   .mob-nav button.active{color:var(--accent)}
@@ -212,21 +213,34 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
   .main-head{padding:10px 12px;gap:9px}
   .main-head .av{width:38px;height:38px}
   .main-head h3{font-size:15.5px}
-  #msgs{padding:14px 12px 8px}
+  .icon-btn{width:36px;height:36px}
+  #msgs{padding:14px 12px 8px;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+  .panel-body{-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+  .chan{padding:12px 10px}
+  .chan .av{width:46px;height:46px;font-size:21px}
+  .chan .cname{font-size:15.5px}
+  .chan .clast{font-size:12.5px}
   .composer{padding:9px 10px calc(10px + env(safe-area-inset-bottom))}
   .composer-row{gap:6px}
   .plus-btn,.send-btn{width:42px;height:42px;border-radius:12px}
   .composer textarea{min-height:42px;padding:10px 12px;font-size:16px}
   .slash-hint{display:none}
-  .view{padding:18px 14px}
+  .view{padding:18px 14px;-webkit-overflow-scrolling:touch}
   .grid{grid-template-columns:1fr}
   .panel-head{padding:16px 16px 10px}
+  .msg-img{max-width:230px}
+  .modal{padding:22px 18px;border-radius:18px}
+  .localbar{font-size:11.5px;padding:8px 10px}
 }
 .back-btn{display:none}
 .app-cols{flex:1;display:flex;min-height:0;width:100%}
+/* tab visibility — driven by body[data-tab] and body[data-screen], never inline styles */
+body:not([data-tab="chats"]) .panel{display:none}
+#mainChat{display:none}
+body[data-tab="chats"] #mainChat{display:flex}
 </style>
 </head>
-<body>
+<body data-tab="chats">
 
 <!-- ============ LOGIN ============ -->
 <div id="login">
@@ -295,8 +309,8 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
       <button class="icon-btn" title="Video call (free)" onclick="startCall(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></button>
       <button class="icon-btn" title="Channel info" onclick="chanInfo()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>
     </div>
-    <div class="localbar" id="localbar" style="display:none" onclick="openModal('mSync')">
-      ⚠️ Local mode — your messages stay on <u>this device only</u>.&nbsp;<b>Tap to connect family sync (free)</b>
+    <div class="localbar" id="localbar" style="display:none" onclick="openModal('mSync');refreshSyncUI()">
+      <span id="localbarText">⚠️ Local mode — messages stay on this device only. Tap to connect family sync (free)</span>
       <span class="x2" onclick="event.stopPropagation();this.parentElement.style.display='none'">✕</span>
     </div>
     <div id="msgs"></div>
@@ -410,7 +424,10 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
     </ol>
   </div>
   <div id="syncStateOn" style="display:none">
-    <p style="font-size:13.5px;line-height:1.6;color:var(--muted);margin-bottom:14px">✅ <b style="color:var(--ink)">Family sync is ON.</b> Messages, groups, events, photos and files now reach everyone within a few seconds.</p>
+    <p id="syncStatusLine" style="font-size:13.5px;line-height:1.6;color:var(--muted);margin-bottom:12px">…</p>
+    <button class="btn btn-ghost" id="diagBtn" onclick="runDiag()">🔍 Run connection test</button>
+    <div id="diagOut" style="font-size:13px;line-height:1.7;margin:12px 0;display:none;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px"></div>
+    <div style="height:6px"></div>
   </div>
   <div class="field"><label>Google Apps Script Web App URL</label><input id="syncUrl" placeholder="https://script.google.com/macros/s/…/exec"></div>
   <button class="btn btn-grad" onclick="saveSync()">Connect family sync</button>
@@ -615,11 +632,20 @@ function renderPanel(){
   chatBadge.style.display=totalUnread?"flex":"none"; chatBadge.textContent=totalUnread;
 }
 
+function onlineNow(u){ return Date.now()-((users()[u]||{}).lastSeen||0)<75000; }
 function renderMsgs(scroll){
   const r=rooms().find(x=>x.id===ROOM); if(!r)return;
   chanName.textContent=roomName(r); chanAvatar.textContent=roomEmoji(r);
-  chanSub.textContent = r.members==="all" ? Object.keys(users()).length+" family members"
-    : (r.type==="dm"?"Private chat":r.members.length+" members");
+  if(r.members==="all"){
+    const all=Object.keys(users()); const on=all.filter(onlineNow).length;
+    chanSub.innerHTML=`${all.length} family members · <b style="color:#2E9E5B">${on} online</b>`;
+  } else if(r.type==="dm"){
+    const other=r.members.find(m=>m!==ME.u)||ME.u;
+    chanSub.innerHTML=onlineNow(other)?`<b style="color:#2E9E5B">● online now</b>`:`offline · they'll see it when they open ForTe Fam`;
+  } else {
+    const on=r.members.filter(onlineNow).length;
+    chanSub.innerHTML=`${r.members.length} members · <b style="color:#2E9E5B">${on} online</b>`;
+  }
   const list=roomMsgs(ROOM);
   const sig=ROOM+"|"+list.length+"|"+(list.slice(-1)[0]?.ts||0)+"|"+JSON.stringify(DB.get("events",[]).map(e=>e.rsvp));
   if(sig===lastRender && !scroll) return;
@@ -910,13 +936,13 @@ function saveSettings(){
 
 /* ---------- tabs / modals / toast ---------- */
 function goTab(tab,silent){
-  document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
-  panel.style.display = tab==="chats"?"flex":"none";
-  mainChat.style.display = tab==="chats"?"flex":"none";
+  document.body.dataset.tab=tab;
+  document.querySelectorAll(".rail-btn[data-tab],.mob-nav button[data-tab]")
+    .forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
   viewEvents.classList.toggle("on",tab==="events");
   viewFamily.classList.toggle("on",tab==="family");
   viewTools.classList.toggle("on",tab==="tools");
-  if(tab!=="chats") document.body.dataset.screen="chat"; else if(!silent) document.body.dataset.screen="";
+  if(tab==="chats" && !silent) document.body.dataset.screen="";
   if(tab==="events")renderEvents(); if(tab==="family")renderFamily();
 }
 function openModal(id){ document.getElementById(id).classList.add("on"); }
@@ -929,7 +955,7 @@ function toast(t){ const el=document.getElementById("toast"); el.textContent=t; 
 function heartbeat(){
   const us=users(); if(us[ME.u]){ us[ME.u].lastSeen=Date.now(); DB.set("users",us); }
   cloud("ping",{u:ME.u});
-  setTimeout(heartbeat,45000);
+  setTimeout(heartbeat,30000);
 }
 
 /* =====================================================================
@@ -946,40 +972,58 @@ function cloud(action,payload){
   }catch(e){}
 }
 let pollNow=function(){};
+const SYNC={ok:false,lastOk:0,fails:0};
 function startSync(){
   const url=syncUrl();
   refreshSyncUI();
   if(!url) return;
   if(syncTimer) clearInterval(syncTimer);
-  // First connection from this device: push everything local up (idempotent upserts)
   if(DB.get("bootstrapped","")!==url){
     const boot={users:Object.values(users()),rooms:rooms(),events:DB.get("events",[]),
       msgs:msgs().filter(m=>!m.dataUrl).slice(-200)};
     cloud("bootstrap",boot);
-    msgs().filter(m=>m.dataUrl&&!m.fileId).forEach(m=>cloud("addFileMsg",m)); // upload pending media
+    msgs().filter(m=>m.dataUrl&&!m.fileId).forEach(m=>cloud("addFileMsg",m));
     DB.set("bootstrapped",url);
   }
-  pollNow=()=>{
+  pollNow=(onDone)=>{
     const cb="ffSync"+Date.now()+Math.floor(Math.random()*999);
+    let finished=false;
+    const fail=()=>{ if(finished)return; finished=true;
+      delete window[cb]; s.remove(); SYNC.ok=false; SYNC.fails++; refreshSyncUI(); if(onDone)onDone(false); };
+    const timer=setTimeout(fail,9000);
     window[cb]=function(data){
+      if(finished)return; finished=true; clearTimeout(timer);
       try{ mergeCloud(data); }catch(e){}
       delete window[cb]; s.remove();
+      SYNC.ok=true; SYNC.lastOk=Date.now(); SYNC.fails=0; refreshSyncUI(); if(onDone)onDone(true,data);
     };
     const s=document.createElement("script");
     s.src=url+(url.includes("?")?"&":"?")+"action=pull&callback="+cb+"&_="+Date.now();
-    s.onerror=()=>{ delete window[cb]; s.remove(); };
+    s.onerror=fail;
     document.body.appendChild(s);
   };
-  pollNow(); syncTimer=setInterval(pollNow,CONFIG.SYNC_EVERY_MS);
+  pollNow(); syncTimer=setInterval(()=>pollNow(),CONFIG.SYNC_EVERY_MS);
 }
 function refreshSyncUI(){
-  const on=!!syncUrl();
-  syncPill.textContent=on?"✓ Family sync":"Local · tap to fix";
-  syncPill.style.background=on?"var(--accent-tint)":"var(--orange-tint)";
-  syncPill.style.color=on?"var(--accent)":"#B35A12";
-  document.getElementById("localbar").style.display=on?"none":"flex";
-  document.getElementById("syncStateOff").style.display=on?"none":"block";
-  document.getElementById("syncStateOn").style.display=on?"block":"none";
+  const url=syncUrl(), bar=document.getElementById("localbar"), barTxt=document.getElementById("localbarText");
+  let pill,bg,fg,barMsg=null;
+  if(!url){ pill="Local · tap to fix"; bg="var(--orange-tint)"; fg="#B35A12";
+    barMsg="⚠️ Local mode — messages stay on this device only. Tap to connect family sync (free)"; }
+  else if(SYNC.ok){ pill="✓ Live sync"; bg="var(--accent-tint)"; fg="var(--accent)"; }
+  else if(SYNC.fails>=2){ pill="⚠ Sync issue · tap"; bg="#FDECEC"; fg="#B3261E";
+    barMsg="⚠️ Family sync can't reach Google right now — messages aren't being shared. Tap to run a connection test"; }
+  else { pill="Connecting…"; bg="var(--accent-tint)"; fg="var(--muted)"; }
+  syncPill.textContent=pill; syncPill.style.background=bg; syncPill.style.color=fg;
+  bar.style.display=barMsg?"flex":"none"; if(barMsg) barTxt.innerHTML=barMsg;
+  document.getElementById("syncStateOff").style.display=url?"none":"block";
+  document.getElementById("syncStateOn").style.display=url?"block":"none";
+  if(url){
+    const ago=SYNC.lastOk?Math.round((Date.now()-SYNC.lastOk)/1000):null;
+    document.getElementById("syncStatusLine").innerHTML = SYNC.ok
+      ? `✅ <b>Live.</b> Last successful sync: ${ago}s ago. Messages reach the family within ~${Math.round(CONFIG.SYNC_EVERY_MS/1000)}s.`
+      : (SYNC.fails>=2 ? `❌ <b>Not connecting.</b> ${SYNC.fails} failed attempts. Run the test below to see exactly what's wrong.`
+                       : `⏳ Connecting to the family server…`);
+  }
   document.getElementById("syncUrl").value=syncUrl();
   document.getElementById("famLink").value=syncUrl()
     ? location.origin+location.pathname+"?sync="+encodeURIComponent(syncUrl())
@@ -997,6 +1041,40 @@ function copyFamLink(){
   if(!v.startsWith("http")) return toast("Connect sync first");
   navigator.clipboard?.writeText(v).then(()=>toast("Family link copied — send it to everyone 💚"))
     .catch(()=>{ document.getElementById("famLink").select(); toast("Long-press the link to copy"); });
+}
+
+/* ---------- built-in connection test ---------- */
+function runDiag(){
+  const out=document.getElementById("diagOut"), btn=document.getElementById("diagBtn");
+  const url=syncUrl(); if(!url) return;
+  out.style.display="block"; btn.disabled=true;
+  const log=h=>{ out.innerHTML=h; };
+  const manual=`<div style="margin-top:8px">👀 <b>See it yourself:</b> <a href="${url}?action=pull&callback=test" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">open the server link</a> in a new tab.<br>
+    • Healthy = a page of text starting with <code>test(</code><br>
+    • A Google <b>sign-in page</b> = wrong access setting<br>
+    • An <b>error / 404</b> = wrong URL or deployment deleted</div>`;
+  const fixAccess=`<div style="margin-top:8px;background:var(--orange-tint);border-radius:9px;padding:9px 11px">🔧 <b>The fix (2 min):</b> open <b>script.google.com</b> as team21online → your project → <b>Deploy → Manage deployments → ✏️ Edit</b> → set <i>Who has access:</i> <b>Anyone</b> (not "Anyone with Google account") → <b>Deploy</b>. If it shows an authorization screen, approve it. If the URL changed, paste the new one above.</div>`;
+  log("⏳ Test 1/2 — reading from the family server…");
+  pollNow((ok)=>{
+    if(!ok){
+      log(`❌ <b>Test 1 failed — can't read from the server.</b> This is why nobody sees each other's messages.${fixAccess}${manual}`);
+      btn.disabled=false; return;
+    }
+    const stamp="diag"+Date.now();
+    log("✅ Test 1 — reading works.<br>⏳ Test 2/2 — writing a test record and reading it back…");
+    cloud("addMsg",{id:stamp,room:"__diag",from:ME.u,kind:"text",text:"connection test",ts:Date.now()});
+    setTimeout(()=>{
+      pollNow((ok2,data)=>{
+        btn.disabled=false;
+        const found=ok2&&data&&Array.isArray(data.msgs)&&data.msgs.some(m=>m.id===stamp);
+        if(found){
+          log(`✅ <b>All good!</b> Reading and writing both work. Messages now reach the whole family within ~${Math.round(CONFIG.SYNC_EVERY_MS/1000)} seconds. If a member still sees nothing, make sure their phone is on the latest site (refresh the page / clear old tab).`);
+        } else {
+          log(`✅ Test 1 — reading works.<br>❌ <b>Test 2 failed — writes aren't being saved.</b> The server answers but rejects messages.${fixAccess}${manual}`);
+        }
+      });
+    },3000);
+  });
 }
 function mergeCloud(data){
   if(!data) return;
@@ -1016,6 +1094,9 @@ function mergeCloud(data){
   if(data.events){ const evs=DB.get("events",[]);
     data.events.forEach(ce=>{ const ex=evs.find(e=>e.id===ce.id); if(ex){ ex.rsvp=Object.assign(ex.rsvp||{},ce.rsvp||{}); } else evs.push(ce); });
     DB.set("events",evs); }
+  // refresh presence-dependent UI (online counts, dots) on every pull
+  renderMsgs(false);
+  if(document.body.dataset.tab==="family") renderFamily();
 }
 
 /* ---------- boot ---------- */
