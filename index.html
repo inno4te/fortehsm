@@ -153,6 +153,173 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 #imgViewer{position:fixed;inset:0;background:rgba(8,18,12,.92);display:none;align-items:center;justify-content:center;z-index:90;cursor:zoom-out;padding:20px}
 #imgViewer.on{display:flex}
 #imgViewer img{max-width:96%;max-height:92%;border-radius:14px}
+
+/* ============== Message context menu (long-press / right-click) ============== */
+.msg{position:relative}
+.msg-acts{position:absolute;top:-14px;display:none;background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:4px 6px;box-shadow:0 4px 16px rgba(11,77,42,.18);gap:2px;z-index:6}
+.msg.mine .msg-acts{right:46px}
+.msg:not(.mine) .msg-acts{left:46px}
+.msg-acts.on{display:flex}
+.msg-acts button{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;transition:.1s}
+.msg-acts button:hover{background:var(--accent-tint);transform:scale(1.1)}
+.quick-reacts{display:flex;gap:4px;border-right:1.5px solid var(--line);padding-right:6px;margin-right:4px}
+.quick-reacts button{font-size:18px;width:30px;height:30px}
+
+/* Long-press indicator on touch */
+.msg.holding .bub{transform:scale(0.97);transition:transform .15s}
+
+/* ============== Reactions ============== */
+.reacts{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.react-chip{display:inline-flex;align-items:center;gap:3px;background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:2px 8px;font-size:12px;font-weight:700;cursor:pointer;transition:.12s}
+.react-chip:hover{transform:translateY(-1px)}
+.react-chip.mine{background:var(--accent-tint);border-color:var(--accent);color:var(--accent)}
+.react-chip .e{font-size:13px}
+.react-chip .n{font-size:11px}
+
+/* ============== Reply / quote ============== */
+.replybar{display:none;align-items:flex-start;gap:10px;background:var(--accent-tint);border-left:4px solid var(--accent);padding:8px 12px;margin-bottom:6px;border-radius:0 10px 10px 0}
+.replybar.on{display:flex}
+.replybar .rb-i{flex:1;min-width:0}
+.replybar .rb-from{font-size:11.5px;font-weight:800;color:var(--accent);margin-bottom:1px}
+.replybar .rb-text{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.replybar .rb-x{font-size:18px;color:var(--muted);padding:2px 6px}
+.quote-in-msg{background:rgba(11,77,42,.07);border-left:3px solid var(--accent);padding:6px 9px;border-radius:0 8px 8px 0;margin-bottom:5px;cursor:pointer;transition:.12s}
+.msg.mine .quote-in-msg{background:rgba(255,255,255,.5)}
+.quote-in-msg:hover{background:rgba(11,77,42,.13)}
+.quote-in-msg .qf{font-size:11.5px;font-weight:800;color:var(--accent);margin-bottom:1px}
+.quote-in-msg .qt{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:240px}
+.msg.flash .bub{animation:flash 1.2s ease}
+@keyframes flash{0%,100%{box-shadow:var(--shadow)}30%,70%{box-shadow:0 0 0 4px var(--orange)}}
+
+/* ============== Formatting in messages ============== */
+.mtext b,.mtext strong{font-weight:800}
+.mtext em,.mtext i{font-style:italic}
+.mtext del,.mtext s{text-decoration:line-through;opacity:.75}
+.mtext code{background:rgba(11,77,42,.1);border-radius:5px;padding:1px 6px;font-family:'SF Mono','Monaco','Cascadia Code','Roboto Mono',monospace;font-size:.92em}
+.msg.mine .mtext code{background:rgba(255,255,255,.5)}
+.spoiler{background:var(--muted);color:transparent;border-radius:5px;padding:0 4px;cursor:pointer;transition:.15s;user-select:none}
+.spoiler.shown{background:transparent;color:inherit;user-select:text}
+
+/* ============== Video notes ============== */
+.videorec{display:none;flex-direction:column;align-items:center;gap:10px;background:#000;border-radius:14px;padding:12px;margin-bottom:8px}
+.videorec.on{display:flex}
+.videorec video{width:200px;height:200px;border-radius:50%;object-fit:cover;background:#111;transform:scaleX(-1)}
+.videorec .vrtop{display:flex;align-items:center;gap:10px;width:100%;justify-content:center;color:#fff}
+.videorec .vrtime{font-weight:800;font-size:13px;font-variant-numeric:tabular-nums}
+.videorec .vrring{width:6px;height:6px;border-radius:50%;background:#E05B5B;animation:pulse 1s infinite}
+.videorec .vrbtns{display:flex;gap:10px;width:100%;justify-content:center}
+.videorec .vrbtns button{padding:9px 18px;border-radius:11px;font-weight:800;font-size:13px}
+.videorec .cancel{background:#2A2A2A;color:#fff}
+.videorec .stopsend{background:var(--grad);color:#fff}
+.videomsg{margin-top:6px;width:200px;height:200px;border-radius:50%;overflow:hidden;cursor:pointer;position:relative;background:#000;border:3px solid var(--accent)}
+.videomsg video{width:100%;height:100%;object-fit:cover}
+.videomsg::after{content:"▶";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:36px;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.6);transition:.2s;pointer-events:none}
+.videomsg.playing::after{opacity:0}
+.videomsg .vmdur{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;font-size:11px;font-weight:800;padding:2px 8px;border-radius:999px}
+
+/* ============== Stickers panel ============== */
+.stickers-pop{display:none;position:absolute;bottom:calc(100% + 6px);left:10px;right:10px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;box-shadow:0 -8px 24px rgba(11,77,42,.15);z-index:7;max-height:280px;overflow:hidden}
+.stickers-pop.on{display:flex;flex-direction:column}
+.sticker-tabs{display:flex;border-bottom:1.5px solid var(--line);overflow-x:auto}
+.sticker-tabs button{flex:none;padding:9px 12px;font-size:18px;border-bottom:2px solid transparent;transition:.12s}
+.sticker-tabs button.sel{border-bottom-color:var(--accent);background:var(--accent-tint)}
+.sticker-grid{flex:1;overflow-y:auto;display:grid;grid-template-columns:repeat(7,1fr);gap:4px;padding:8px}
+.sticker-grid button{aspect-ratio:1;font-size:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;transition:.12s}
+.sticker-grid button:hover{background:var(--accent-tint);transform:scale(1.15)}
+.stickermsg{font-size:88px;line-height:1;margin-top:4px;display:inline-block}
+.msg .bub.sticker-bub{background:transparent;border:none;box-shadow:none;padding:0}
+
+/* ============== Polls ============== */
+.pollcard{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:6px;max-width:340px}
+.pollcard h5{font-size:14.5px;font-weight:800;margin-bottom:4px}
+.pollcard .pq{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:9px}
+.pollopt{position:relative;padding:8px 12px;border:1.5px solid var(--line);border-radius:10px;margin-bottom:6px;cursor:pointer;overflow:hidden;transition:.12s}
+.pollopt:hover{border-color:var(--accent)}
+.pollopt .bar{position:absolute;inset:0 auto 0 0;background:var(--accent-tint);width:0%;transition:width .4s}
+.pollopt.mine .bar{background:var(--accent);opacity:.35}
+.pollopt .label{position:relative;display:flex;justify-content:space-between;align-items:center;font-size:13.5px;font-weight:700}
+.pollopt .pct{font-size:11.5px;color:var(--muted);font-weight:800}
+.pollcard .ptot{font-size:11px;color:var(--muted);margin-top:4px}
+
+/* ============== Pinned messages bar ============== */
+.pinned-bar{display:none;align-items:center;gap:10px;background:var(--card);border-bottom:1.5px solid var(--line);padding:8px 14px;cursor:pointer;transition:.12s}
+.pinned-bar.on{display:flex}
+.pinned-bar:hover{background:var(--accent-tint)}
+.pinned-bar .pico{color:var(--accent);font-size:14px}
+.pinned-bar .pbi{flex:1;min-width:0}
+.pinned-bar .plabel{font-size:11px;font-weight:800;color:var(--accent);letter-spacing:.05em}
+.pinned-bar .ptext{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ============== Stories / Status ============== */
+.stories-bar{display:flex;gap:10px;padding:12px 14px 8px;overflow-x:auto;border-bottom:1.5px solid var(--line);background:var(--paper)}
+.stories-bar::-webkit-scrollbar{display:none}
+.story-tile{flex:none;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;width:62px}
+.story-tile .sav{width:54px;height:54px;border-radius:50%;padding:3px;background:linear-gradient(135deg,var(--green),var(--orange));position:relative}
+.story-tile.viewed .sav{background:var(--line)}
+.story-tile.mine .sav{background:var(--accent)}
+.story-tile.add .sav{background:var(--card);border:2px dashed var(--accent);padding:0;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:24px}
+.story-tile .savi{width:100%;height:100%;border-radius:50%;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:24px;overflow:hidden}
+.story-tile .savi img{width:100%;height:100%;object-fit:cover}
+.story-tile .sname{font-size:10.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center}
+#storyViewer{position:fixed;inset:0;background:#000;display:none;flex-direction:column;z-index:95}
+#storyViewer.on{display:flex}
+#storyViewer .sv-top{display:flex;align-items:center;gap:10px;padding:14px 16px 8px;color:#fff;z-index:2}
+#storyViewer .sv-progress{position:absolute;top:8px;left:14px;right:14px;display:flex;gap:3px;z-index:3}
+#storyViewer .sv-progress div{flex:1;height:3px;background:rgba(255,255,255,.3);border-radius:2px;overflow:hidden}
+#storyViewer .sv-progress div i{display:block;width:0%;height:100%;background:#fff;transition:width .12s linear}
+#storyViewer .sv-progress div.done i{width:100%}
+#storyViewer .sv-from{flex:1;font-weight:800;font-size:14px}
+#storyViewer .sv-time{font-size:12px;color:rgba(255,255,255,.7)}
+#storyViewer .sv-x{font-size:22px;color:#fff;padding:6px 10px}
+#storyViewer .sv-body{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
+#storyViewer .sv-body img,#storyViewer .sv-body video{max-width:100%;max-height:100%;object-fit:contain}
+#storyViewer .sv-text{padding:30px;font-size:24px;font-weight:700;color:#fff;text-align:center;line-height:1.4}
+#storyViewer .sv-nav{position:absolute;top:0;bottom:0;width:33%}
+#storyViewer .sv-nav.left{left:0}
+#storyViewer .sv-nav.right{right:0}
+
+/* ============== Typing indicator ============== */
+.typing{display:none;align-items:center;gap:6px;padding:6px 14px;font-size:12px;color:var(--muted);font-style:italic}
+.typing.on{display:flex}
+.typing .dots{display:inline-flex;gap:3px}
+.typing .dots i{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:bounce 1.2s infinite}
+.typing .dots i:nth-child(2){animation-delay:.15s}
+.typing .dots i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.4}40%{transform:translateY(-5px);opacity:1}}
+
+/* ============== Read receipts ============== */
+.recpt{display:inline-flex;align-items:center;font-size:11px;color:var(--muted);margin-left:5px}
+.recpt.read{color:#3DA9F2}
+
+/* ============== Forward picker ============== */
+.fwd-list .chan{cursor:pointer}
+
+/* ============== Disappearing / view once ============== */
+.expire-tag{display:inline-flex;align-items:center;gap:3px;font-size:10.5px;color:var(--orange);font-weight:700;margin-left:6px}
+.view-once-wrap{display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px dashed var(--accent);border-radius:14px;padding:14px;cursor:pointer;max-width:300px;margin-top:6px}
+.view-once-wrap.viewed{opacity:.5;cursor:default;border-style:solid}
+
+/* ============== Search ============== */
+.search-overlay{position:fixed;inset:0;background:var(--paper);z-index:70;display:none;flex-direction:column}
+.search-overlay.on{display:flex}
+.search-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1.5px solid var(--line);background:var(--card)}
+.search-head input{flex:1;background:transparent;border:none;font-size:16px}
+.search-head input:focus{border:none}
+.search-results{flex:1;overflow-y:auto;padding:8px}
+.search-result{padding:12px 14px;border-radius:12px;cursor:pointer;transition:.1s;margin-bottom:4px}
+.search-result:hover{background:var(--accent-tint)}
+.search-result .sr-where{font-size:11.5px;font-weight:800;color:var(--accent)}
+.search-result .sr-from{font-size:11.5px;color:var(--muted);margin-top:2px}
+.search-result .sr-text{font-size:14px;margin-top:3px}
+.search-result mark{background:var(--orange-tint);color:var(--orange);font-weight:700;padding:0 2px;border-radius:3px}
+
+/* ============== Mute / pinned chat ============== */
+.chan .mute-icon{color:var(--muted);font-size:13px;margin-left:4px}
+.chan .pin-icon{color:var(--accent);font-size:11px;position:absolute;top:8px;right:8px}
+.chan{position:relative}
+
+/* Deleted message */
+.deleted-msg{font-style:italic;color:var(--muted);font-size:13px}
 /* voice notes */
 .recbar{display:none;align-items:center;gap:12px;background:var(--card);border:1.5px solid #E05B5B;border-radius:14px;padding:10px 14px;margin-bottom:8px}
 .recbar.on{display:flex}
@@ -363,9 +530,11 @@ body[data-tab="chats"] #mainChat{display:flex}
       <h2 id="panelTitle">Chats</h2>
       <div class="sub" id="panelSub">ForTe Fam · everywhere we are</div>
     </div>
+    <div class="stories-bar" id="storiesBar"></div>
     <div class="panel-tools" id="panelTools">
       <button class="mini-btn" onclick="openNewGroup()">＋ New group</button>
       <button class="mini-btn" onclick="openNewDM()">✉ Direct chat</button>
+      <button class="mini-btn" onclick="openSearch()">🔍 Search</button>
     </div>
     <div class="panel-body" id="panelBody"></div>
     <div class="vision compact panel-vision" onclick="openVision()"><div class="vstripe"></div>
@@ -383,6 +552,7 @@ body[data-tab="chats"] #mainChat{display:flex}
       <span class="sync-pill" id="syncPill" onclick="openModal('mSync')" style="cursor:pointer" title="Family sync status">Local</span>
       <button class="icon-btn" title="Voice call (free)" onclick="startCall(false)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7a2 2 0 0 1 1.7 2z"/></svg></button>
       <button class="icon-btn" title="Video call (free)" onclick="startCall(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></button>
+      <button class="icon-btn" title="Search messages" onclick="openSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
       <button class="icon-btn" title="Family Vision" onclick="openVision()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 6.6L21 9l-5.2 4.6L17.4 21 12 17l-5.4 4 1.6-7.4L3 9l6.6-.4L12 2z"/></svg></button>
       <button class="icon-btn" title="Channel info" onclick="chanInfo()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>
     </div>
@@ -390,25 +560,42 @@ body[data-tab="chats"] #mainChat{display:flex}
       <span id="localbarText">⚠️ Local mode — messages stay on this device only. Tap to connect family sync (free)</span>
       <span class="x2" onclick="event.stopPropagation();this.parentElement.style.display='none'">✕</span>
     </div>
+    <div class="pinned-bar" id="pinnedBar" onclick="jumpToPinned()">
+      <span class="pico">📌</span>
+      <div class="pbi"><div class="plabel">Pinned</div><div class="ptext" id="pinnedText"></div></div>
+    </div>
     <div id="msgs"></div>
+    <div class="typing" id="typingInd"><span class="dots"><i></i><i></i><i></i></span><span id="typingText"></span></div>
     <div class="composer">
       <div class="tooltray" id="tooltray">
         <button onclick="pickFiles(true)"><span class="tico">🖼️</span>Photos</button>
         <button onclick="pickFiles(false)"><span class="tico">📎</span>Files</button>
+        <button onclick="startVideo()"><span class="tico">🎥</span>Video note</button>
+        <button onclick="openStickers()"><span class="tico">😀</span>Stickers</button>
+        <button onclick="openNewPoll()"><span class="tico">📊</span>Poll</button>
+        <button onclick="armViewOnce()"><span class="tico">👁️</span>View once</button>
         <button onclick="startCall(true)"><span class="tico">📞</span>Call now</button>
         <button onclick="openNewEvent()"><span class="tico">🎉</span>Event</button>
         <button onclick="insertTool('doc')"><span class="tico">📄</span>New Doc</button>
         <button onclick="insertTool('sheet')"><span class="tico">📊</span>New Sheet</button>
-        <button onclick="insertTool('slides')"><span class="tico">📽️</span>Slides</button>
-        <button onclick="insertTool('form')"><span class="tico">📝</span>Form</button>
         <button onclick="insertTool('meet')"><span class="tico">📹</span>Meet</button>
         <button onclick="insertTool('drive')"><span class="tico">📁</span>Drive</button>
-        <button onclick="insertTool('keep')"><span class="tico">🗒️</span>Keep note</button>
-        <button onclick="insertTool('photos')"><span class="tico">📷</span>Albums</button>
       </div>
       <div class="upbar" id="upbar"><span class="spin"></span><span id="upbarText">Preparing…</span></div>
       <input type="file" id="fileImg" accept="image/*" multiple style="display:none" onchange="handleFiles(this.files)">
       <input type="file" id="fileAny" multiple style="display:none" onchange="handleFiles(this.files)">
+      <div class="replybar" id="replybar">
+        <div class="rb-i"><div class="rb-from" id="rbFrom"></div><div class="rb-text" id="rbText"></div></div>
+        <button class="rb-x" onclick="cancelReply()">✕</button>
+      </div>
+      <div class="videorec" id="videorec">
+        <div class="vrtop"><span class="vrring"></span><span class="vrtime" id="vrtime">0:00</span><span style="opacity:.6;font-size:11px">/ 0:15 max</span></div>
+        <video id="vrvid" autoplay muted playsinline></video>
+        <div class="vrbtns">
+          <button class="cancel" onclick="cancelVideo()">Cancel</button>
+          <button class="stopsend" onclick="stopVideo()">➤ Send</button>
+        </div>
+      </div>
       <div class="recbar" id="recbar">
         <span class="recdot"></span>
         <span class="rectime" id="recTime">0:00</span>
@@ -417,15 +604,20 @@ body[data-tab="chats"] #mainChat{display:flex}
         <button class="recbtn cancel" onclick="cancelVoice()" title="Cancel">✕</button>
         <button class="recbtn stopsend" onclick="stopVoice()" title="Send voice note">➤</button>
       </div>
+      <div class="stickers-pop" id="stickersPop">
+        <div class="sticker-tabs" id="stickerTabs"></div>
+        <div class="sticker-grid" id="stickerGrid"></div>
+      </div>
       <div class="mention-pop" id="mentionPop"></div>
       <div class="composer-row">
         <button class="plus-btn" onclick="document.getElementById('tooltray').classList.toggle('on')">＋</button>
-        <button class="plus-btn" title="Send photos or files" onclick="pickFiles(true)" style="font-size:18px">📎</button>
-        <textarea id="msgInput" rows="1" placeholder="Message the family… (try @, /call, /event)" onkeydown="composerKey(event)" oninput="onComposerInput()"></textarea>
-        <button class="plus-btn mic-btn" id="micBtn" title="Record a voice note (max 10s)" onclick="toggleVoice()" style="font-size:18px">🎤</button>
+        <button class="plus-btn" title="Stickers & emoji" onclick="openStickers()" style="font-size:18px">😀</button>
+        <textarea id="msgInput" rows="1" placeholder="Message the family… (try @, *bold*, /call)" onkeydown="composerKey(event)" oninput="onComposerInput()"></textarea>
+        <button class="plus-btn mic-btn" id="micBtn" title="Voice note (max 10s)" onclick="toggleVoice()" style="font-size:18px">🎤</button>
+        <button class="plus-btn" title="Video note (max 15s)" onclick="startVideo()" style="font-size:18px">🎥</button>
         <button class="send-btn" onclick="sendMsg()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
       </div>
-      <div class="slash-hint">Tag the family with <code>@</code>, share scripture with <code>@verse Proverbs 3:5-6</code>, or browse with <code>@bible</code> · 🎤 voice notes · 📎 photos</div>
+      <div class="slash-hint">@mentions · *bold* _italic_ ~strike~ <code>`code`</code> ||spoiler|| · long-press a message to react / reply / pin</div>
     </div>
   </div>
 
@@ -559,6 +751,71 @@ body[data-tab="chats"] #mainChat{display:flex}
   <div style="font-size:11.5px;color:var(--muted);text-align:center">Tap a verse to share it with the family. King James Version — public domain.</div>
 </div></div>
 
+<div class="modal-wrap" id="mPoll"><div class="modal">
+  <button class="x" onclick="closeModal('mPoll')">✕</button>
+  <h3>Create a poll</h3>
+  <div class="field"><label>Question</label><input id="pollQ" placeholder="What's the question?"></div>
+  <div class="field"><label>Options</label><div id="pollOpts"></div>
+    <button class="btn btn-ghost" style="margin-top:6px" onclick="addPollOpt()">＋ Add option</button></div>
+  <label class="checkrow"><input type="checkbox" id="pollMulti"> Allow multiple answers</label>
+  <button class="btn btn-grad" onclick="createPoll()">Send poll</button>
+</div></div>
+
+<div class="modal-wrap" id="mForward"><div class="modal">
+  <button class="x" onclick="closeModal('mForward')">✕</button>
+  <h3>Forward to…</h3>
+  <div class="fwd-list" id="fwdList"></div>
+</div></div>
+
+<div class="modal-wrap" id="mStory"><div class="modal">
+  <button class="x" onclick="closeModal('mStory')">✕</button>
+  <h3>New status</h3>
+  <p style="color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:14px">Share a moment with the family — visible for 24 hours.</p>
+  <div class="field"><label>Type a status</label><textarea id="storyText" rows="3" placeholder="What's on your mind today?"></textarea></div>
+  <label class="checkrow"><input type="radio" name="sbg" value="green" checked> Forest green background</label>
+  <label class="checkrow"><input type="radio" name="sbg" value="orange"> Sunset orange</label>
+  <label class="checkrow"><input type="radio" name="sbg" value="dark"> Dark</label>
+  <button class="btn btn-grad" onclick="createTextStory()">Post status</button>
+  <div style="height:8px"></div>
+  <button class="btn btn-ghost" onclick="document.getElementById('storyImgPick').click()">📷 Or post a photo</button>
+  <input type="file" id="storyImgPick" accept="image/*" style="display:none" onchange="createPhotoStory(this.files[0])">
+</div></div>
+
+<div class="modal-wrap" id="mChatSettings"><div class="modal">
+  <button class="x" onclick="closeModal('mChatSettings')">✕</button>
+  <h3 id="csTitle">Chat settings</h3>
+  <div class="field"><label>Disappearing messages</label>
+    <select id="csDisappear" onchange="setDisappear(this.value)">
+      <option value="0">Off — messages kept forever</option>
+      <option value="3600000">1 hour</option>
+      <option value="86400000">1 day</option>
+      <option value="604800000">1 week</option>
+    </select></div>
+  <label class="checkrow"><input type="checkbox" id="csMute" onchange="toggleMute()"> Mute this chat</label>
+  <label class="checkrow"><input type="checkbox" id="csPin" onchange="togglePinChat()"> Pin chat to top</label>
+</div></div>
+
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-head">
+    <button class="icon-btn" onclick="closeSearch()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <input id="searchInp" placeholder="Search messages, names, scripture…" oninput="runSearch()" autofocus>
+  </div>
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+<div id="storyViewer">
+  <div class="sv-top">
+    <div class="sv-progress" id="svProgress"></div>
+    <div class="sv-from" id="svFrom"></div>
+    <span class="sv-time" id="svTime"></span>
+    <span class="sv-x" onclick="closeStory()">✕</span>
+  </div>
+  <div class="sv-body" id="svBody"></div>
+  <div class="sv-nav left" onclick="storyNav(-1)"></div>
+  <div class="sv-nav right" onclick="storyNav(1)"></div>
+</div>
+
 <div id="imgViewer" onclick="this.classList.remove('on')"><img id="imgViewerImg" alt=""></div>
 <div class="toast" id="toast"></div>
 <script>
@@ -690,8 +947,16 @@ function doSignup(){
 function enter(u){
   DB.set("session",u); ME=DB.get("users",{})[u];
   login.style.display="none"; app.classList.add("on");
-  applyTheme(); heartbeat(); renderAll(); startSync();
-  openRoom("hall"); // land straight in the Family Hall, composer ready
+  applyTheme(); heartbeat(); ensureSavedRoom(); renderAll(); renderStories(); startSync();
+  openRoom("hall");
+}
+function ensureSavedRoom(){
+  const id=ME.u+"_self";
+  const rs=rooms();
+  if(!rs.find(r=>r.id===id)){
+    rs.push({id,type:"saved",name:"Saved Messages",emoji:"🗒️",members:[ME.u],created:Date.now()});
+    DB.set("rooms",rs);
+  }
 }
 function logout(){ DB.set("session",null); location.reload(); }
 
@@ -711,7 +976,7 @@ function rooms(){ return DB.get("rooms",[]); }
 function msgs(){ return DB.get("msgs",[]); }
 function roomMsgs(id){ return msgs().filter(m=>m.room===id); }
 function myRooms(){
-  return rooms().filter(r=> r.members==="all" || (Array.isArray(r.members)&&r.members.includes(ME.u)) );
+  return rooms().filter(r=> r.members==="all" || (Array.isArray(r.members)&&r.members.includes(ME.u)) || r.id===ME.u+"_self" );
 }
 function roomName(r){
   if(r.type==="dm"){ const other=r.members.find(m=>m!==ME.u)||ME.u; const ou=users()[other]; return ou?ou.name:other; }
@@ -729,12 +994,18 @@ function renderAll(){ renderPanel(); renderMsgs(true); renderEvents(); renderFam
 
 function renderPanel(){
   const reads=DB.get("reads",{});
+  const pinnedChats=ME.pinnedChats||[], muted=ME.muted||[];
   let html="";
   const list=myRooms().sort((a,b)=>{
+    const ap=pinnedChats.includes(a.id), bp=pinnedChats.includes(b.id);
+    if(ap!==bp) return ap?-1:1;
     const la=roomMsgs(a.id).slice(-1)[0], lb=roomMsgs(b.id).slice(-1)[0];
     return (lb?lb.ts:b.created)-(la?la.ts:a.created);
   });
-  const halls=list.filter(r=>r.type==="hall"), grs=list.filter(r=>r.type==="group"), dms=list.filter(r=>r.type==="dm");
+  const saved=list.filter(r=>r.type==="saved");
+  const halls=list.filter(r=>r.type==="hall");
+  const grs=list.filter(r=>r.type==="group");
+  const dms=list.filter(r=>r.type==="dm");
   const sect=(label,arr)=>{
     if(!arr.length)return"";
     let h=`<div class="sec-label">${label}</div>`;
@@ -743,17 +1014,21 @@ function renderPanel(){
       const recent=roomMsgs(r.id).filter(m=>m.ts>(reads[r.id]||0)&&m.from!==ME.u);
       const unread=recent.length;
       const mentioned=recent.some(m=>m.kind==="text"&&new RegExp("@("+ME.u+"|everyone|all|fam|family)\\b","i").test(m.text||""));
+      const isMuted=muted.includes(r.id), isPinned=pinnedChats.includes(r.id);
+      const preview = last ? (last.from===ME.u?'You: ':'')+msgPreview(last,true) : 'Say hello!';
       h+=`<div class="chan ${r.id===ROOM?'active':''}" onclick="openRoom('${r.id}')">
+        ${isPinned?`<span class="pin-icon">📌</span>`:""}
         <div class="av">${roomEmoji(r)}</div>
-        <div class="cinfo"><div class="cname">${esc(roomName(r))}${mentioned?' <span class="mchip me" style="font-size:.7em;padding:0 5px">@you</span>':''}</div>
-        <div class="clast">${last?esc((last.from===ME.u?'You: ':'')+(last.kind==='text'?last.text:last.kind==='image'?'🖼️ Photo':last.kind==='voice'?'🎤 Voice note':last.kind==='file'?'📎 '+(last.name||'File'):last.kind==='call'?'📞 Call':last.kind==='event'?'🎉 Event':last.kind==='verse'?'📖 '+(last.ref||'Verse'):'🔗 Shared a tool')).slice(0,46):'Say hello!'}</div></div>
-        ${unread?`<div class="cbadge">${unread}</div>`:""}</div>`;
+        <div class="cinfo"><div class="cname">${esc(roomName(r))}${isMuted?' <span class="mute-icon">🔇</span>':''}${mentioned?' <span class="mchip me" style="font-size:.7em;padding:0 5px">@you</span>':''}</div>
+        <div class="clast">${esc(preview).slice(0,46)}</div></div>
+        ${unread?`<div class="cbadge" style="${isMuted?'background:var(--muted)':''}">${unread}</div>`:""}</div>`;
     });
     return h;
   };
-  html+=sect("Family",halls)+sect("Groups",grs)+sect("Direct chats",dms);
+  html+=sect("Family",halls)+sect("Groups",grs)+sect("Direct chats",dms)+sect("Notes",saved);
   panelBody.innerHTML=html;
-  const totalUnread=myRooms().reduce((n,r)=>n+roomMsgs(r.id).filter(m=>m.ts>(reads[r.id]||0)&&m.from!==ME.u).length,0);
+  const totalUnread=myRooms().filter(r=>!muted.includes(r.id))
+    .reduce((n,r)=>n+roomMsgs(r.id).filter(m=>m.ts>(reads[r.id]||0)&&m.from!==ME.u).length,0);
   chatBadge.style.display=totalUnread?"flex":"none"; chatBadge.textContent=totalUnread;
 }
 
@@ -761,7 +1036,14 @@ function onlineNow(u){ return Date.now()-((users()[u]||{}).lastSeen||0)<75000; }
 function renderMsgs(scroll){
   const r=rooms().find(x=>x.id===ROOM); if(!r)return;
   chanName.textContent=roomName(r); chanAvatar.textContent=roomEmoji(r);
-  if(r.members==="all"){
+  // Typing indicator
+  const typingPeers=Object.values(users()).filter(u=>u.u!==ME.u && u.typingIn===ROOM && Date.now()-(u.typingTs||0)<6000);
+  const tEl=document.getElementById("typingInd"), tT=document.getElementById("typingText");
+  if(typingPeers.length){ tT.textContent = typingPeers.length===1 ? typingPeers[0].name+" is typing…" : typingPeers.slice(0,2).map(p=>p.name).join(", ")+" are typing…"; tEl.classList.add("on"); }
+  else tEl.classList.remove("on");
+  // Chat header
+  if(r.id===ME.u+"_self"){ chanSub.innerHTML=`Your private notes · only you can see this`; }
+  else if(r.members==="all"){
     const all=Object.keys(users()); const on=all.filter(onlineNow).length;
     chanSub.innerHTML=`${all.length} family members · <b style="color:#2E9E5B">${on} online</b>`;
   } else if(r.type==="dm"){
@@ -771,21 +1053,39 @@ function renderMsgs(scroll){
     const on=r.members.filter(onlineNow).length;
     chanSub.innerHTML=`${r.members.length} members · <b style="color:#2E9E5B">${on} online</b>`;
   }
+  // Apply disappearing-messages cleanup before render
+  cleanupDisappearing(r);
+  // Pinned bar
+  renderPinnedBar(r);
   const list=roomMsgs(ROOM);
-  const sig=ROOM+"|"+list.length+"|"+(list.slice(-1)[0]?.ts||0)+"|"+JSON.stringify(DB.get("events",[]).map(e=>e.rsvp));
-  if(sig===lastRender && !scroll) return;
-  lastRender=sig;
   let html="", lastDay="";
   list.forEach(m=>{
+    if(messageHidden(m)) return; // deleted for me / not-yet-revealed view-once
     const day=fmtDay(m.ts);
     if(day!==lastDay){ html+=`<div class="day-sep">${day}</div>`; lastDay=day; }
+    if(m.kind==="system"){ html+=`<div class="day-sep">${esc(m.text)}</div>`; return; }
     const u=users()[m.from]||{name:m.from,color:"#888",emoji:"🙂"};
     const mine=m.from===ME.u;
-    let body="";
-    if(m.kind==="text") body=`<div class="mtext">${renderMentions(linkify(esc(m.text)))}</div>`;
-    else if(m.kind==="verse"){
-      body = verseCard(m.ref, m.caption, "vc-"+m.id) || `<div class="mtext">📖 ${esc(m.ref)}</div>`;
+    const isSticker=m.kind==="sticker";
+    let quoteHtml="";
+    if(m.replyTo){
+      const orig = roomMsgs(ROOM).find(x=>x.id===m.replyTo);
+      if(orig){
+        const fu=users()[orig.from]||{name:orig.from,color:"#888"};
+        quoteHtml=`<div class="quote-in-msg" onclick="jumpTo('${orig.id}')"><div class="qf" style="color:${fu.color}">${esc(fu.name)}</div><div class="qt">${esc(msgPreview(orig,true))}</div></div>`;
+      }
     }
+    let body="";
+    if(m.deletedFor==="everyone" || (Array.isArray(m.deletedFor)&&m.deletedFor.includes(ME.u))){
+      body=`<div class="mtext deleted-msg">🚫 This message was deleted</div>`;
+    }
+    else if(m.viewOnce && !mine && !(m.viewedBy||[]).includes(ME.u)){
+      body=`<div class="view-once-wrap" onclick="revealViewOnce('${m.id}')"><div style="font-size:24px">👁️</div><div><b>View-once ${m.kind==='image'?'photo':m.kind==='video'?'video':'message'}</b><br><span style="color:var(--muted);font-size:12px">Tap to view (disappears after)</span></div></div>`;
+    }
+    else if(m.kind==="text") body=`<div class="mtext">${applyFormatting(renderMentions(linkify(esc(m.text))))}</div>`;
+    else if(m.kind==="sticker") body=`<div class="stickermsg">${esc(m.sticker)}</div>`;
+    else if(m.kind==="poll") body=renderPoll(m);
+    else if(m.kind==="verse") body = verseCard(m.ref, m.caption, "vc-"+m.id) || `<div class="mtext">📖 ${esc(m.ref)}</div>`;
     else if(m.kind==="image"){
       const src=m.dataUrl||(m.fileId?("https://drive.google.com/thumbnail?id="+m.fileId+"&sz=w800"):"");
       const full=m.fileId?("https://drive.google.com/file/d/"+m.fileId+"/view"):src;
@@ -793,6 +1093,12 @@ function renderMsgs(scroll){
       <img class="msg-img" src="${src}" alt="${esc(m.name||'photo')}" loading="lazy"
         onclick="viewImg('${m.dataUrl?m.id:""}','${m.fileId||""}')"
         onerror="this.outerHTML='<a class=&quot;toolcard&quot; href=&quot;${full}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;><div class=&quot;ti&quot;>🖼️</div><div><b>${esc(m.name||"Photo")}</b><span>tap to view</span></div></a>'">`;
+    }
+    else if(m.kind==="video"){
+      const src=m.dataUrl||(m.fileId?("https://drive.google.com/uc?export=download&id="+m.fileId):"");
+      body=`<div class="videomsg" id="vm-${m.id}" onclick="playVideoMsg('${m.id}')">
+        <video preload="metadata" playsinline src="${src}#t=0.1"></video>
+        <span class="vmdur">🎥 0:${String(m.dur||15).padStart(2,"0")}</span></div>`;
     }
     else if(m.kind==="voice"){
       body=`<div class="voicecard" id="vn-${m.id}">
@@ -831,16 +1137,563 @@ function renderMsgs(scroll){
           </div></div></div>`;
       } else body=`<div class="mtext">🎉 (event)</div>`;
     }
-    else if(m.kind==="system"){ html+=`<div class="day-sep">${esc(m.text)}</div>`; return; }
-    html+=`<div class="msg ${mine?'mine':''}">
+    // Reactions
+    let reactsHtml="";
+    if(m.reactions && Object.keys(m.reactions).length){
+      const chips=Object.entries(m.reactions).filter(([e,users])=>users&&users.length).map(([e,uu])=>{
+        const mineHit=uu.includes(ME.u);
+        return `<span class="react-chip ${mineHit?'mine':''}" onclick="toggleReact('${m.id}','${e}')"><span class="e">${e}</span><span class="n">${uu.length}</span></span>`;
+      });
+      if(chips.length) reactsHtml=`<div class="reacts">${chips.join("")}</div>`;
+    }
+    // Read receipts (for own messages, non-system, non-deleted)
+    let receipt="";
+    if(mine && m.deletedFor!=="everyone"){
+      const otherMembers = r.members==="all" ? Object.keys(users()).filter(x=>x!==ME.u) : (Array.isArray(r.members)?r.members.filter(x=>x!==ME.u):[]);
+      if(otherMembers.length){
+        const readers=(m.readBy||[]).filter(x=>x!==ME.u);
+        const allRead = readers.length>=otherMembers.length;
+        const anyRead = readers.length>0;
+        receipt=`<span class="recpt ${allRead?'read':''}">${allRead?'✓✓':(anyRead||m.id?'✓✓':'✓')}</span>`;
+      } else receipt=`<span class="recpt">✓</span>`;
+    }
+    const expireTag = (m.kind!=="system" && r.disappearAfter) ? `<span class="expire-tag">⏱ ${fmtDur(r.disappearAfter)}</span>` : "";
+    const editedTag = m.edited ? `<span style="font-size:10.5px;color:var(--muted);margin-left:4px">(edited)</span>` : "";
+    html+=`<div class="msg ${mine?'mine':''}" data-id="${m.id}" oncontextmenu="event.preventDefault();openMsgActs('${m.id}',event)" onclick="toggleMsgActs('${m.id}',event)">
+      <div class="msg-acts" id="acts-${m.id}">${quickReactsRow(m.id)}${actionBtns(m,mine)}</div>
       <div class="mav" style="background:${u.color}">${u.emoji||u.name[0].toUpperCase()}</div>
-      <div class="bub"><div class="mname" style="color:${u.color}">${esc(u.name)}</div>${body}<div class="mtime">${fmtTime(m.ts)}</div></div></div>`;
+      <div class="bub ${isSticker?'sticker-bub':''}">${isSticker?"":`<div class="mname" style="color:${u.color}">${esc(u.name)}</div>`}${quoteHtml}${body}${reactsHtml}<div class="mtime">${fmtTime(m.ts)}${editedTag}${expireTag}${receipt}</div></div></div>`;
   });
   document.getElementById("msgs").innerHTML=html;
   if(scroll){ const el=document.getElementById("msgs"); el.scrollTop=el.scrollHeight; }
+  markRoomRead(r);
+}
+function quickReactsRow(id){
+  const e=["❤️","👍","😂","😮","😢","🙏"];
+  return `<div class="quick-reacts">${e.map(em=>`<button onclick="event.stopPropagation();toggleReact('${id}','${em}')" title="${em}">${em}</button>`).join("")}</div>`;
+}
+function actionBtns(m,mine){
+  const r=rooms().find(x=>x.id===ROOM);
+  const isPinned=(r.pinned||[]).includes(m.id);
+  return `<button title="Reply" onclick="event.stopPropagation();startReply('${m.id}')">↩</button>
+  <button title="Forward" onclick="event.stopPropagation();openForward('${m.id}')">➡</button>
+  <button title="Copy" onclick="event.stopPropagation();copyMsg('${m.id}')">📋</button>
+  <button title="${isPinned?'Unpin':'Pin'}" onclick="event.stopPropagation();togglePin('${m.id}')">📌</button>
+  ${mine?`<button title="Edit" onclick="event.stopPropagation();editMsg('${m.id}')">✏️</button>`:""}
+  ${mine?`<button title="Delete" onclick="event.stopPropagation();deleteMsg('${m.id}')">🗑️</button>`:""}`;
+}
+function markRoomRead(r){
   const reads=DB.get("reads",{}); reads[ROOM]=Date.now(); DB.set("reads",reads);
+  // Update readBy on each message
+  const all=msgs(); let changed=false;
+  all.forEach(m=>{
+    if(m.room===ROOM && m.from!==ME.u && !(m.readBy||[]).includes(ME.u)){
+      m.readBy=[...(m.readBy||[]),ME.u]; changed=true;
+      cloud("addMsg",m); // re-upsert with new readBy
+    }
+  });
+  if(changed) DB.set("msgs",all);
+}
+function messageHidden(m){
+  if(Array.isArray(m.deletedFor) && m.deletedFor.includes(ME.u)) return true; // hidden but renderable: keep showing as "deleted"
+  return false;
+}
+function msgPreview(m,short){
+  if(m.deletedFor==="everyone"||(Array.isArray(m.deletedFor)&&m.deletedFor.includes(ME.u))) return "🚫 deleted message";
+  if(m.kind==="text") return m.text||"";
+  if(m.kind==="sticker") return m.sticker+" sticker";
+  if(m.kind==="image") return "🖼️ Photo";
+  if(m.kind==="video") return "🎥 Video note";
+  if(m.kind==="voice") return "🎤 Voice note";
+  if(m.kind==="file") return "📎 "+(m.name||"File");
+  if(m.kind==="call") return "📞 Call";
+  if(m.kind==="event") return "🎉 Event";
+  if(m.kind==="verse") return "📖 "+(m.ref||"Verse");
+  if(m.kind==="poll") return "📊 "+(m.question||"Poll");
+  if(m.kind==="tool") return "🔗 Shared a tool";
+  return "Message";
+}
+function fmtDur(ms){
+  const s=Math.round(ms/1000);
+  if(s<60) return s+"s";
+  if(s<3600) return Math.round(s/60)+"m";
+  if(s<86400) return Math.round(s/3600)+"h";
+  return Math.round(s/86400)+"d";
+}
+function applyFormatting(html){
+  // Spoiler ||text||
+  html=html.replace(/\|\|([^|\n]+)\|\|/g,'<span class="spoiler" onclick="this.classList.add(\'shown\')">$1</span>');
+  // Code `code`
+  html=html.replace(/`([^`\n]+)`/g,'<code>$1</code>');
+  // Bold *text*
+  html=html.replace(/(^|\s|>)\*([^\s*][^*\n]*)\*(?=\s|<|$|[.,!?;:])/g,'$1<b>$2</b>');
+  // Italic _text_
+  html=html.replace(/(^|\s|>)_([^\s_][^_\n]*)_(?=\s|<|$|[.,!?;:])/g,'$1<em>$2</em>');
+  // Strikethrough ~text~
+  html=html.replace(/(^|\s|>)~([^\s~][^~\n]*)~(?=\s|<|$|[.,!?;:])/g,'$1<del>$2</del>');
+  return html;
 }
 function linkify(t){ return t.replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">$1</a>'); }
+
+/* ============== Context menu / message actions ============== */
+let actsOpen=null;
+function openMsgActs(id,ev){
+  if(actsOpen===id){ closeActs(); return; }
+  closeActs();
+  const el=document.getElementById("acts-"+id); if(!el)return;
+  el.classList.add("on"); actsOpen=id;
+  if(ev)ev.stopPropagation();
+}
+function toggleMsgActs(id,ev){
+  // Single tap on message background does nothing on desktop; long-press handled separately
+  if(ev&&ev.target.closest("a,button,input,textarea,.versecard,.toolcard,.videomsg,.voicecard,.pollopt,.msg-img,.spoiler")) return;
+}
+function closeActs(){
+  if(!actsOpen) return;
+  const el=document.getElementById("acts-"+actsOpen); if(el)el.classList.remove("on");
+  actsOpen=null;
+}
+document.addEventListener("click",e=>{ if(!e.target.closest(".msg-acts,.msg")) closeActs(); });
+/* Long-press for mobile: 450 ms */
+let holdTimer=null, holdMsg=null;
+document.addEventListener("touchstart",e=>{
+  const m=e.target.closest(".msg"); if(!m)return;
+  holdMsg=m.dataset.id; m.classList.add("holding");
+  holdTimer=setTimeout(()=>{ if(holdMsg) openMsgActs(holdMsg); m.classList.remove("holding"); },450);
+},{passive:true});
+document.addEventListener("touchend",e=>{ const m=e.target.closest(".msg"); if(m)m.classList.remove("holding"); clearTimeout(holdTimer); holdMsg=null; },{passive:true});
+document.addEventListener("touchmove",()=>{ clearTimeout(holdTimer); holdMsg=null; document.querySelectorAll(".msg.holding").forEach(x=>x.classList.remove("holding")); },{passive:true});
+
+/* ============== Reactions ============== */
+function toggleReact(msgId,emoji){
+  const all=msgs(); const m=all.find(x=>x.id===msgId); if(!m)return;
+  m.reactions=m.reactions||{};
+  m.reactions[emoji]=m.reactions[emoji]||[];
+  const i=m.reactions[emoji].indexOf(ME.u);
+  if(i>=0) m.reactions[emoji].splice(i,1); else m.reactions[emoji].push(ME.u);
+  if(!m.reactions[emoji].length) delete m.reactions[emoji];
+  DB.set("msgs",all); cloud("addMsg",m);
+  closeActs(); lastRender=""; renderMsgs(false);
+}
+
+/* ============== Reply / Quote ============== */
+let replyTo=null;
+function startReply(msgId){
+  const m=msgs().find(x=>x.id===msgId); if(!m)return;
+  replyTo=msgId;
+  const u=users()[m.from]||{name:m.from,color:"#888"};
+  document.getElementById("rbFrom").textContent=u.name;
+  document.getElementById("rbFrom").style.color=u.color;
+  document.getElementById("rbText").textContent=msgPreview(m,true);
+  document.getElementById("replybar").classList.add("on");
+  document.getElementById("msgInput").focus();
+  closeActs();
+}
+function cancelReply(){ replyTo=null; document.getElementById("replybar").classList.remove("on"); }
+function jumpTo(id){
+  const el=document.querySelector(`.msg[data-id="${id}"]`);
+  if(!el) return;
+  el.scrollIntoView({behavior:"smooth",block:"center"});
+  el.classList.add("flash"); setTimeout(()=>el.classList.remove("flash"),1300);
+}
+
+/* ============== Forward ============== */
+let fwdMsg=null;
+function openForward(id){
+  fwdMsg=msgs().find(x=>x.id===id); if(!fwdMsg)return;
+  closeActs();
+  const rs=myRooms().filter(r=>r.id!==ROOM);
+  document.getElementById("fwdList").innerHTML=rs.map(r=>`
+    <div class="chan" onclick="doForward('${r.id}')">
+      <div class="av">${roomEmoji(r)}</div>
+      <div class="cinfo"><div class="cname">${esc(roomName(r))}</div><div class="clast">Tap to forward here</div></div></div>`).join("")||
+    `<div style="text-align:center;color:var(--muted);padding:20px">Create another chat or group first.</div>`;
+  openModal("mForward");
+}
+function doForward(roomId){
+  if(!fwdMsg) return;
+  const copy=Object.assign({},fwdMsg);
+  delete copy.id; delete copy.reactions; delete copy.readBy; delete copy.replyTo; delete copy.pinned; delete copy.viewedBy;
+  copy.id="m"+Date.now()+Math.random().toString(36).slice(2,6);
+  copy.from=ME.u; copy.ts=Date.now(); copy.room=roomId;
+  copy.forwardedFrom=fwdMsg.from;
+  const all=msgs(); all.push(copy); DB.set("msgs",all); cloud("addMsg",copy);
+  closeModal("mForward"); fwdMsg=null;
+  toast("Forwarded ➡️");
+  if(roomId===ROOM){ lastRender=""; renderMsgs(true); }
+}
+
+/* ============== Copy ============== */
+function copyMsg(id){
+  const m=msgs().find(x=>x.id===id); if(!m)return;
+  const text = m.kind==="text" ? m.text : msgPreview(m);
+  navigator.clipboard?.writeText(text).then(()=>toast("Copied")).catch(()=>toast("Couldn't copy"));
+  closeActs();
+}
+
+/* ============== Edit / Delete ============== */
+function editMsg(id){
+  const all=msgs(); const m=all.find(x=>x.id===id); if(!m||m.from!==ME.u||m.kind!=="text")return toast("Can only edit your own text messages");
+  closeActs();
+  const t=prompt("Edit your message:",m.text);
+  if(t===null||t.trim()===""||t===m.text)return;
+  m.text=t.trim(); m.edited=Date.now();
+  DB.set("msgs",all); cloud("addMsg",m); lastRender=""; renderMsgs(false);
+}
+function deleteMsg(id){
+  const all=msgs(); const m=all.find(x=>x.id===id); if(!m||m.from!==ME.u)return;
+  closeActs();
+  const c=confirm("Delete this message for EVERYONE?\n\nClick Cancel to delete just for yourself.");
+  if(c){ m.deletedFor="everyone"; }
+  else { m.deletedFor=Array.isArray(m.deletedFor)?[...m.deletedFor,ME.u]:[ME.u]; }
+  DB.set("msgs",all); cloud("addMsg",m); lastRender=""; renderMsgs(false);
+}
+
+/* ============== Pinned messages ============== */
+function togglePin(id){
+  const rs=rooms(); const r=rs.find(x=>x.id===ROOM); if(!r)return;
+  r.pinned=r.pinned||[];
+  const i=r.pinned.indexOf(id);
+  if(i>=0) r.pinned.splice(i,1); else r.pinned.push(id);
+  DB.set("rooms",rs); cloud("addRoom",r);
+  closeActs(); lastRender=""; renderMsgs(false);
+}
+function renderPinnedBar(r){
+  const bar=document.getElementById("pinnedBar"), txt=document.getElementById("pinnedText");
+  const pinned=(r.pinned||[]).map(id=>msgs().find(m=>m.id===id&&m.room===r.id)).filter(Boolean);
+  if(!pinned.length){ bar.classList.remove("on"); return; }
+  const last=pinned[pinned.length-1];
+  txt.textContent=msgPreview(last,true);
+  bar.classList.add("on");
+  bar.dataset.target=last.id;
+}
+function jumpToPinned(){
+  const id=document.getElementById("pinnedBar").dataset.target; if(id) jumpTo(id);
+}
+
+/* ============== Video notes (max 15s, round) ============== */
+const VID_MAX_MS=15000;
+let vRec=null, vChunks=[], vTimer=null, vStart=0, vCancelled=false, vStream=null, viewOnceArmed=false;
+function vidMime(){
+  if(window.MediaRecorder){
+    for(const t of ["video/webm;codecs=vp9,opus","video/webm;codecs=vp8,opus","video/webm","video/mp4"])
+      if(MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) return t;
+  }
+  return "";
+}
+async function startVideo(){
+  if(vRec) return;
+  if(!navigator.mediaDevices || !window.MediaRecorder) return toast("Video notes aren't supported on this browser");
+  document.getElementById("tooltray").classList.remove("on");
+  try{
+    vStream=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:640},height:{ideal:640},facingMode:"user"},audio:true});
+  } catch(e){ return toast("Camera blocked — allow camera & mic access for this site"); }
+  const v=document.getElementById("vrvid"); v.srcObject=vStream;
+  const mime=vidMime();
+  try{ vRec=new MediaRecorder(vStream, mime?{mimeType:mime}:undefined); }
+  catch(e){ try{ vRec=new MediaRecorder(vStream);}catch(e2){ vStream.getTracks().forEach(t=>t.stop()); return toast("Couldn't start recording"); } }
+  vChunks=[]; vCancelled=false; vStart=Date.now();
+  vRec.ondataavailable=e=>{ if(e.data&&e.data.size) vChunks.push(e.data); };
+  vRec.onstop=finishVideo;
+  vRec.start(250);
+  document.getElementById("videorec").classList.add("on");
+  document.getElementById("vrtime").textContent="0:00";
+  vTimer=setInterval(()=>{
+    const s=Math.min(15,Math.floor((Date.now()-vStart)/1000));
+    document.getElementById("vrtime").textContent="0:"+String(s).padStart(2,"0");
+    if(Date.now()-vStart>=VID_MAX_MS) stopVideo();
+  },200);
+}
+function stopVideo(){ if(vRec&&vRec.state!=="inactive") vRec.stop(); }
+function cancelVideo(){ vCancelled=true; stopVideo(); }
+function finishVideo(){
+  clearInterval(vTimer);
+  document.getElementById("videorec").classList.remove("on");
+  const dur=Math.min(15,Math.max(1,Math.round((Date.now()-vStart)/1000)));
+  const stream=vStream; vStream=null;
+  const chunks=vChunks; const mime=vRec&&vRec.mimeType?vRec.mimeType:(vidMime()||"video/webm");
+  vRec=null; vChunks=[];
+  if(stream) stream.getTracks().forEach(t=>t.stop());
+  document.getElementById("vrvid").srcObject=null;
+  if(vCancelled||!chunks.length) return;
+  const blob=new Blob(chunks,{type:mime});
+  if(blob.size>4*1024*1024) return toast("Video too large — try a shorter clip");
+  const ext=mime.includes("mp4")?"mp4":"webm";
+  const r=new FileReader();
+  r.onload=()=>{
+    const msg={kind:"video",name:"video-note-"+Date.now()+"."+ext,mime,dataUrl:r.result,size:blob.size,dur};
+    if(viewOnceArmed){ msg.viewOnce=true; viewOnceArmed=false; toast("Sent as view-once 👁️"); }
+    sendFileMsg(msg);
+  };
+  r.readAsDataURL(blob);
+}
+let playingVid=null;
+function playVideoMsg(id){
+  const el=document.getElementById("vm-"+id); if(!el)return;
+  const v=el.querySelector("video");
+  if(playingVid===v){ v.pause(); v.currentTime=0; el.classList.remove("playing"); playingVid=null; return; }
+  if(playingVid){ playingVid.pause(); document.querySelectorAll(".videomsg.playing").forEach(x=>x.classList.remove("playing")); }
+  v.currentTime=0; v.play(); el.classList.add("playing"); playingVid=v;
+  v.onended=()=>{ el.classList.remove("playing"); playingVid=null;
+    const m=msgs().find(x=>x.id===id);
+    if(m&&m.viewOnce&&m.from!==ME.u) markViewOnce(id);
+  };
+}
+
+/* ============== View once ============== */
+function armViewOnce(){
+  viewOnceArmed=true; document.getElementById("tooltray").classList.remove("on");
+  toast("👁️ Next photo/video you send will be view-once");
+}
+function revealViewOnce(id){
+  markViewOnce(id);
+  lastRender=""; renderMsgs(false);
+}
+function markViewOnce(id){
+  const all=msgs(); const m=all.find(x=>x.id===id); if(!m)return;
+  m.viewedBy=[...(m.viewedBy||[]),ME.u];
+  DB.set("msgs",all); cloud("addMsg",m);
+}
+
+/* ============== Stickers ============== */
+const STICKER_PACKS = {
+  "Family":["🧡","💚","🤍","🏡","👨‍👩‍👧‍👦","👶","🎂","🎁","🎉","💕","🌟","✨","🙌","👏","🤝","💪","🥰","😊","❤️","🌈","☀️","🌻","🌳","🏆"],
+  "Faith": ["✝️","🙏","📖","💒","⛪","😇","🕊️","🌅","🌄","☀️","✨","💫","⭐","🌟","🤲","👼","🎵","🎶","💝","💞","💖","💗","💟","♥️"],
+  "Africa":["🌍","🦁","🐘","🦒","🐆","🦓","🌴","🥁","🌅","🎭","🏺","☕","🥥","🍌","🍍","🌽","🥜","☀️","🌴","🌊","🌺","🌻","🌾","🐚"],
+  "Faces":["😀","😂","🤣","😊","😍","🥰","😘","🤗","🤔","🤩","😎","😴","🤤","😋","😜","🥳","🤯","😱","😭","🥺","😡","🙄","😏","🤐"],
+  "Hearts":["❤️","🧡","💛","💚","💙","💜","🤎","🖤","🤍","💕","💖","💗","💘","💝","💞","💟","♥️","💔","❣️","💋","💌","🫶","🩷","🩵"]
+};
+let curStickerPack="Family";
+function openStickers(){
+  document.getElementById("tooltray").classList.remove("on");
+  hideMentions();
+  const pop=document.getElementById("stickersPop");
+  document.getElementById("stickerTabs").innerHTML=Object.keys(STICKER_PACKS).map(k=>
+    `<button class="${k===curStickerPack?'sel':''}" onclick="pickStickerPack('${k}')">${STICKER_PACKS[k][0]}</button>`).join("");
+  renderStickerGrid();
+  pop.classList.toggle("on");
+}
+function pickStickerPack(k){ curStickerPack=k; openStickers(); openStickers(); /* re-render */ }
+function renderStickerGrid(){
+  document.getElementById("stickerGrid").innerHTML=STICKER_PACKS[curStickerPack].map(s=>
+    `<button onclick="sendSticker('${s}')">${s}</button>`).join("");
+}
+function sendSticker(s){
+  document.getElementById("stickersPop").classList.remove("on");
+  pushMsg({kind:"sticker",sticker:s});
+}
+
+/* ============== Polls ============== */
+function openNewPoll(){
+  document.getElementById("tooltray").classList.remove("on");
+  document.getElementById("pollQ").value="";
+  document.getElementById("pollOpts").innerHTML="";
+  addPollOpt(); addPollOpt();
+  document.getElementById("pollMulti").checked=false;
+  openModal("mPoll");
+}
+function addPollOpt(){
+  const c=document.getElementById("pollOpts");
+  const i=c.children.length+1;
+  c.insertAdjacentHTML("beforeend",`<input class="poll-opt" placeholder="Option ${i}" style="margin-bottom:6px">`);
+}
+function createPoll(){
+  const q=document.getElementById("pollQ").value.trim();
+  const opts=[...document.querySelectorAll(".poll-opt")].map(i=>i.value.trim()).filter(Boolean);
+  if(!q||opts.length<2)return toast("Need a question and at least 2 options");
+  pushMsg({kind:"poll",question:q,options:opts,multi:document.getElementById("pollMulti").checked,votes:{}});
+  closeModal("mPoll");
+}
+function renderPoll(m){
+  const total=Object.values(m.votes||{}).reduce((n,arr)=>n+(Array.isArray(arr)?arr.length:0),0);
+  const opts=m.options.map((o,i)=>{
+    const voters=(m.votes||{})[i]||[];
+    const pct=total?Math.round(voters.length/total*100):0;
+    const mineHit=voters.includes(ME.u);
+    return `<div class="pollopt ${mineHit?'mine':''}" onclick="votePoll('${m.id}',${i})">
+      <div class="bar" style="width:${pct}%"></div>
+      <div class="label"><span>${mineHit?'✓ ':''}${esc(o)}</span><span class="pct">${pct}% · ${voters.length}</span></div></div>`;
+  }).join("");
+  return `<div class="pollcard"><div class="pq">📊 Poll${m.multi?' · multi':''}</div><h5>${esc(m.question)}</h5>${opts}<div class="ptot">${total} vote${total===1?"":"s"} · tap to ${m.multi?"toggle":"vote"}</div></div>`;
+}
+function votePoll(msgId,idx){
+  const all=msgs(); const m=all.find(x=>x.id===msgId); if(!m)return;
+  m.votes=m.votes||{};
+  if(!m.multi){ // single-choice: remove user from other options
+    Object.keys(m.votes).forEach(k=>{ m.votes[k]=(m.votes[k]||[]).filter(u=>u!==ME.u); });
+  }
+  m.votes[idx]=m.votes[idx]||[];
+  const i=m.votes[idx].indexOf(ME.u);
+  if(i>=0) m.votes[idx].splice(i,1); else m.votes[idx].push(ME.u);
+  DB.set("msgs",all); cloud("addMsg",m); lastRender=""; renderMsgs(false);
+}
+
+/* ============== Stories / Status (24h) ============== */
+const STORY_TTL = 24*60*60*1000;
+function stories(){ return (DB.get("stories",[])||[]).filter(s=>Date.now()-s.ts<STORY_TTL); }
+function renderStories(){
+  const bar=document.getElementById("storiesBar"); if(!bar)return;
+  const cur=stories();
+  // group per user, newest first
+  const byUser={}; cur.forEach(s=>{ (byUser[s.by]=byUser[s.by]||[]).push(s); });
+  const myAvatar=ME.emoji||ME.name[0].toUpperCase();
+  let html=`<div class="story-tile mine" onclick="openNewStory()">
+    <div class="sav"><div class="savi" style="background:${ME.color}">${myAvatar}</div></div>
+    <div class="sname">${byUser[ME.u]?'My status':'+ Add'}</div></div>`;
+  Object.entries(byUser).filter(([u])=>u!==ME.u).forEach(([uname,arr])=>{
+    const u=users()[uname]; if(!u)return;
+    const viewed=arr.every(s=>(s.views||[]).includes(ME.u));
+    html+=`<div class="story-tile ${viewed?'viewed':''}" onclick="openStory('${uname}')">
+      <div class="sav"><div class="savi" style="background:${u.color}">${u.emoji||u.name[0].toUpperCase()}</div></div>
+      <div class="sname">${esc(u.name.split(' ')[0])}</div></div>`;
+  });
+  bar.innerHTML=html;
+}
+function openNewStory(){
+  document.getElementById("storyText").value="";
+  openModal("mStory");
+}
+function createTextStory(){
+  const t=document.getElementById("storyText").value.trim(); if(!t)return toast("Type something first");
+  const bg=document.querySelector('input[name="sbg"]:checked').value;
+  const story={id:"s"+Date.now(),by:ME.u,kind:"text",text:t,bg,ts:Date.now(),views:[]};
+  saveStory(story); closeModal("mStory");
+}
+async function createPhotoStory(file){
+  if(!file)return;
+  try{
+    const dataUrl=await compressImage(file);
+    const story={id:"s"+Date.now(),by:ME.u,kind:"photo",dataUrl,ts:Date.now(),views:[]};
+    saveStory(story); closeModal("mStory");
+  }catch(e){ toast("Couldn't post that photo"); }
+}
+function saveStory(s){
+  const arr=DB.get("stories",[]); arr.push(s); DB.set("stories",arr);
+  cloud("addStory",s); renderStories(); toast("Status posted · visible 24h");
+}
+let storyQueue=[], storyIdx=0, storyTimer=null;
+function openStory(uname){
+  const arr=stories().filter(s=>s.by===uname).sort((a,b)=>a.ts-b.ts);
+  if(!arr.length) return;
+  storyQueue=arr; storyIdx=0;
+  document.getElementById("storyViewer").classList.add("on");
+  playStory();
+}
+function playStory(){
+  if(storyIdx<0){ storyIdx=0; }
+  if(storyIdx>=storyQueue.length){ closeStory(); return; }
+  const s=storyQueue[storyIdx];
+  const u=users()[s.by]||{name:s.by,color:"#888"};
+  // progress bars
+  document.getElementById("svProgress").innerHTML=storyQueue.map((_,i)=>
+    `<div class="${i<storyIdx?'done':''}"><i></i></div>`).join("");
+  document.getElementById("svFrom").textContent=u.name;
+  document.getElementById("svTime").textContent=relTime(s.ts);
+  const body=document.getElementById("svBody");
+  if(s.kind==="text"){
+    const bg = s.bg==="orange"?"linear-gradient(135deg,#F2772B,#FF8C42)" : s.bg==="dark"?"#15211B" : "linear-gradient(135deg,#0B4D2A,#177A45)";
+    body.style.background=bg;
+    body.innerHTML=`<div class="sv-text">${esc(s.text)}</div>`;
+  } else if(s.kind==="photo"){
+    body.style.background="#000";
+    body.innerHTML=`<img src="${s.dataUrl||('https://drive.google.com/thumbnail?id='+s.fileId+'&sz=w1200')}">`;
+  }
+  // Mark viewed
+  const arr=DB.get("stories",[]); const st=arr.find(x=>x.id===s.id);
+  if(st && !(st.views||[]).includes(ME.u)){ st.views=[...(st.views||[]),ME.u]; DB.set("stories",arr); cloud("addStory",st); }
+  // advance after 5s for photos/text
+  const prog=document.querySelectorAll("#svProgress div")[storyIdx]?.querySelector("i");
+  if(prog){ prog.style.width="0%"; setTimeout(()=>{ prog.style.transition="width 5s linear"; prog.style.width="100%"; },50); }
+  clearTimeout(storyTimer);
+  storyTimer=setTimeout(()=>{ storyIdx++; playStory(); },5100);
+}
+function storyNav(d){ clearTimeout(storyTimer); storyIdx+=d; if(storyIdx<0)storyIdx=0; playStory(); }
+function closeStory(){
+  clearTimeout(storyTimer);
+  document.getElementById("storyViewer").classList.remove("on");
+  storyQueue=[]; storyIdx=0; renderStories();
+}
+function relTime(ts){
+  const d=Date.now()-ts;
+  if(d<60000) return "just now";
+  if(d<3600000) return Math.round(d/60000)+"m ago";
+  return Math.round(d/3600000)+"h ago";
+}
+
+/* ============== Typing indicator ============== */
+let typingT=0;
+function pingTyping(){
+  const now=Date.now();
+  if(now-typingT<3000) return;
+  typingT=now;
+  const us=users(); if(!us[ME.u]) return;
+  us[ME.u].typingIn=ROOM; us[ME.u].typingTs=now; DB.set("users",us);
+  cloud("ping",{u:ME.u,typingIn:ROOM,typingTs:now});
+}
+
+/* ============== Disappearing messages ============== */
+function cleanupDisappearing(r){
+  if(!r.disappearAfter) return;
+  const all=msgs(); const before=all.length;
+  const kept=all.filter(m=>m.room!==r.id || (Date.now()-m.ts)<r.disappearAfter || m.from===ME.u && Date.now()-m.ts<r.disappearAfter );
+  if(kept.length!==before) DB.set("msgs",kept);
+}
+
+/* ============== Mute / pin chat ============== */
+function chanInfo(){
+  const r=rooms().find(x=>x.id===ROOM); if(!r)return;
+  document.getElementById("csTitle").textContent="Settings · "+roomName(r);
+  document.getElementById("csDisappear").value=r.disappearAfter||"0";
+  const muted=(ME.muted||[]).includes(ROOM);
+  document.getElementById("csMute").checked=muted;
+  const pinned=(ME.pinnedChats||[]).includes(ROOM);
+  document.getElementById("csPin").checked=pinned;
+  openModal("mChatSettings");
+}
+function setDisappear(v){
+  const rs=rooms(); const r=rs.find(x=>x.id===ROOM); if(!r)return;
+  r.disappearAfter=parseInt(v)||0;
+  DB.set("rooms",rs); cloud("addRoom",r);
+  toast(r.disappearAfter?("Disappearing after "+fmtDur(r.disappearAfter)):"Disappearing messages off");
+}
+function toggleMute(){
+  ME.muted=ME.muted||[];
+  const i=ME.muted.indexOf(ROOM);
+  if(i>=0) ME.muted.splice(i,1); else ME.muted.push(ROOM);
+  const us=users(); us[ME.u]=ME; DB.set("users",us); cloud("upsertUser",ME);
+  renderPanel();
+}
+function togglePinChat(){
+  ME.pinnedChats=ME.pinnedChats||[];
+  const i=ME.pinnedChats.indexOf(ROOM);
+  if(i>=0) ME.pinnedChats.splice(i,1); else ME.pinnedChats.push(ROOM);
+  const us=users(); us[ME.u]=ME; DB.set("users",us); cloud("upsertUser",ME);
+  renderPanel();
+}
+
+/* ============== Search ============== */
+function openSearch(){ document.getElementById("searchOverlay").classList.add("on"); setTimeout(()=>document.getElementById("searchInp").focus(),50); runSearch(); }
+function closeSearch(){ document.getElementById("searchOverlay").classList.remove("on"); }
+function runSearch(){
+  const q=document.getElementById("searchInp").value.trim().toLowerCase();
+  if(!q){ document.getElementById("searchResults").innerHTML=`<div style="padding:30px;text-align:center;color:var(--muted)">Type to search across all chats, names, and scripture</div>`; return; }
+  const rs=myRooms(); const myRoomIds=new Set(rs.map(r=>r.id));
+  const matches=msgs().filter(m=>myRoomIds.has(m.room)&&!messageHidden(m)&&(
+    (m.text||"").toLowerCase().includes(q) || (m.ref||"").toLowerCase().includes(q) ||
+    (m.question||"").toLowerCase().includes(q) || (m.caption||"").toLowerCase().includes(q)
+  )).slice(-50).reverse();
+  if(!matches.length){ document.getElementById("searchResults").innerHTML=`<div style="padding:30px;text-align:center;color:var(--muted)">No matches for "${esc(q)}"</div>`; return; }
+  const hl=(s)=>esc(s||"").replace(new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),"gi"),m=>`<mark>${m}</mark>`);
+  document.getElementById("searchResults").innerHTML=matches.map(m=>{
+    const r=rooms().find(x=>x.id===m.room);
+    const u=users()[m.from]||{name:m.from};
+    const txt = m.text || m.ref || m.question || m.caption || msgPreview(m);
+    return `<div class="search-result" onclick="closeSearch();openRoom('${m.room}');setTimeout(()=>jumpTo('${m.id}'),300)">
+      <div class="sr-where">${roomEmoji(r)} ${esc(roomName(r))}</div>
+      <div class="sr-from">${esc(u.name)} · ${new Date(m.ts).toLocaleDateString()}</div>
+      <div class="sr-text">${hl(txt)}</div></div>`;
+  }).join("");
+}
 function renderMentions(html){
   const us=users();
   return html.replace(/@([\w-]+)/g,(full,name)=>{
@@ -987,14 +1840,17 @@ function composerKey(e){
     if(e.key==="Enter"||e.key==="Tab"){ e.preventDefault(); pickMention(mentionSel); return; }
     if(e.key==="Escape"){ hideMentions(); return; }
   }
-  if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); sendMsg(); }
+  if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); sendMsg(); return; }
+  pingTyping();
 }
 function pushMsg(m){
   m.id="m"+Date.now()+Math.random().toString(36).slice(2,6); m.ts=Date.now(); m.room=ROOM; m.from=ME.u;
+  if(replyTo){ m.replyTo=replyTo; cancelReply(); }
+  if(viewOnceArmed && (m.kind==="image"||m.kind==="video")){ m.viewOnce=true; viewOnceArmed=false; }
   const all=msgs(); all.push(m); DB.set("msgs",all);
   cloud("addMsg",m);
   renderPanel(); renderMsgs(true);
-  setTimeout(pollNow,1200); // fetch family replies quickly
+  setTimeout(pollNow,1200);
 }
 function systemNote(text){ const all=msgs(); all.push({id:"s"+Date.now(),room:"hall",from:ME.u,kind:"system",text,ts:Date.now()}); DB.set("msgs",all); }
 function sendMsg(){
@@ -1086,6 +1942,8 @@ function compressImage(f){
 }
 function sendFileMsg(m){
   m.id="m"+Date.now()+Math.random().toString(36).slice(2,6); m.ts=Date.now(); m.room=ROOM; m.from=ME.u;
+  if(replyTo){ m.replyTo=replyTo; cancelReply(); }
+  if(viewOnceArmed && (m.kind==="image"||m.kind==="video")){ m.viewOnce=true; viewOnceArmed=false; }
   const all=msgs();
   try{ all.push(m); DB.set("msgs",all); }
   catch(e){ // localStorage full — trim old media then retry
@@ -1561,8 +2419,25 @@ function mergeCloud(data){
   if(data.msgs){ const all=msgs(); let added=false;
     data.msgs.forEach(cm=>{ const ex=all.find(m=>m.id===cm.id);
       if(!ex){ all.push(cm); added=true; }
-      else if(cm.fileId&&!ex.fileId){ ex.fileId=cm.fileId; added=true; } });
+      else {
+        // smart merge: union readBy/reactions/viewedBy, take latest edited/deleted state
+        if(cm.fileId&&!ex.fileId){ ex.fileId=cm.fileId; added=true; }
+        if(cm.reactions){ ex.reactions=ex.reactions||{}; Object.entries(cm.reactions).forEach(([e,arr])=>{ ex.reactions[e]=[...new Set([...(ex.reactions[e]||[]),...arr])]; }); added=true; }
+        if(cm.readBy){ ex.readBy=[...new Set([...(ex.readBy||[]),...cm.readBy])]; added=true; }
+        if(cm.viewedBy){ ex.viewedBy=[...new Set([...(ex.viewedBy||[]),...cm.viewedBy])]; added=true; }
+        if(cm.votes){ ex.votes=Object.assign(ex.votes||{},cm.votes); added=true; }
+        if(cm.deletedFor){ ex.deletedFor=cm.deletedFor; added=true; }
+        if(cm.edited && (!ex.edited||cm.edited>ex.edited)){ ex.text=cm.text; ex.edited=cm.edited; added=true; }
+      } });
     if(added){ all.sort((a,b)=>a.ts-b.ts); DB.set("msgs",all); renderPanel(); lastRender=""; renderMsgs(false); } }
+  if(data.stories){
+    const local=DB.get("stories",[]);
+    data.stories.forEach(s=>{ const ex=local.find(x=>x.id===s.id);
+      if(!ex) local.push(s);
+      else if(s.views){ ex.views=[...new Set([...(ex.views||[]),...s.views])]; }
+    });
+    DB.set("stories",local); renderStories();
+  }
   if(data.events){ const evs=DB.get("events",[]);
     data.events.forEach(ce=>{ const ex=evs.find(e=>e.id===ce.id); if(ex){ ex.rsvp=Object.assign(ex.rsvp||{},ce.rsvp||{}); } else evs.push(ce); });
     DB.set("events",evs); }
