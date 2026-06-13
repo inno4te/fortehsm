@@ -153,6 +153,69 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 #imgViewer{position:fixed;inset:0;background:rgba(8,18,12,.92);display:none;align-items:center;justify-content:center;z-index:90;cursor:zoom-out;padding:20px}
 #imgViewer.on{display:flex}
 #imgViewer img{max-width:96%;max-height:92%;border-radius:14px}
+/* voice notes */
+.recbar{display:none;align-items:center;gap:12px;background:var(--card);border:1.5px solid #E05B5B;border-radius:14px;padding:10px 14px;margin-bottom:8px}
+.recbar.on{display:flex}
+.recdot{width:12px;height:12px;border-radius:50%;background:#E05B5B;animation:pulse 1s infinite;flex-shrink:0}
+.rectime{font-weight:800;font-size:14px;font-variant-numeric:tabular-nums}
+.recmax{font-size:12px;color:var(--muted)}
+.recbar .spacer{flex:1}
+.recbtn{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800}
+.recbtn.cancel{border:1.5px solid var(--line);color:var(--muted)}
+.recbtn.stopsend{background:var(--grad);color:#fff}
+.mic-btn.recording{background:#FDECEC;border-color:#E05B5B;color:#E05B5B}
+.voicecard{display:flex;align-items:center;gap:11px;background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:7px 16px 7px 7px;margin-top:6px;min-width:210px;max-width:260px}
+.voicecard .vplay{width:38px;height:38px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.voicecard .vtrack{flex:1;height:4px;border-radius:2px;background:var(--accent-tint);position:relative;overflow:hidden}
+.voicecard .vtrack i{position:absolute;inset:0;width:0%;background:var(--accent);border-radius:2px;transition:width .2s linear}
+.voicecard .vdur{font-size:11.5px;font-weight:800;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* ---------- Family Vision footer ---------- */
+.vision{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;position:relative;overflow:hidden;text-align:left;cursor:pointer;transition:.15s}
+.vision:hover{border-color:var(--accent);transform:translateY(-1px)}
+.vision .vstripe{position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--grad)}
+.vision b{display:block;font-size:13px;font-weight:800;color:var(--accent);margin-left:8px;margin-bottom:6px;letter-spacing:.2px}
+.vision .vline{font-size:12px;line-height:1.55;color:var(--muted);margin-left:8px}
+.vision .vline i{font-style:normal;font-weight:800;color:var(--ink);margin-right:6px;text-transform:uppercase;letter-spacing:.05em;font-size:10.5px}
+.vision.compact{padding:12px 14px}
+.vision.compact b{font-size:12.5px;margin-bottom:5px}
+.vision.compact .vline{font-size:11.5px;line-height:1.5}
+.vision-strip{margin:20px 0 0}
+.panel-vision{margin:8px 10px 14px}
+
+/* ---------- mentions ---------- */
+.mchip{display:inline-block;background:var(--accent-tint);color:var(--accent);font-weight:700;border-radius:6px;padding:1px 7px;margin:0 1px;font-size:.95em}
+.mchip.me{background:var(--orange-tint);color:#B35A12;box-shadow:0 0 0 1.5px #F2772B33}
+.mchip.everyone{background:linear-gradient(120deg,var(--green-tint),var(--orange-tint));color:var(--accent)}
+.mention-pop{position:absolute;left:10px;right:10px;bottom:calc(100% + 6px);background:var(--card);border:1.5px solid var(--line);border-radius:14px;max-height:230px;overflow-y:auto;box-shadow:0 -8px 24px rgba(11,77,42,.15);display:none;z-index:8}
+.mention-pop.on{display:block}
+.mention-item{display:flex;align-items:center;gap:11px;padding:9px 14px;cursor:pointer;transition:.1s}
+.mention-item.sel,.mention-item:hover{background:var(--accent-tint)}
+.mention-item .mav{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;flex-shrink:0}
+.mention-item b{font-size:13.5px;display:block;line-height:1.2}
+.mention-item span{font-size:11.5px;color:var(--muted)}
+.composer{position:relative}
+
+/* ---------- verse card ---------- */
+.versecard{background:linear-gradient(160deg,var(--green-tint) 0%,var(--card) 100%);border:1.5px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:14px 16px;margin-top:6px;max-width:360px;position:relative}
+.versecard .vref{display:flex;align-items:center;gap:8px;font-weight:800;color:var(--accent);font-size:13px;margin-bottom:8px;letter-spacing:.2px}
+.versecard .vref svg{width:15px;height:15px}
+.versecard .vtext{font-size:14px;line-height:1.6;color:var(--ink);font-style:italic;font-family:'Bricolage Grotesque','Plus Jakarta Sans',sans-serif}
+.versecard .vtext sup{font-style:normal;color:var(--accent);font-weight:800;font-size:.7em;margin-right:3px;vertical-align:super}
+.versecard .vfoot{font-size:10.5px;color:var(--muted);margin-top:9px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.versecard.long .vtext{max-height:9.6em;overflow:hidden;position:relative}
+.versecard.long.expanded .vtext{max-height:none}
+.versecard.long .vtext::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3em;background:linear-gradient(transparent,var(--green-tint));pointer-events:none}
+.versecard.long.expanded .vtext::after{display:none}
+.versecard .vexpand{margin-top:8px;font-size:12px;font-weight:800;color:var(--accent);cursor:pointer;display:inline-block}
+.bible-list{max-height:60vh;overflow-y:auto;margin:8px -8px 14px}
+.bible-row{display:flex;align-items:center;gap:11px;padding:11px 14px;border-radius:10px;cursor:pointer;transition:.12s}
+.bible-row:hover{background:var(--accent-tint)}
+.bible-row .br-ref{font-weight:800;color:var(--accent);font-size:13.5px;flex-shrink:0;min-width:130px}
+.bible-row .br-snip{font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bible-sec{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);padding:14px 14px 4px}
+.signed-pill{font-size:11.5px;color:var(--muted);margin-top:4px}
+.signed-pill b{color:var(--ink)}
 
 /* ---------- VIEWS / MODALS ---------- */
 .view{flex:1;overflow-y:auto;padding:26px;display:none}
@@ -220,10 +283,11 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
   .chan .av{width:46px;height:46px;font-size:21px}
   .chan .cname{font-size:15.5px}
   .chan .clast{font-size:12.5px}
-  .composer{padding:9px 10px calc(10px + env(safe-area-inset-bottom))}
-  .composer-row{gap:6px}
-  .plus-btn,.send-btn{width:42px;height:42px;border-radius:12px}
-  .composer textarea{min-height:42px;padding:10px 12px;font-size:16px}
+  .composer{padding:9px 8px calc(10px + env(safe-area-inset-bottom))}
+  .composer-row{gap:5px}
+  .plus-btn{width:38px;height:38px;border-radius:11px;font-size:17px}
+  .send-btn{width:42px;height:42px;border-radius:12px}
+  .composer textarea{min-height:42px;padding:10px 11px;font-size:16px}
   .slash-hint{display:none}
   .view{padding:18px 14px;-webkit-overflow-scrolling:touch}
   .grid{grid-template-columns:1fr}
@@ -256,7 +320,16 @@ body[data-tab="chats"] #mainChat{display:flex}
       <button class="btn btn-grad" onclick="doLogin()">Enter the Family Hall</button>
       <div style="height:10px"></div>
       <button class="btn btn-ghost" onclick="toggleSignup(true)">Create a new family account</button>
-      <div class="login-foot">Family accounts: <b>inno · lin · dj · an · ja · mm · ss · ra</b> and <b>forteh9 – forteh20</b><br>Passwords: <b>f0rteh01 – f0rteh20</b> (by slot number)<br><span class="hint-chip">ForTe Fam · Making a real difference</span></div>
+      <div class="login-foot">
+        <div class="vision compact" onclick="openVision()">
+          <div class="vstripe"></div>
+          <b>The Forteh Family Vision</b>
+          <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
+          <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
+          <div class="vline"><i>Verses</i> Proverbs 3:5-6 · Joshua 1:8 · Psalms 37:3-5 · Colossians 3</div>
+        </div>
+        <div style="margin-top:14px;color:var(--muted);font-size:12px">Need an account? Ask the family admin.</div>
+      </div>
     </div>
     <div id="signupForm" style="display:none">
       <div class="field"><label>Choose username</label><input id="suUser" placeholder="e.g. forteh21 or auntie-rose"></div>
@@ -295,6 +368,9 @@ body[data-tab="chats"] #mainChat{display:flex}
       <button class="mini-btn" onclick="openNewDM()">✉ Direct chat</button>
     </div>
     <div class="panel-body" id="panelBody"></div>
+    <div class="vision compact panel-vision" onclick="openVision()"><div class="vstripe"></div>
+      <b>The Forteh Family Vision</b>
+      <div class="vline"><i>Verses</i> Pr 3:5-6 · Jos 1:8 · Ps 37:3-5 · Col 3</div></div>
   </div>
 
   <!-- main -->
@@ -307,6 +383,7 @@ body[data-tab="chats"] #mainChat{display:flex}
       <span class="sync-pill" id="syncPill" onclick="openModal('mSync')" style="cursor:pointer" title="Family sync status">Local</span>
       <button class="icon-btn" title="Voice call (free)" onclick="startCall(false)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.5 2.8.7a2 2 0 0 1 1.7 2z"/></svg></button>
       <button class="icon-btn" title="Video call (free)" onclick="startCall(true)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></button>
+      <button class="icon-btn" title="Family Vision" onclick="openVision()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 6.6L21 9l-5.2 4.6L17.4 21 12 17l-5.4 4 1.6-7.4L3 9l6.6-.4L12 2z"/></svg></button>
       <button class="icon-btn" title="Channel info" onclick="chanInfo()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></button>
     </div>
     <div class="localbar" id="localbar" style="display:none" onclick="openModal('mSync');refreshSyncUI()">
@@ -332,13 +409,23 @@ body[data-tab="chats"] #mainChat{display:flex}
       <div class="upbar" id="upbar"><span class="spin"></span><span id="upbarText">Preparing…</span></div>
       <input type="file" id="fileImg" accept="image/*" multiple style="display:none" onchange="handleFiles(this.files)">
       <input type="file" id="fileAny" multiple style="display:none" onchange="handleFiles(this.files)">
+      <div class="recbar" id="recbar">
+        <span class="recdot"></span>
+        <span class="rectime" id="recTime">0:00</span>
+        <span class="recmax">/ 0:10 max</span>
+        <span class="spacer"></span>
+        <button class="recbtn cancel" onclick="cancelVoice()" title="Cancel">✕</button>
+        <button class="recbtn stopsend" onclick="stopVoice()" title="Send voice note">➤</button>
+      </div>
+      <div class="mention-pop" id="mentionPop"></div>
       <div class="composer-row">
         <button class="plus-btn" onclick="document.getElementById('tooltray').classList.toggle('on')">＋</button>
         <button class="plus-btn" title="Send photos or files" onclick="pickFiles(true)" style="font-size:18px">📎</button>
-        <textarea id="msgInput" rows="1" placeholder="Message the family… (try /doc, /call, /event)" onkeydown="composerKey(event)"></textarea>
+        <textarea id="msgInput" rows="1" placeholder="Message the family… (try @, /call, /event)" onkeydown="composerKey(event)" oninput="onComposerInput()"></textarea>
+        <button class="plus-btn mic-btn" id="micBtn" title="Record a voice note (max 10s)" onclick="toggleVoice()" style="font-size:18px">🎤</button>
         <button class="send-btn" onclick="sendMsg()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
       </div>
-      <div class="slash-hint">Quick tools: <code>/call</code> <code>/doc</code> <code>/sheet</code> <code>/meet</code> <code>/event Title | date</code> <code>/help</code> · 📎 share photos & files</div>
+      <div class="slash-hint">Tag the family with <code>@</code>, share scripture with <code>@verse Proverbs 3:5-6</code>, or browse with <code>@bible</code> · 🎤 voice notes · 📎 photos</div>
     </div>
   </div>
 
@@ -347,14 +434,29 @@ body[data-tab="chats"] #mainChat{display:flex}
     <h2>Family events</h2><div class="vsub">Plan it together — birthdays, calls, reunions, projects.</div>
     <button class="btn btn-grad" style="width:auto;margin-bottom:20px" onclick="openNewEvent()">＋ Create an event</button>
     <div class="grid" id="eventsGrid"></div>
+    <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
+      <b>The Forteh Family Vision</b>
+      <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
+      <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
+      <div class="vline"><i>Verses</i> Proverbs 3:5-6 · Joshua 1:8 · Psalms 37:3-5 · Colossians 3 — tap to read</div></div>
   </div>
   <div class="main view" id="viewFamily">
     <h2>The family</h2><div class="vsub">Everyone in ForTe Fam, wherever they are in the world.</div>
     <div class="grid" id="familyGrid"></div>
+    <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
+      <b>The Forteh Family Vision</b>
+      <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
+      <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
+      <div class="vline"><i>Verses</i> Proverbs 3:5-6 · Joshua 1:8 · Psalms 37:3-5 · Colossians 3 — tap to read</div></div>
   </div>
   <div class="main view" id="viewTools">
     <h2>Free tools hub</h2><div class="vsub">Every tool here is 100% free — opened with your Google account (team21online).</div>
     <div class="grid" id="toolsGrid"></div>
+    <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
+      <b>The Forteh Family Vision</b>
+      <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
+      <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
+      <div class="vline"><i>Verses</i> Proverbs 3:5-6 · Joshua 1:8 · Psalms 37:3-5 · Colossians 3 — tap to read</div></div>
   </div>
 </div>
 <!-- mobile nav -->
@@ -371,6 +473,8 @@ body[data-tab="chats"] #mainChat{display:flex}
 <div class="modal-wrap" id="mSettings"><div class="modal">
   <button class="x" onclick="closeModal('mSettings')">✕</button>
   <h3>My space</h3>
+  <div class="signed-pill">Signed in as <b id="signedAs">—</b> · stays logged in on this device until you tap sign out</div>
+  <div style="height:14px"></div>
   <div class="field"><label>Display name</label><input id="setName"></div>
   <div class="field"><label>Avatar emoji</label><input id="setEmoji" maxlength="4" placeholder="🙂"></div>
   <div class="field"><label>My interface color</label>
@@ -380,7 +484,7 @@ body[data-tab="chats"] #mainChat{display:flex}
   <div class="field" style="margin-top:10px"><label>Change password (optional)</label><input id="setPass" type="password" placeholder="New password"></div>
   <button class="btn btn-grad" onclick="saveSettings()">Save my space</button>
   <div style="height:10px"></div>
-  <button class="btn btn-ghost" onclick="logout()">Sign out</button>
+  <button class="btn btn-ghost" onclick="confirmLogout()">Sign out</button>
 </div></div>
 
 <div class="modal-wrap" id="mGroup"><div class="modal">
@@ -434,6 +538,25 @@ body[data-tab="chats"] #mainChat{display:flex}
   <div style="height:10px"></div>
   <div class="field"><label>Then share this one link with the whole family — sync connects automatically when they open it</label><input id="famLink" readonly onclick="this.select()"></div>
   <button class="btn btn-ghost" onclick="copyFamLink()">📋 Copy family link</button>
+</div></div>
+
+<div class="modal-wrap" id="mVision"><div class="modal" style="max-width:520px">
+  <button class="x" onclick="closeModal('mVision')">✕</button>
+  <h3 style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent">The Forteh Family Vision</h3>
+  <div style="margin-top:14px"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:6px">Mission</div>
+    <div style="font-size:14.5px;line-height:1.55">Love God, Cherish Family and People, Pursue Integrity and Excellence.</div></div>
+  <div style="margin-top:16px"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:6px">Values</div>
+    <div style="font-size:14.5px;line-height:1.55">Love for God · Family · Excellence · Integrity</div></div>
+  <div style="margin-top:16px"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:8px">Family Verses</div>
+    <div id="visionVerses"></div></div>
+</div></div>
+
+<div class="modal-wrap" id="mBible"><div class="modal" style="max-width:520px">
+  <button class="x" onclick="closeModal('mBible')">✕</button>
+  <h3>Bible verses (KJV)</h3>
+  <div class="field" style="margin-top:6px"><input id="bibleSearch" placeholder="Search a reference: John 3:16, Proverbs 3, Psalm 23…" oninput="renderBibleList()"></div>
+  <div class="bible-list" id="bibleList"></div>
+  <div style="font-size:11.5px;color:var(--muted);text-align:center">Tap a verse to share it with the family. King James Version — public domain.</div>
 </div></div>
 
 <div id="imgViewer" onclick="this.classList.remove('on')"><img id="imgViewerImg" alt=""></div>
@@ -617,11 +740,13 @@ function renderPanel(){
     let h=`<div class="sec-label">${label}</div>`;
     arr.forEach(r=>{
       const last=roomMsgs(r.id).slice(-1)[0];
-      const unread=roomMsgs(r.id).filter(m=>m.ts>(reads[r.id]||0)&&m.from!==ME.u).length;
+      const recent=roomMsgs(r.id).filter(m=>m.ts>(reads[r.id]||0)&&m.from!==ME.u);
+      const unread=recent.length;
+      const mentioned=recent.some(m=>m.kind==="text"&&new RegExp("@("+ME.u+"|everyone|all|fam|family)\\b","i").test(m.text||""));
       h+=`<div class="chan ${r.id===ROOM?'active':''}" onclick="openRoom('${r.id}')">
         <div class="av">${roomEmoji(r)}</div>
-        <div class="cinfo"><div class="cname">${esc(roomName(r))}</div>
-        <div class="clast">${last?esc((last.from===ME.u?'You: ':'')+(last.kind==='text'?last.text:last.kind==='image'?'🖼️ Photo':last.kind==='file'?'📎 '+(last.name||'File'):last.kind==='call'?'📞 Call':last.kind==='event'?'🎉 Event':'🔗 Shared a tool')).slice(0,46):'Say hello!'}</div></div>
+        <div class="cinfo"><div class="cname">${esc(roomName(r))}${mentioned?' <span class="mchip me" style="font-size:.7em;padding:0 5px">@you</span>':''}</div>
+        <div class="clast">${last?esc((last.from===ME.u?'You: ':'')+(last.kind==='text'?last.text:last.kind==='image'?'🖼️ Photo':last.kind==='voice'?'🎤 Voice note':last.kind==='file'?'📎 '+(last.name||'File'):last.kind==='call'?'📞 Call':last.kind==='event'?'🎉 Event':last.kind==='verse'?'📖 '+(last.ref||'Verse'):'🔗 Shared a tool')).slice(0,46):'Say hello!'}</div></div>
         ${unread?`<div class="cbadge">${unread}</div>`:""}</div>`;
     });
     return h;
@@ -657,7 +782,10 @@ function renderMsgs(scroll){
     const u=users()[m.from]||{name:m.from,color:"#888",emoji:"🙂"};
     const mine=m.from===ME.u;
     let body="";
-    if(m.kind==="text") body=`<div class="mtext">${linkify(esc(m.text))}</div>`;
+    if(m.kind==="text") body=`<div class="mtext">${renderMentions(linkify(esc(m.text)))}</div>`;
+    else if(m.kind==="verse"){
+      body = verseCard(m.ref, m.caption, "vc-"+m.id) || `<div class="mtext">📖 ${esc(m.ref)}</div>`;
+    }
     else if(m.kind==="image"){
       const src=m.dataUrl||(m.fileId?("https://drive.google.com/thumbnail?id="+m.fileId+"&sz=w800"):"");
       const full=m.fileId?("https://drive.google.com/file/d/"+m.fileId+"/view"):src;
@@ -665,6 +793,12 @@ function renderMsgs(scroll){
       <img class="msg-img" src="${src}" alt="${esc(m.name||'photo')}" loading="lazy"
         onclick="viewImg('${m.dataUrl?m.id:""}','${m.fileId||""}')"
         onerror="this.outerHTML='<a class=&quot;toolcard&quot; href=&quot;${full}&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;><div class=&quot;ti&quot;>🖼️</div><div><b>${esc(m.name||"Photo")}</b><span>tap to view</span></div></a>'">`;
+    }
+    else if(m.kind==="voice"){
+      body=`<div class="voicecard" id="vn-${m.id}">
+        <button class="vplay" onclick="playVoice('${m.id}')">▶</button>
+        <div class="vtrack"><i></i></div>
+        <span class="vdur">🎤 0:${String(m.dur||10).padStart(2,"0")}</span></div>`;
     }
     else if(m.kind==="file"){
       const href=m.fileId?("https://drive.google.com/file/d/"+m.fileId+"/view"):(m.dataUrl||"#");
@@ -707,6 +841,130 @@ function renderMsgs(scroll){
   const reads=DB.get("reads",{}); reads[ROOM]=Date.now(); DB.set("reads",reads);
 }
 function linkify(t){ return t.replace(/(https?:\/\/[^\s<]+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700">$1</a>'); }
+function renderMentions(html){
+  const us=users();
+  return html.replace(/@([\w-]+)/g,(full,name)=>{
+    const low=name.toLowerCase();
+    if(low==="everyone"||low==="all"||low==="fam"||low==="family") return `<span class="mchip everyone">@everyone</span>`;
+    if(low==="verse"||low==="bible") return full;
+    const u=us[low];
+    if(!u) return full;
+    const meHit=ME&&low===ME.u;
+    return `<span class="mchip ${meHit?'me':''}" style="${meHit?'':'color:'+u.color}">@${esc(u.name)}</span>`;
+  });
+}
+
+/* ---------- @ mention autocomplete ---------- */
+let mentionSel=0, mentionItems=[];
+function onComposerInput(){
+  const ta=document.getElementById("msgInput");
+  ta.style.height="auto"; ta.style.height=Math.min(ta.scrollHeight,120)+"px";
+  const upto=ta.value.slice(0,ta.selectionStart);
+  const m=upto.match(/(?:^|\s)@([\w-]{0,20})$/);
+  if(!m) return hideMentions();
+  showMentions(m[1].toLowerCase());
+}
+function showMentions(q){
+  const pop=document.getElementById("mentionPop");
+  const r=rooms().find(x=>x.id===ROOM);
+  const multi=r&&(r.members==="all"||(Array.isArray(r.members)&&r.members.length>1));
+  const items=[];
+  if(multi && ("everyone".startsWith(q)||"all".startsWith(q)||q==="")){
+    items.push({u:"everyone",name:"Everyone in this chat",sub:"Notify all members",col:"linear-gradient(120deg,#0B4D2A,#F2772B)",emoji:"📣"});
+  }
+  if("bible".startsWith(q)||q===""){
+    items.push({u:"__bible",name:"Browse Bible verses",sub:"KJV verse picker",col:"#0B4D2A",emoji:"📖"});
+  }
+  if("verse".startsWith(q)||q===""){
+    items.push({u:"__verse",name:"Type a verse reference",sub:"e.g. Proverbs 3:5-6",col:"#177A45",emoji:"✝️"});
+  }
+  Object.values(users()).forEach(u=>{
+    if(u.u===ME.u) return;
+    if(q===""||u.u.toLowerCase().startsWith(q)||u.name.toLowerCase().includes(q)){
+      items.push({u:u.u,name:u.name,sub:"@"+u.u+(onlineNow(u.u)?" · online":""),col:u.color,emoji:u.emoji||u.name[0].toUpperCase()});
+    }
+  });
+  if(!items.length) return hideMentions();
+  mentionItems=items.slice(0,8); mentionSel=0;
+  pop.innerHTML=mentionItems.map((it,i)=>`<div class="mention-item ${i===0?'sel':''}" onmousedown="event.preventDefault()" onclick="pickMention(${i})">
+    <div class="mav" style="background:${it.col}">${it.emoji}</div>
+    <div><b>${esc(it.name)}</b><span>${esc(it.sub)}</span></div></div>`).join("");
+  pop.classList.add("on");
+}
+function hideMentions(){ document.getElementById("mentionPop").classList.remove("on"); mentionItems=[]; }
+function pickMention(i){
+  const it=mentionItems[i]; if(!it) return;
+  hideMentions();
+  const ta=document.getElementById("msgInput");
+  if(it.u==="__bible"){ ta.value=ta.value.replace(/@[\w-]*$/,""); openBible(); return; }
+  const tag = it.u==="__verse" ? "@verse " : "@"+it.u+" ";
+  ta.value = ta.value.replace(/@[\w-]*$/, tag);
+  ta.focus(); ta.setSelectionRange(ta.value.length,ta.value.length);
+  onComposerInput();
+}
+
+/* ---------- Vision modal & Bible picker ---------- */
+function openVision(){
+  const html=FAMILY_VERSES.map(ref=>{
+    const v=lookupVerse(ref); if(!v) return "";
+    const first=v.verses[0][1].slice(0,70)+(v.verses[0][1].length>70?"…":"");
+    return `<div class="bible-row" onclick="shareVerse('${ref}');closeModal('mVision')">
+      <div class="br-ref">${esc(v.ref)}</div><div class="br-snip">${esc(first)}</div></div>`;
+  }).join("");
+  document.getElementById("visionVerses").innerHTML=html;
+  openModal("mVision");
+}
+function openBible(){ document.getElementById("bibleSearch").value=""; renderBibleList(); openModal("mBible"); }
+function renderBibleList(){
+  const q=(document.getElementById("bibleSearch").value||"").trim().toLowerCase();
+  const list=document.getElementById("bibleList");
+  if(q.length>=3){
+    const v=lookupVerse(q);
+    if(v){
+      list.innerHTML=`<div class="bible-sec">Reference match</div>
+        <div class="bible-row" onclick="shareVerse('${q}');closeModal('mBible')">
+          <div class="br-ref">${esc(v.ref)}</div><div class="br-snip">${esc(v.verses[0][1].slice(0,80))}…</div></div>`;
+      return;
+    }
+  }
+  const fam=FAMILY_VERSES.map(refToRow).filter(Boolean).join("");
+  const all=collectReferences();
+  const filtered = q ? all.filter(r=>{ const v=lookupVerse(r); return v && (v.ref.toLowerCase().includes(q)||v.verses.some(x=>x[1].toLowerCase().includes(q))); }) : all;
+  list.innerHTML = `<div class="bible-sec">Family verses</div>${fam}
+    <div class="bible-sec">${q?"Search results":"More verses"}</div>
+    ${filtered.length?filtered.map(refToRow).join(""):"<div style='padding:14px;color:var(--muted);font-size:13px'>No matches — try John 3:16, Romans 8:28, Psalm 23…</div>"}`;
+}
+function refToRow(ref){
+  const v=lookupVerse(ref); if(!v) return "";
+  const snip=v.verses[0][1].slice(0,75)+(v.verses[0][1].length>75?"…":"");
+  return `<div class="bible-row" onclick="shareVerse('${ref}');closeModal('mBible')">
+    <div class="br-ref">${esc(v.ref)}</div><div class="br-snip">${esc(snip)}</div></div>`;
+}
+function collectReferences(){
+  const groups={};
+  Object.keys(BIBLE).forEach(k=>{
+    const m=k.match(/^(.+) (\d+):(\d+)$/);
+    if(m){ const g=m[1]+" "+m[2]; (groups[g]=groups[g]||[]).push(+m[3]); }
+  });
+  const out=[];
+  Object.entries(groups).forEach(([g,vs])=>{
+    vs.sort((a,b)=>a-b);
+    let s=vs[0], p=vs[0];
+    for(let i=1;i<=vs.length;i++){
+      if(i<vs.length && vs[i]===p+1){ p=vs[i]; }
+      else { out.push(s===p?`${g}:${s}`:`${g}:${s}-${p}`); s=p=vs[i]; }
+    }
+  });
+  return out;
+}
+function shareVerse(ref){
+  const v=lookupVerse(ref); if(!v) return toast("I don't have that verse — try another reference");
+  pushMsg({kind:"verse",ref:v.ref});
+}
+function confirmLogout(){
+  if(!confirm("Sign out of ForTe Fam on this device?\n\nYou'll need to enter your username and password again next time.")) return;
+  logout();
+}
 
 function openRoom(id){ ROOM=id; document.body.dataset.screen="chat"; goTab("chats",true); renderPanel(); renderMsgs(true); }
 function backToList(){ document.body.dataset.screen=""; renderPanel(); }
@@ -718,8 +976,18 @@ function chanInfo(){
 
 /* ---------- sending & slash commands ---------- */
 function composerKey(e){
+  const pop=document.getElementById("mentionPop");
+  if(pop.classList.contains("on")&&mentionItems.length){
+    if(e.key==="ArrowDown"||e.key==="ArrowUp"){
+      e.preventDefault();
+      mentionSel=(mentionSel+(e.key==="ArrowDown"?1:-1)+mentionItems.length)%mentionItems.length;
+      [...pop.children].forEach((c,i)=>c.classList.toggle("sel",i===mentionSel));
+      return;
+    }
+    if(e.key==="Enter"||e.key==="Tab"){ e.preventDefault(); pickMention(mentionSel); return; }
+    if(e.key==="Escape"){ hideMentions(); return; }
+  }
   if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); sendMsg(); }
-  const ta=e.target; ta.style.height="auto"; ta.style.height=Math.min(ta.scrollHeight,120)+"px";
 }
 function pushMsg(m){
   m.id="m"+Date.now()+Math.random().toString(36).slice(2,6); m.ts=Date.now(); m.room=ROOM; m.from=ME.u;
@@ -731,8 +999,19 @@ function pushMsg(m){
 function systemNote(text){ const all=msgs(); all.push({id:"s"+Date.now(),room:"hall",from:ME.u,kind:"system",text,ts:Date.now()}); DB.set("msgs",all); }
 function sendMsg(){
   const v=msgInput.value.trim(); if(!v)return;
-  msgInput.value=""; msgInput.style.height="auto";
+  msgInput.value=""; msgInput.style.height="auto"; hideMentions();
   if(v.startsWith("/")) return slash(v);
+  // @bible alone → open the picker
+  if(/^@bible\s*$/i.test(v)){ openBible(); return; }
+  // @verse <ref> (anywhere) → split into optional caption + verse card
+  const vm = v.match(/^(.*?)@verse\s+([^\n]+?)\s*$/i) || v.match(/^@verse\s+([^\n]+?)\s*$/i);
+  if(vm){
+    const caption = vm.length===3 ? vm[1].trim() : "";
+    const ref = vm.length===3 ? vm[2] : vm[1];
+    const looked = lookupVerse(ref);
+    if(looked){ pushMsg({kind:"verse",ref:looked.ref,caption:caption||undefined}); return; }
+    toast("I don't have "+ref+" — try the @bible picker"); // fall through to send as text
+  }
   pushMsg({kind:"text",text:v});
 }
 function slash(v){
@@ -741,6 +1020,7 @@ function slash(v){
   if(TOOLS[c]) return insertTool(c,arg);
   if(c==="call"||c==="video") return startCall(true);
   if(c==="voice") return startCall(false);
+  if(c==="vn"||c==="voicenote") return startVoice();
   if(c==="photo"||c==="pic"||c==="file") return pickFiles(c!=="file");
   if(c==="event"){
     const [t,d]=arg.split("|").map(s=>s&&s.trim());
@@ -748,7 +1028,7 @@ function slash(v){
     return;
   }
   if(c==="help"){
-    pushMsg({kind:"text",text:"🧭 ForTe Fam quick commands:\n/call or /video — start a free family call\n/voice — voice-only call\n/photo /file — share from your phone\n/doc /sheet /slides /form — create a free Google file\n/meet /drive /photos /cal /keep — open shared spaces\n/event Title | 2026-07-20 18:00 — plan something\n＋ button — the full tool tray"});
+    pushMsg({kind:"text",text:"🧭 ForTe Fam quick commands:\n🎤 mic button or /vn — voice note (max 10s)\n/call or /video — start a free family call\n/voice — voice-only call\n/photo /file — share from your phone\n/doc /sheet /slides /form — create a free Google file\n/meet /drive /photos /cal /keep — open shared spaces\n/event Title | 2026-07-20 18:00 — plan something\n＋ button — the full tool tray"});
     return;
   }
   pushMsg({kind:"text",text:v});
@@ -827,6 +1107,197 @@ function viewImg(localId,fileId){
   const v=document.getElementById("imgViewer"), im=document.getElementById("imgViewerImg");
   if(localId){ const m=msgs().find(x=>x.id===localId); if(m&&m.dataUrl){ im.src=m.dataUrl; v.classList.add("on"); return; } }
   if(fileId){ window.open("https://drive.google.com/file/d/"+fileId+"/view","_blank"); }
+}
+
+/* ---------- KJV Bible verses (public domain) ---------- */
+const BIBLE = {
+  // Forteh family verses
+  "proverbs 3:5":"Trust in the LORD with all thine heart; and lean not unto thine own understanding.",
+  "proverbs 3:6":"In all thy ways acknowledge him, and he shall direct thy paths.",
+  "joshua 1:8":"This book of the law shall not depart out of thy mouth; but thou shalt meditate therein day and night, that thou mayest observe to do according to all that is written therein: for then thou shalt make thy way prosperous, and then thou shalt have good success.",
+  "psalms 37:3":"Trust in the LORD, and do good; so shalt thou dwell in the land, and verily thou shalt be fed.",
+  "psalms 37:4":"Delight thyself also in the LORD; and he shall give thee the desires of thine heart.",
+  "psalms 37:5":"Commit thy way unto the LORD; trust also in him; and he shall bring it to pass.",
+  // Colossians 3 — full chapter
+  "colossians 3:1":"If ye then be risen with Christ, seek those things which are above, where Christ sitteth on the right hand of God.",
+  "colossians 3:2":"Set your affection on things above, not on things on the earth.",
+  "colossians 3:3":"For ye are dead, and your life is hid with Christ in God.",
+  "colossians 3:4":"When Christ, who is our life, shall appear, then shall ye also appear with him in glory.",
+  "colossians 3:5":"Mortify therefore your members which are upon the earth; fornication, uncleanness, inordinate affection, evil concupiscence, and covetousness, which is idolatry:",
+  "colossians 3:6":"For which things' sake the wrath of God cometh on the children of disobedience:",
+  "colossians 3:7":"In the which ye also walked some time, when ye lived in them.",
+  "colossians 3:8":"But now ye also put off all these; anger, wrath, malice, blasphemy, filthy communication out of your mouth.",
+  "colossians 3:9":"Lie not one to another, seeing that ye have put off the old man with his deeds;",
+  "colossians 3:10":"And have put on the new man, which is renewed in knowledge after the image of him that created him:",
+  "colossians 3:11":"Where there is neither Greek nor Jew, circumcision nor uncircumcision, Barbarian, Scythian, bond nor free: but Christ is all, and in all.",
+  "colossians 3:12":"Put on therefore, as the elect of God, holy and beloved, bowels of mercies, kindness, humbleness of mind, meekness, longsuffering;",
+  "colossians 3:13":"Forbearing one another, and forgiving one another, if any man have a quarrel against any: even as Christ forgave you, so also do ye.",
+  "colossians 3:14":"And above all these things put on charity, which is the bond of perfectness.",
+  "colossians 3:15":"And let the peace of God rule in your hearts, to the which also ye are called in one body; and be ye thankful.",
+  "colossians 3:16":"Let the word of Christ dwell in you richly in all wisdom; teaching and admonishing one another in psalms and hymns and spiritual songs, singing with grace in your hearts to the Lord.",
+  "colossians 3:17":"And whatsoever ye do in word or deed, do all in the name of the Lord Jesus, giving thanks to God and the Father by him.",
+  "colossians 3:18":"Wives, submit yourselves unto your own husbands, as it is fit in the Lord.",
+  "colossians 3:19":"Husbands, love your wives, and be not bitter against them.",
+  "colossians 3:20":"Children, obey your parents in all things: for this is well pleasing unto the Lord.",
+  "colossians 3:21":"Fathers, provoke not your children to anger, lest they be discouraged.",
+  "colossians 3:22":"Servants, obey in all things your masters according to the flesh; not with eyeservice, as menpleasers; but in singleness of heart, fearing God:",
+  "colossians 3:23":"And whatsoever ye do, do it heartily, as to the Lord, and not unto men;",
+  "colossians 3:24":"Knowing that of the Lord ye shall receive the reward of the inheritance: for ye serve the Lord Christ.",
+  "colossians 3:25":"But he that doeth wrong shall receive for the wrong which he hath done: and there is no respect of persons.",
+  // Beloved verses
+  "john 3:16":"For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.",
+  "romans 8:28":"And we know that all things work together for good to them that love God, to them who are the called according to his purpose.",
+  "philippians 4:13":"I can do all things through Christ which strengtheneth me.",
+  "jeremiah 29:11":"For I know the thoughts that I think toward you, saith the LORD, thoughts of peace, and not of evil, to give you an expected end.",
+  "isaiah 41:10":"Fear thou not; for I am with thee: be not dismayed; for I am thy God: I will strengthen thee; yea, I will help thee; yea, I will uphold thee with the right hand of my righteousness.",
+  "psalms 23:1":"The LORD is my shepherd; I shall not want.",
+  "psalms 23:2":"He maketh me to lie down in green pastures: he leadeth me beside the still waters.",
+  "psalms 23:3":"He restoreth my soul: he leadeth me in the paths of righteousness for his name's sake.",
+  "psalms 23:4":"Yea, though I walk through the valley of the shadow of death, I will fear no evil: for thou art with me; thy rod and thy staff they comfort me.",
+  "psalms 23:5":"Thou preparest a table before me in the presence of mine enemies: thou anointest my head with oil; my cup runneth over.",
+  "psalms 23:6":"Surely goodness and mercy shall follow me all the days of my life: and I will dwell in the house of the LORD for ever.",
+  "matthew 6:33":"But seek ye first the kingdom of God, and his righteousness; and all these things shall be added unto you.",
+  "1 corinthians 13:4":"Charity suffereth long, and is kind; charity envieth not; charity vaunteth not itself, is not puffed up,",
+  "1 corinthians 13:5":"Doth not behave itself unseemly, seeketh not her own, is not easily provoked, thinketh no evil;",
+  "1 corinthians 13:6":"Rejoiceth not in iniquity, but rejoiceth in the truth;",
+  "1 corinthians 13:7":"Beareth all things, believeth all things, hopeth all things, endureth all things.",
+  "galatians 5:22":"But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith,",
+  "galatians 5:23":"Meekness, temperance: against such there is no law.",
+  "ephesians 2:8":"For by grace are ye saved through faith; and that not of yourselves: it is the gift of God:",
+  "ephesians 2:9":"Not of works, lest any man should boast.",
+  "romans 12:2":"And be not conformed to this world: but be ye transformed by the renewing of your mind, that ye may prove what is that good, and acceptable, and perfect, will of God.",
+  "2 timothy 1:7":"For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind.",
+  "james 1:5":"If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him.",
+  "joshua 24:15":"And if it seem evil unto you to serve the LORD, choose you this day whom ye will serve; whether the gods which your fathers served that were on the other side of the flood, or the gods of the Amorites, in whose land ye dwell: but as for me and my house, we will serve the LORD.",
+  "psalms 119:105":"Thy word is a lamp unto my feet, and a light unto my path.",
+  "hebrews 11:1":"Now faith is the substance of things hoped for, the evidence of things not seen."
+};
+const BOOK_ALIAS = {
+  "pr":"proverbs","prov":"proverbs","proverb":"proverbs",
+  "jos":"joshua","josh":"joshua",
+  "ps":"psalms","psa":"psalms","psalm":"psalms","pss":"psalms",
+  "col":"colossians","colos":"colossians",
+  "jn":"john","joh":"john",
+  "mt":"matthew","matt":"matthew",
+  "rom":"romans","ro":"romans",
+  "phil":"philippians","php":"philippians","philip":"philippians",
+  "jer":"jeremiah",
+  "isa":"isaiah","is":"isaiah",
+  "1 cor":"1 corinthians","1cor":"1 corinthians","1corinthians":"1 corinthians","i cor":"1 corinthians","1co":"1 corinthians",
+  "gal":"galatians",
+  "eph":"ephesians","ephe":"ephesians",
+  "2 tim":"2 timothy","2tim":"2 timothy","2timothy":"2 timothy","ii tim":"2 timothy","2ti":"2 timothy",
+  "jas":"james","jam":"james",
+  "heb":"hebrews"
+};
+const FAMILY_VERSES=["proverbs 3:5-6","joshua 1:8","psalms 37:3-5","colossians 3"];
+function parseRef(s){
+  s=String(s||"").trim().toLowerCase().replace(/\s+/g," ");
+  const m=s.match(/^(\d?\s*[a-z]+(?:\s+[a-z]+)?)\s+(\d+)(?::(\d+)(?:\s*-\s*(\d+))?)?$/);
+  if(!m) return null;
+  let book=m[1].replace(/\s+/g," ").trim();
+  book=BOOK_ALIAS[book]||book;
+  return {book,chap:+m[2],v1:m[3]?+m[3]:null,v2:m[4]?+m[4]:(m[3]?+m[3]:null)};
+}
+function lookupVerse(ref){
+  const p=parseRef(ref); if(!p) return null;
+  const verses=[];
+  if(p.v1===null){
+    for(let i=1;i<200;i++){ const t=BIBLE[p.book+" "+p.chap+":"+i]; if(!t) break; verses.push([i,t]); }
+  } else {
+    for(let i=p.v1;i<=p.v2;i++){ const t=BIBLE[p.book+" "+p.chap+":"+i]; if(t) verses.push([i,t]); }
+  }
+  if(!verses.length) return null;
+  const titleCase=p.book.replace(/(^|\s)\w/g,c=>c.toUpperCase());
+  const refStr = verses.length===1 ? `${titleCase} ${p.chap}:${verses[0][0]}`
+                                   : `${titleCase} ${p.chap}:${verses[0][0]}-${verses[verses.length-1][0]}`;
+  return {ref:refStr,book:titleCase,chap:p.chap,verses};
+}
+function verseCard(ref,caption,id){
+  const v=lookupVerse(ref); if(!v) return null;
+  const long=v.verses.length>4;
+  const txt=v.verses.map(([n,t])=>`<sup>${n}</sup>${esc(t)} `).join("");
+  const eid=id||("vc"+Math.random().toString(36).slice(2,7));
+  return `${caption?`<div class="mtext">${esc(caption)}</div>`:""}
+  <div class="versecard ${long?'long':''}" id="${eid}">
+    <div class="vref"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>${esc(v.ref)}</div>
+    <div class="vtext">${txt}</div>
+    ${long?`<span class="vexpand" onclick="document.getElementById('${eid}').classList.toggle('expanded');this.textContent=document.getElementById('${eid}').classList.contains('expanded')?'Show less':'Read all ${v.verses.length} verses'">Read all ${v.verses.length} verses</span>`:""}
+    <div class="vfoot">King James Version</div>
+  </div>`;
+}
+
+/* ---------- voice notes (max 10s) ---------- */
+const VN_MAX_MS=10000;
+let rec=null, recChunks=[], recTimer=null, recStart=0, recCancelled=false, recStream=null;
+function vnMime(){
+  if(window.MediaRecorder){
+    for(const t of ["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/ogg;codecs=opus"])
+      if(MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t)) return t;
+  }
+  return "";
+}
+function toggleVoice(){ rec ? stopVoice() : startVoice(); }
+async function startVoice(){
+  if(rec) return;
+  if(!navigator.mediaDevices || !window.MediaRecorder) return toast("Voice notes aren't supported on this browser");
+  try{ recStream=await navigator.mediaDevices.getUserMedia({audio:true}); }
+  catch(e){ return toast("Microphone blocked — allow mic access for this site in your browser settings"); }
+  const mime=vnMime();
+  try{ rec=new MediaRecorder(recStream, mime?{mimeType:mime}:undefined); }
+  catch(e){ try{ rec=new MediaRecorder(recStream); }catch(e2){ recStream.getTracks().forEach(t=>t.stop()); return toast("Couldn't start recording"); } }
+  recChunks=[]; recCancelled=false; recStart=Date.now();
+  rec.ondataavailable=e=>{ if(e.data&&e.data.size) recChunks.push(e.data); };
+  rec.onstop=finishVoice;
+  rec.start(250);
+  document.getElementById("recbar").classList.add("on");
+  document.getElementById("micBtn").classList.add("recording");
+  document.getElementById("recTime").textContent="0:00";
+  recTimer=setInterval(()=>{
+    const s=Math.min(10,Math.floor((Date.now()-recStart)/1000));
+    document.getElementById("recTime").textContent="0:0"+s;
+    if(Date.now()-recStart>=VN_MAX_MS) stopVoice(); // hard 10s cap
+  },200);
+}
+function stopVoice(){ if(rec&&rec.state!=="inactive") rec.stop(); }
+function cancelVoice(){ recCancelled=true; stopVoice(); }
+function finishVoice(){
+  clearInterval(recTimer);
+  document.getElementById("recbar").classList.remove("on");
+  document.getElementById("micBtn").classList.remove("recording");
+  const dur=Math.min(10,Math.max(1,Math.round((Date.now()-recStart)/1000)));
+  const stream=recStream; recStream=null;
+  const chunks=recChunks; const mime=rec&&rec.mimeType?rec.mimeType:(vnMime()||"audio/webm");
+  rec=null; recChunks=[];
+  if(stream) stream.getTracks().forEach(t=>t.stop());
+  if(recCancelled||!chunks.length) return;
+  const blob=new Blob(chunks,{type:mime});
+  if(blob.size>900*1024) return toast("Voice note too large — try again");
+  const ext=mime.includes("mp4")?"m4a":mime.includes("ogg")?"ogg":"webm";
+  const r=new FileReader();
+  r.onload=()=>sendFileMsg({kind:"voice",name:"voice-note-"+Date.now()+"."+ext,mime,dataUrl:r.result,size:blob.size,dur});
+  r.readAsDataURL(blob);
+}
+let vnPlaying=null;
+function playVoice(id){
+  const m=msgs().find(x=>x.id===id); if(!m)return;
+  const card=document.getElementById("vn-"+id); if(!card)return;
+  if(vnPlaying&&vnPlaying.id===id){ vnPlaying.audio.pause(); return; }
+  if(vnPlaying){ vnPlaying.audio.pause(); }
+  const src=m.dataUrl||(m.fileId?("https://drive.google.com/uc?export=download&id="+m.fileId):"");
+  if(!src) return toast("Voice note still uploading — try again in a few seconds");
+  const audio=new Audio(src);
+  vnPlaying={id,audio};
+  const btn=card.querySelector(".vplay"), bar=card.querySelector(".vtrack i");
+  btn.textContent="❚❚";
+  const tick=setInterval(()=>{
+    if(audio.duration&&isFinite(audio.duration)) bar.style.width=Math.min(100,(audio.currentTime/audio.duration)*100)+"%";
+    else if(m.dur) bar.style.width=Math.min(100,(audio.currentTime/m.dur)*100)+"%";
+  },150);
+  const done=()=>{ clearInterval(tick); btn.textContent="▶"; bar.style.width="0%"; if(vnPlaying&&vnPlaying.id===id)vnPlaying=null; };
+  audio.onended=done; audio.onpause=done;
+  audio.onerror=()=>{ done(); if(m.fileId) window.open("https://drive.google.com/file/d/"+m.fileId+"/view","_blank"); else toast("Couldn't play this voice note"); };
+  audio.play().catch(()=>audio.onerror());
 }
 
 /* ---------- free family calls (Jitsi — in-browser, no account) ---------- */
@@ -921,6 +1392,7 @@ function renderTools(){
 
 /* ---------- settings ---------- */
 function openSettings(){
+  document.getElementById("signedAs").textContent=ME.name+" (@"+ME.u+")";
   setName.value=ME.name; setEmoji.value=ME.emoji; setDark.checked=!!ME.dark; setPass.value="";
   swatches.innerHTML=THEMES.map(t=>`<div class="sw ${ME.theme===t.id?'sel':''}" title="${t.name}" data-id="${t.id}"
     style="background:linear-gradient(135deg,${t.a},${t.s})" onclick="pickTheme('${t.id}',this)"></div>`).join("");
