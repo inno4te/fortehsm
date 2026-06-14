@@ -992,16 +992,25 @@ function esc(s){ return (s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;","
 
 function renderAll(){ renderPanel(); renderMsgs(true); renderEvents(); renderFamily(); renderTools(); }
 
+let lastPanelSig="";
 function renderPanel(){
   const reads=DB.get("reads",{});
   const pinnedChats=ME.pinnedChats||[], muted=ME.muted||[];
-  let html="";
   const list=myRooms().sort((a,b)=>{
     const ap=pinnedChats.includes(a.id), bp=pinnedChats.includes(b.id);
     if(ap!==bp) return ap?-1:1;
     const la=roomMsgs(a.id).slice(-1)[0], lb=roomMsgs(b.id).slice(-1)[0];
     return (lb?lb.ts:b.created)-(la?la.ts:a.created);
   });
+  // Signature: room ids + last-msg ts + unread counts + pinned/muted state + ROOM (active highlight)
+  const sig=ROOM+"|"+list.map(r=>{
+    const last=roomMsgs(r.id).slice(-1)[0];
+    const unread=roomMsgs(r.id).filter(m=>m.ts>(reads[r.id]||0)&&m.from!==ME.u).length;
+    return r.id+":"+(last?last.ts+"."+last.id:0)+":"+unread+":"+(pinnedChats.includes(r.id)?"P":"")+(muted.includes(r.id)?"M":"");
+  }).join("|");
+  if(sig===lastPanelSig) return;
+  lastPanelSig=sig;
+  let html="";
   const saved=list.filter(r=>r.type==="saved");
   const halls=list.filter(r=>r.type==="hall");
   const grs=list.filter(r=>r.type==="group");
@@ -1035,13 +1044,33 @@ function renderPanel(){
 function onlineNow(u){ return Date.now()-((users()[u]||{}).lastSeen||0)<75000; }
 function renderMsgs(scroll){
   const r=rooms().find(x=>x.id===ROOM); if(!r)return;
-  chanName.textContent=roomName(r); chanAvatar.textContent=roomEmoji(r);
-  // Typing indicator
+  cleanupDisappearing(r);   // BEFORE signature so any auto-deletes are reflected in list.length
+  // Typing peers (re-used in both the signature and the indicator)
   const typingPeers=Object.values(users()).filter(u=>u.u!==ME.u && u.typingIn===ROOM && Date.now()-(u.typingTs||0)<6000);
+  const list=roomMsgs(ROOM);
+  // === Early-exit signature: if nothing visible changed, do nothing ===
+  // Covers messages, reactions, readBy, edits, deletes, votes, view-once, pinning, disappear, typing, events RSVP.
+  const last=list[list.length-1];
+  const typingSig=typingPeers.map(p=>p.u).sort().join(",");
+  const msgSig=list.map(m=>
+    m.id+":"+
+    (m.reactions?Object.entries(m.reactions).map(([e,uu])=>e+uu.length).join("|"):"")+":"+
+    (m.readBy?m.readBy.length:0)+":"+
+    (m.edited||0)+":"+
+    (m.deletedFor?(typeof m.deletedFor==="string"?"E":m.deletedFor.length):"")+":"+
+    (m.votes?Object.entries(m.votes).map(([k,uu])=>k+uu.length).join("|"):"")+":"+
+    (m.viewedBy?m.viewedBy.length:0)
+  ).join("\n");
+  const roomSig=(r.pinned||[]).join(",")+"|"+(r.disappearAfter||0);
+  const eventsSig=JSON.stringify(DB.get("events",[]).map(e=>e.rsvp||{}));
+  const sig=ROOM+"|"+list.length+"|"+(last?last.ts:0)+"|"+typingSig+"|"+msgSig+"|"+roomSig+"|"+eventsSig;
+  if(sig===lastRender && !scroll) return;
+  lastRender=sig;
+  // === Header & typing indicator ===
+  chanName.textContent=roomName(r); chanAvatar.textContent=roomEmoji(r);
   const tEl=document.getElementById("typingInd"), tT=document.getElementById("typingText");
   if(typingPeers.length){ tT.textContent = typingPeers.length===1 ? typingPeers[0].name+" is typing…" : typingPeers.slice(0,2).map(p=>p.name).join(", ")+" are typing…"; tEl.classList.add("on"); }
   else tEl.classList.remove("on");
-  // Chat header
   if(r.id===ME.u+"_self"){ chanSub.innerHTML=`Your private notes · only you can see this`; }
   else if(r.members==="all"){
     const all=Object.keys(users()); const on=all.filter(onlineNow).length;
@@ -1053,11 +1082,7 @@ function renderMsgs(scroll){
     const on=r.members.filter(onlineNow).length;
     chanSub.innerHTML=`${r.members.length} members · <b style="color:#2E9E5B">${on} online</b>`;
   }
-  // Apply disappearing-messages cleanup before render
-  cleanupDisappearing(r);
-  // Pinned bar
   renderPinnedBar(r);
-  const list=roomMsgs(ROOM);
   let html="", lastDay="";
   list.forEach(m=>{
     if(messageHidden(m)) return; // deleted for me / not-yet-revealed view-once
@@ -1531,9 +1556,13 @@ function votePoll(msgId,idx){
 /* ============== Stories / Status (24h) ============== */
 const STORY_TTL = 24*60*60*1000;
 function stories(){ return (DB.get("stories",[])||[]).filter(s=>Date.now()-s.ts<STORY_TTL); }
+let lastStoriesSig="";
 function renderStories(){
   const bar=document.getElementById("storiesBar"); if(!bar)return;
   const cur=stories();
+  const sig=cur.map(s=>s.id+":"+(s.views||[]).length).join("|")+"|"+ME.u;
+  if(sig===lastStoriesSig) return;
+  lastStoriesSig=sig;
   // group per user, newest first
   const byUser={}; cur.forEach(s=>{ (byUser[s.by]=byUser[s.by]||[]).push(s); });
   const myAvatar=ME.emoji||ME.name[0].toUpperCase();
@@ -2414,36 +2443,92 @@ function mergeCloud(data){
   if(data.rooms) data.rooms.forEach(r=>{ if(Array.isArray(r.members)) r.members=r.members.map(aliased); });
   if(data.events) data.events.forEach(ev=>{ ev.by=aliased(ev.by);
     if(ev.rsvp){ const nr={}; Object.entries(ev.rsvp).forEach(([k,v])=>nr[aliased(k)]=v); ev.rsvp=nr; } });
-  if(data.users){ const us=users(); Object.values(data.users).forEach(cu=>{ if(!us[cu.u]||cu.u!==ME.u) us[cu.u]=Object.assign(us[cu.u]||{},cu); }); DB.set("users",us); }
-  if(data.rooms){ const rs=rooms(); data.rooms.forEach(cr=>{ if(!rs.find(r=>r.id===cr.id)) rs.push(cr); }); DB.set("rooms",rs); }
-  if(data.msgs){ const all=msgs(); let added=false;
+  let usersChanged=false, roomsChanged=false;
+  if(data.users){
+    const us=users();
+    Object.values(data.users).forEach(cu=>{
+      if(!us[cu.u]||cu.u!==ME.u){
+        const before=JSON.stringify(us[cu.u]||{});
+        us[cu.u]=Object.assign(us[cu.u]||{},cu);
+        if(JSON.stringify(us[cu.u])!==before) usersChanged=true;
+      }
+    });
+    if(usersChanged) DB.set("users",us);
+  }
+  if(data.rooms){ const rs=rooms(); data.rooms.forEach(cr=>{ if(!rs.find(r=>r.id===cr.id)){ rs.push(cr); roomsChanged=true; } }); if(roomsChanged) DB.set("rooms",rs); }
+  let msgsChanged=false;
+  if(data.msgs){ const all=msgs();
     data.msgs.forEach(cm=>{ const ex=all.find(m=>m.id===cm.id);
-      if(!ex){ all.push(cm); added=true; }
-      else {
-        // smart merge: union readBy/reactions/viewedBy, take latest edited/deleted state
-        if(cm.fileId&&!ex.fileId){ ex.fileId=cm.fileId; added=true; }
-        if(cm.reactions){ ex.reactions=ex.reactions||{}; Object.entries(cm.reactions).forEach(([e,arr])=>{ ex.reactions[e]=[...new Set([...(ex.reactions[e]||[]),...arr])]; }); added=true; }
-        if(cm.readBy){ ex.readBy=[...new Set([...(ex.readBy||[]),...cm.readBy])]; added=true; }
-        if(cm.viewedBy){ ex.viewedBy=[...new Set([...(ex.viewedBy||[]),...cm.viewedBy])]; added=true; }
-        if(cm.votes){ ex.votes=Object.assign(ex.votes||{},cm.votes); added=true; }
-        if(cm.deletedFor){ ex.deletedFor=cm.deletedFor; added=true; }
-        if(cm.edited && (!ex.edited||cm.edited>ex.edited)){ ex.text=cm.text; ex.edited=cm.edited; added=true; }
-      } });
-    if(added){ all.sort((a,b)=>a.ts-b.ts); DB.set("msgs",all); renderPanel(); lastRender=""; renderMsgs(false); } }
+      if(!ex){ all.push(cm); msgsChanged=true; return; }
+      // smart merge — only mark changed when values ACTUALLY changed
+      if(cm.fileId && !ex.fileId){ ex.fileId=cm.fileId; msgsChanged=true; }
+      if(cm.reactions){ ex.reactions=ex.reactions||{};
+        Object.entries(cm.reactions).forEach(([e,arr])=>{
+          const before=(ex.reactions[e]||[]).length;
+          ex.reactions[e]=[...new Set([...(ex.reactions[e]||[]),...arr])];
+          if(ex.reactions[e].length!==before) msgsChanged=true;
+          if(!ex.reactions[e].length) delete ex.reactions[e];
+        });
+      }
+      if(cm.readBy){ const before=(ex.readBy||[]).length;
+        ex.readBy=[...new Set([...(ex.readBy||[]),...cm.readBy])];
+        if(ex.readBy.length!==before) msgsChanged=true;
+      }
+      if(cm.viewedBy){ const before=(ex.viewedBy||[]).length;
+        ex.viewedBy=[...new Set([...(ex.viewedBy||[]),...cm.viewedBy])];
+        if(ex.viewedBy.length!==before) msgsChanged=true;
+      }
+      if(cm.votes){ const before=JSON.stringify(ex.votes||{});
+        ex.votes=Object.assign(ex.votes||{},cm.votes);
+        if(JSON.stringify(ex.votes)!==before) msgsChanged=true;
+      }
+      if(cm.deletedFor && JSON.stringify(cm.deletedFor)!==JSON.stringify(ex.deletedFor)){ ex.deletedFor=cm.deletedFor; msgsChanged=true; }
+      if(cm.edited && (!ex.edited||cm.edited>ex.edited)){ ex.text=cm.text; ex.edited=cm.edited; msgsChanged=true; }
+    });
+    if(msgsChanged){ all.sort((a,b)=>a.ts-b.ts); DB.set("msgs",all); }
+  }
+  let storiesChanged=false;
   if(data.stories){
     const local=DB.get("stories",[]);
     data.stories.forEach(s=>{ const ex=local.find(x=>x.id===s.id);
-      if(!ex) local.push(s);
-      else if(s.views){ ex.views=[...new Set([...(ex.views||[]),...s.views])]; }
+      if(!ex){ local.push(s); storiesChanged=true; }
+      else if(s.views){ const before=(ex.views||[]).length;
+        ex.views=[...new Set([...(ex.views||[]),...s.views])];
+        if(ex.views.length!==before) storiesChanged=true; }
     });
-    DB.set("stories",local); renderStories();
+    if(storiesChanged) DB.set("stories",local);
   }
+  let eventsChanged=false;
   if(data.events){ const evs=DB.get("events",[]);
-    data.events.forEach(ce=>{ const ex=evs.find(e=>e.id===ce.id); if(ex){ ex.rsvp=Object.assign(ex.rsvp||{},ce.rsvp||{}); } else evs.push(ce); });
-    DB.set("events",evs); }
-  // refresh presence-dependent UI (online counts, dots) on every pull
-  renderMsgs(false);
-  if(document.body.dataset.tab==="family") renderFamily();
+    data.events.forEach(ce=>{ const ex=evs.find(e=>e.id===ce.id);
+      if(ex){ const before=JSON.stringify(ex.rsvp||{}); ex.rsvp=Object.assign(ex.rsvp||{},ce.rsvp||{}); if(JSON.stringify(ex.rsvp)!==before) eventsChanged=true; }
+      else { evs.push(ce); eventsChanged=true; }
+    });
+    if(eventsChanged) DB.set("events",evs);
+  }
+  // Only invoke the heavy renderers when something actually changed
+  if(msgsChanged||eventsChanged) { lastRender=""; renderMsgs(false); }
+  if(msgsChanged||roomsChanged||usersChanged) renderPanel();
+  if(storiesChanged) renderStories();
+  if(usersChanged) refreshChatPresence();   // cheap header + typing-indicator update only, no chat rebuild
+  if(document.body.dataset.tab==="family" && usersChanged) renderFamily();
+}
+/* Lightweight: only updates the chat-header subtitle + typing indicator — no #msgs rewrite */
+function refreshChatPresence(){
+  if(!ME) return;
+  const r=rooms().find(x=>x.id===ROOM); if(!r) return;
+  if(r.id===ME.u+"_self") chanSub.innerHTML=`Your private notes · only you can see this`;
+  else if(r.members==="all"){ const all=Object.keys(users()); const on=all.filter(onlineNow).length;
+    chanSub.innerHTML=`${all.length} family members · <b style="color:#2E9E5B">${on} online</b>`;
+  } else if(r.type==="dm"){ const other=r.members.find(m=>m!==ME.u)||ME.u;
+    chanSub.innerHTML=onlineNow(other)?`<b style="color:#2E9E5B">● online now</b>`:`offline · they'll see it when they open ForTe Fam`;
+  } else { const on=r.members.filter(onlineNow).length;
+    chanSub.innerHTML=`${r.members.length} members · <b style="color:#2E9E5B">${on} online</b>`;
+  }
+  const typingPeers=Object.values(users()).filter(u=>u.u!==ME.u && u.typingIn===ROOM && Date.now()-(u.typingTs||0)<6000);
+  const tEl=document.getElementById("typingInd"), tT=document.getElementById("typingText");
+  if(typingPeers.length){ tT.textContent=typingPeers.length===1?typingPeers[0].name+" is typing…":typingPeers.slice(0,2).map(p=>p.name).join(", ")+" are typing…"; tEl.classList.add("on"); }
+  else tEl.classList.remove("on");
 }
 
 /* ---------- boot ---------- */
