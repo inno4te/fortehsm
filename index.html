@@ -320,6 +320,222 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 
 /* Deleted message */
 .deleted-msg{font-style:italic;color:var(--muted);font-size:13px}
+
+/* ============================ GOALS TAB ============================ */
+.goals-view{padding:20px 22px 110px;max-width:880px}
+.goals-head{margin-bottom:18px}
+.goals-view h2{font-size:24px;font-weight:800;margin:0 0 4px}
+.encourage-card{background:linear-gradient(135deg,#0B4D2A 0%,#177A45 70%,#F2772B 130%);color:#fff;border-radius:18px;padding:18px 20px;margin-bottom:22px;box-shadow:0 6px 24px rgba(11,77,42,.22);position:relative;overflow:hidden}
+.encourage-card::before{content:"";position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%}
+.encourage-card .ec-i{font-size:22px;display:inline-block;background:rgba(255,255,255,.2);padding:7px 10px;border-radius:11px}
+.encourage-card .ec-eyebrow{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-top:8px}
+.encourage-card .ec-prompt{font-size:18px;font-weight:700;line-height:1.4;margin:6px 0 14px;position:relative;z-index:1}
+.encourage-card .ec-actions{display:flex;gap:8px;position:relative;z-index:1}
+.encourage-card .ec-actions button{flex:1;padding:10px;border-radius:11px;background:rgba(255,255,255,.18);color:#fff;font-weight:800;font-size:13px;transition:.15s;border:1.5px solid rgba(255,255,255,.25)}
+.encourage-card .ec-actions button:hover{background:rgba(255,255,255,.28);transform:translateY(-1px)}
+.encourage-card .ec-actions .yes{background:#fff;color:var(--green);border-color:#fff}
+.encourage-card .ec-actions .yes:hover{background:#F2F8F4}
+.encourage-card .ec-skip{margin-top:8px;font-size:11.5px;opacity:.75;text-align:center;cursor:pointer}
+.encourage-card .ec-skip:hover{opacity:1}
+
+.g-section{margin-bottom:24px}
+.g-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.g-section .sec-label{margin:0;font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;font-weight:800;color:var(--accent)}
+.g-section .mini-btn{padding:5px 10px;font-size:12px}
+.g-list{display:flex;flex-direction:column;gap:6px}
+.g-empty{padding:18px;text-align:center;color:var(--muted);font-size:13px;background:var(--card);border:1.5px dashed var(--line);border-radius:12px}
+
+/* Priority row */
+.prio-row,.goal-row{display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--card);border:1.5px solid var(--line);border-radius:12px;transition:.12s}
+.prio-row:hover,.goal-row:hover{border-color:var(--accent)}
+.prio-row.done,.goal-row.done{opacity:.55}
+.prio-row.done .pr-text,.goal-row.done .gr-text{text-decoration:line-through;text-decoration-color:var(--accent)}
+.pr-check,.gr-check{width:22px;height:22px;border:2px solid var(--accent);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;color:transparent;transition:.15s;flex-shrink:0}
+.prio-row.done .pr-check,.goal-row.done .gr-check{background:var(--accent);color:#fff}
+.pr-text,.gr-text{flex:1;font-size:14px;line-height:1.35;min-width:0}
+.pr-share,.gr-share{font-size:10.5px;color:var(--muted);padding:2px 7px;background:var(--accent-tint);border-radius:8px;font-weight:700;white-space:nowrap}
+.pr-share.priv,.gr-share.priv{background:#F0F0F0;color:#666}
+.pr-menu,.gr-menu{font-size:18px;color:var(--muted);cursor:pointer;padding:2px 6px;line-height:1}
+.pr-menu:hover,.gr-menu:hover{color:var(--accent)}
+
+/* Category cards */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:9px;margin-bottom:12px}
+.cat-card{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:12px;cursor:pointer;transition:.15s;text-align:left}
+.cat-card.active{border-color:var(--accent);background:var(--accent-tint)}
+.cat-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.cat-card .cci{font-size:24px;line-height:1}
+.cat-card .ccn{font-size:13px;font-weight:800;margin-top:6px}
+.cat-card .ccc{font-size:11px;color:var(--muted);margin-top:1px}
+.cat-card .ccbar{margin-top:7px;height:5px;background:var(--line);border-radius:3px;overflow:hidden}
+.cat-card .ccbar i{display:block;height:100%;background:linear-gradient(to right,var(--green),var(--green-mid));border-radius:3px;transition:width .35s}
+.gc-title{font-size:13px;font-weight:800;color:var(--accent);margin:10px 0 6px;padding-left:2px}
+
+/* Habit row */
+.habit-row{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card);border:1.5px solid var(--line);border-radius:14px;transition:.15s}
+.habit-row.done{background:var(--accent-tint);border-color:var(--accent)}
+.habit-row.stop{border-color:#FFD4D4}
+.habit-row.stop.done{background:#FDECEC;border-color:#E05B5B}
+.habit-row .he{font-size:24px;flex-shrink:0}
+.habit-row .hi{flex:1;min-width:0}
+.habit-row .hn{font-size:14.5px;font-weight:700}
+.habit-row .hs{font-size:11px;color:var(--muted);margin-top:1px}
+.habit-row .hmeta{display:flex;align-items:center;gap:8px;margin-top:3px}
+.habit-row .hstreak{font-size:11.5px;color:var(--orange);font-weight:800}
+.habit-row .hstreak.cold{color:var(--muted)}
+.habit-row .hshare{font-size:10.5px;color:var(--accent);background:var(--accent-tint);padding:2px 7px;border-radius:8px;font-weight:700}
+.habit-row .hshare.priv{background:#F0F0F0;color:#666}
+.habit-row .hcheck{width:38px;height:38px;border:2.5px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;color:transparent;transition:.15s;flex-shrink:0;font-weight:900}
+.habit-row.done .hcheck{background:var(--accent);color:#fff}
+.habit-row.stop .hcheck{border-color:#E05B5B}
+.habit-row.stop.done .hcheck{background:#E05B5B}
+.habit-row .hmenu{font-size:18px;color:var(--muted);cursor:pointer;padding:2px 4px;align-self:flex-start}
+.habit-row .hmenu:hover{color:var(--accent)}
+
+/* Family accountability cards */
+.fam-acc-card{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px}
+.fam-acc-card .fah{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.fam-acc-card .fah .av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;font-weight:700;flex-shrink:0}
+.fam-acc-card .fan{flex:1;font-weight:800;font-size:14px}
+.fam-acc-card .faStat{font-size:11.5px;color:var(--muted)}
+.fam-acc-card .faItems{display:flex;flex-direction:column;gap:5px;margin-bottom:10px}
+.fam-acc-card .faItem{font-size:13px;display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--paper);border-radius:9px}
+.fam-acc-card .faItem .fi-cat{font-size:14px}
+.fam-acc-card .faItem .fi-txt{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fam-acc-card .faItem.done{opacity:.55}.fam-acc-card .faItem.done .fi-txt{text-decoration:line-through}
+.fam-acc-card .fab{display:flex;gap:6px;flex-wrap:wrap}
+.fam-acc-card .fab button{padding:7px 10px;border-radius:9px;background:var(--accent-tint);color:var(--accent);font-weight:800;font-size:13px;border:1.5px solid var(--accent-tint);transition:.12s}
+.fam-acc-card .fab button:hover{border-color:var(--accent);transform:translateY(-1px)}
+
+/* Share-picker chips */
+.share-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.share-chips label{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;background:var(--paper);border:1.5px solid var(--line);border-radius:99px;cursor:pointer;font-size:13px;font-weight:600;transition:.12s}
+.share-chips label:hover{border-color:var(--accent)}
+.share-chips input{display:none}
+.share-chips input:checked + span{color:var(--accent);font-weight:800}
+.share-chips label:has(input:checked){background:var(--accent-tint);border-color:var(--accent)}
+
+/* Encouragement note prompt */
+.note-prompt{position:fixed;left:50%;bottom:120px;transform:translateX(-50%);background:var(--card);border:2px solid var(--accent);border-radius:14px;padding:14px;box-shadow:var(--shadow);z-index:60;display:none;width:min(420px,90vw)}
+.note-prompt.on{display:block}
+.note-prompt h4{font-size:14px;font-weight:800;margin-bottom:8px}
+.note-prompt textarea{width:100%;border:1.5px solid var(--line);border-radius:9px;padding:8px;resize:none;font-size:14px;min-height:60px}
+.note-prompt .npa{display:flex;gap:6px;margin-top:8px}
+.note-prompt .npa button{flex:1;padding:8px;border-radius:9px;font-weight:800;font-size:13px}
+
+@media (max-width:700px){
+  .goals-view{padding:14px 14px 110px}
+  .cat-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ============================ WEEKLY MINI-SCORECARD ============================ */
+.weekly-mini{background:var(--card);border:1.5px solid var(--line);border-left:5px solid var(--orange);border-radius:14px;padding:14px 16px;margin-bottom:22px;cursor:pointer;transition:.15s}
+.weekly-mini:hover{border-color:var(--accent);border-left-color:var(--orange);transform:translateY(-1px);box-shadow:0 4px 14px rgba(11,77,42,.08)}
+.weekly-mini .wm-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.weekly-mini .wm-title{font-weight:800;font-size:14px;color:var(--accent)}
+.weekly-mini .wm-pct{font-weight:900;font-size:22px;background:linear-gradient(to right,var(--green),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
+.weekly-mini .wm-bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:8px}
+.weekly-mini .wm-bar i{display:block;height:100%;background:linear-gradient(to right,var(--green),var(--orange));border-radius:4px;width:0%;transition:width .35s}
+.weekly-mini .wm-stats{font-size:12.5px;color:var(--muted);line-height:1.45}
+.weekly-mini .wm-cta{font-size:11px;font-weight:700;color:var(--accent);margin-top:6px;text-align:right}
+
+/* ============================ FULL SCORECARD ============================ */
+.modal-wide{max-width:680px}
+.scorecard{padding:6px 0}
+.sc-header{text-align:center;margin-bottom:18px;padding-bottom:14px;border-bottom:2px solid var(--accent-tint)}
+.sc-header .sc-name{font-size:20px;font-weight:800;color:var(--accent)}
+.sc-header .sc-week{font-size:12px;color:var(--muted);margin-top:2px}
+.sc-hero{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#F4F8F5,#FFFBF6);border:1.5px solid var(--accent-tint);border-radius:14px;padding:16px 18px;margin-bottom:18px}
+.sc-hero .sc-pct-big{font-size:42px;font-weight:900;background:linear-gradient(to right,var(--green),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.sc-hero .sc-tier{font-size:14px;font-weight:800;color:var(--accent)}
+.sc-hero .sc-msg{font-size:13px;color:#444;margin-top:3px;line-height:1.45}
+.sc-section{margin-bottom:16px}
+.sc-section h4{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.sc-row{display:flex;align-items:center;gap:10px;font-size:13.5px;padding:6px 0;border-bottom:1px solid var(--line)}
+.sc-row:last-child{border-bottom:none}
+.sc-row .sc-r-i{font-size:18px;width:24px;text-align:center}
+.sc-row .sc-r-l{flex:1;min-width:0}
+.sc-row .sc-r-v{font-weight:800;color:var(--accent);min-width:60px;text-align:right}
+.sc-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-right:8px}
+.sc-bar i{display:block;height:100%;background:linear-gradient(to right,var(--green),var(--green-mid));border-radius:3px}
+.sc-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.sc-actions button{flex:1;min-width:120px}
+
+/* ============================ FUN TAB ============================ */
+.fun-view{padding:20px 22px 110px;max-width:880px}
+.fun-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:14px 0}
+.fun-card{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:16px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:6px;text-align:left}
+.fun-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,77,42,.1)}
+.fun-card .fc-e{font-size:32px;line-height:1}
+.fun-card .fc-t{font-size:15px;font-weight:800;margin-top:4px}
+.fun-card .fc-d{font-size:12.5px;color:var(--muted);line-height:1.4;min-height:34px}
+.fun-card .fc-last{font-size:11px;color:var(--accent);font-weight:700;background:var(--accent-tint);padding:4px 8px;border-radius:8px;display:inline-block;align-self:flex-start;margin-top:4px}
+.fun-card .fc-last.never{background:var(--paper);color:var(--muted)}
+.fun-card .fc-cta{font-size:12px;font-weight:800;color:var(--orange);margin-top:6px;text-align:right}
+
+/* ============================ DIAGNOSTIC TAKING ============================ */
+.diag-screen{position:fixed;inset:0;background:var(--paper);z-index:80;display:none;flex-direction:column}
+.diag-screen.on{display:flex}
+.diag-inner{flex:1;display:flex;flex-direction:column;max-width:640px;width:100%;margin:0 auto;padding:18px 18px 100px;overflow-y:auto}
+.diag-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.diag-close{font-size:24px;background:transparent;border:none;color:var(--muted);cursor:pointer;padding:4px 10px}
+.diag-close:hover{color:var(--accent)}
+.diag-title{font-size:16px;font-weight:800;flex:1;text-align:center}
+.diag-progress{height:5px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.diag-progress i{display:block;height:100%;background:linear-gradient(to right,var(--green),var(--orange));border-radius:3px;transition:width .25s}
+.diag-step{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:18px;text-align:center}
+.diag-body{flex:1}
+.diag-q{font-size:18px;font-weight:700;line-height:1.4;margin-bottom:20px;color:#1a1a1a}
+.diag-opt{display:block;width:100%;text-align:left;padding:14px 16px;border:1.5px solid var(--line);background:var(--card);border-radius:12px;margin-bottom:9px;font-size:14.5px;cursor:pointer;transition:.15s;line-height:1.4}
+.diag-opt:hover{border-color:var(--accent);background:var(--accent-tint);transform:translateX(2px)}
+.diag-opt.picked{border-color:var(--accent);background:linear-gradient(to right,var(--accent-tint),#FFFBF6);font-weight:700}
+.diag-opt.picked::before{content:"✓ ";color:var(--accent);font-weight:900}
+.diag-nav{display:flex;gap:8px;justify-content:space-between;margin-top:20px}
+.diag-nav button{flex:1;max-width:200px}
+
+/* Diagnostic result card */
+.dr-hero{text-align:center;padding:20px;background:linear-gradient(135deg,#0B4D2A 0%,#177A45 70%,#F2772B 130%);color:#fff;border-radius:16px;margin-bottom:16px;position:relative;overflow:hidden}
+.dr-hero::before{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:rgba(255,255,255,.08);border-radius:50%}
+.dr-emoji{font-size:48px;line-height:1;margin-bottom:6px}
+.dr-pct{font-size:48px;font-weight:900;line-height:1;margin:4px 0}
+.dr-tier{font-size:16px;font-weight:800;letter-spacing:.02em}
+.dr-name{font-size:12.5px;opacity:.85;margin-top:4px}
+.dr-msg{font-size:14.5px;line-height:1.55;padding:14px 16px;background:var(--card);border:1.5px solid var(--accent-tint);border-radius:12px;margin-bottom:14px;color:#333}
+.dr-grow{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px}
+.dr-grow h4{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.dr-grow ul{list-style:none;padding:0;margin:0}
+.dr-grow li{padding:7px 0;border-bottom:1px solid var(--line);font-size:13.5px;line-height:1.4;display:flex;gap:8px}
+.dr-grow li:last-child{border-bottom:none}
+.dr-grow li::before{content:"→";color:var(--orange);font-weight:900;flex-shrink:0}
+
+/* Message types: scorecard, diagResult */
+.msg-card{background:linear-gradient(135deg,#F4F8F5,#FFFBF6);border:1.5px solid var(--accent-tint);border-radius:12px;padding:12px 14px;margin-top:6px;cursor:pointer;transition:.15s}
+.msg-card:hover{border-color:var(--accent)}
+.msg-card .mc-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.msg-card .mc-t{font-weight:800;font-size:13.5px;color:var(--accent)}
+.msg-card .mc-pct{font-weight:900;font-size:18px;background:linear-gradient(to right,var(--green),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
+.msg-card .mc-tier{font-size:11.5px;color:var(--muted);font-weight:700}
+.msg-card .mc-bar{height:4px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
+.msg-card .mc-bar i{display:block;height:100%;background:linear-gradient(to right,var(--green),var(--orange));border-radius:3px}
+
+/* ============================ PRINT STYLES (Save as PDF) ============================ */
+@media print {
+  body * { visibility: hidden; }
+  .modal-wrap.on, .modal-wrap.on * { visibility: visible; }
+  .modal-wrap.on { position: fixed; inset: 0; background: #fff; display: block !important; padding: 0; }
+  .modal-wrap.on .modal { box-shadow: none; max-width: 100%; width: 100%; border-radius: 0; padding: 24px 32px; position: static; transform: none; }
+  .modal-wrap.on .modal .x, .no-print { display: none !important; }
+  .sc-hero, .dr-hero { background: #F4F8F5 !important; color: #0B4D2A !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .dr-hero { color: #fff !important; background: linear-gradient(135deg,#0B4D2A,#F2772B) !important; }
+  .sc-pct-big, .wm-pct, .mc-pct { -webkit-background-clip: text !important; background-clip: text !important; color: transparent !important; }
+  @page { margin: 14mm; }
+}
+
+@media (max-width:700px){
+  .fun-view{padding:14px 14px 110px}
+  .fun-grid{grid-template-columns:1fr}
+  .diag-inner{padding:14px 14px 100px}
+  .sc-actions button{min-width:0}
+}
 /* voice notes */
 .recbar{display:none;align-items:center;gap:12px;background:var(--card);border:1.5px solid #E05B5B;border-radius:14px;padding:10px 14px;margin-bottom:8px}
 .recbar.on{display:flex}
@@ -517,6 +733,8 @@ body[data-tab="chats"] #mainChat{display:flex}
     <div class="brandmark">FF</div>
     <button class="rail-btn active" data-tab="chats" onclick="goTab('chats')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.5-.7L3 21l1.8-4.3A8.4 8.4 0 1 1 21 11.5z"/></svg>Chats<span class="badge" id="chatBadge" style="display:none">0</span></button>
     <button class="rail-btn" data-tab="events" onclick="goTab('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>Events</button>
+    <button class="rail-btn" data-tab="goals" onclick="goTab('goals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Goals</button>
+    <button class="rail-btn" data-tab="fun" onclick="goTab('fun')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11a3 3 0 1 0 6 0 3 3 0 0 0-6 0"/><path d="M3 12c3-6 15-6 18 0-3 6-15 6-18 0"/></svg>Fun</button>
     <button class="rail-btn" data-tab="family" onclick="goTab('family')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Family</button>
     <button class="rail-btn" data-tab="tools" onclick="goTab('tools')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Tools</button>
     <div class="rail-spacer"></div>
@@ -632,6 +850,62 @@ body[data-tab="chats"] #mainChat{display:flex}
       <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
       <div class="vline"><i>Verses</i> Proverbs 3:5-6 · Joshua 1:8 · Psalms 37:3-5 · Colossians 3 — tap to read</div></div>
   </div>
+  <div class="main view goals-view" id="viewGoals">
+    <div class="goals-head">
+      <h2>Growth & accountability</h2>
+      <div class="vsub">Daily habits · weekly goals · family encouragement. Walk it out together.</div>
+    </div>
+    <!-- Rotating encouragement banner -->
+    <div class="encourage-card" id="encourageCard"></div>
+    <!-- Weekly mini-scorecard -->
+    <div class="weekly-mini" id="weeklyMini" onclick="openScorecard()">
+      <div class="wm-head">
+        <div class="wm-title">📊 This week's growth</div>
+        <div class="wm-pct" id="wmPct">—%</div>
+      </div>
+      <div class="wm-bar"><i id="wmBar"></i></div>
+      <div class="wm-stats" id="wmStats">Set a goal or habit to start tracking your week.</div>
+      <div class="wm-cta">Tap for full weekly scorecard →</div>
+    </div>
+    <!-- This week's priorities -->
+    <div class="g-section">
+      <div class="g-section-head"><div class="sec-label">📌 This week's top priorities</div><button class="mini-btn" onclick="openNewPriority()">＋ Add</button></div>
+      <div id="prioritiesList" class="g-list"></div>
+    </div>
+    <!-- Weekly goals — category overview cards -->
+    <div class="g-section">
+      <div class="g-section-head"><div class="sec-label">🎯 Weekly goals by area of life</div><button class="mini-btn" onclick="openNewGoal()">＋ Add goal</button></div>
+      <div class="cat-grid" id="catGrid"></div>
+      <div id="goalsByCat"></div>
+    </div>
+    <!-- Daily habits (5 slots) -->
+    <div class="g-section">
+      <div class="g-section-head"><div class="sec-label">🔥 Daily habits — pick up to 5</div><button class="mini-btn" onclick="openNewHabit()">＋ Add habit</button></div>
+      <div id="habitsList" class="g-list"></div>
+    </div>
+    <!-- Family accountability -->
+    <div class="g-section">
+      <div class="g-section-head"><div class="sec-label">🤝 Family accountability</div></div>
+      <div id="famAccList" class="g-list"></div>
+    </div>
+    <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
+      <b>The Forteh Family Vision</b>
+      <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
+      <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
+    </div>
+  </div>
+  <div class="main view fun-view" id="viewFun">
+    <div class="goals-head">
+      <h2>Fun & growth</h2>
+      <div class="vsub">Quick honest diagnostics — discover where you're strong, where to grow. Be honest. There are no wrong answers.</div>
+    </div>
+    <div class="fun-grid" id="funGrid"></div>
+    <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
+      <b>The Forteh Family Vision</b>
+      <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
+      <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
+    </div>
+  </div>
   <div class="main view" id="viewFamily">
     <h2>The family</h2><div class="vsub">Everyone in ForTe Fam, wherever they are in the world.</div>
     <div class="grid" id="familyGrid"></div>
@@ -655,6 +929,8 @@ body[data-tab="chats"] #mainChat{display:flex}
 <div class="mob-nav">
   <button class="active" data-tab="chats" onclick="goTab('chats')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.5-.7L3 21l1.8-4.3A8.4 8.4 0 1 1 21 11.5z"/></svg>Chats</button>
   <button data-tab="events" onclick="goTab('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>Events</button>
+  <button data-tab="goals" onclick="goTab('goals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Goals</button>
+  <button data-tab="fun" onclick="goTab('fun')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11a3 3 0 1 0 6 0 3 3 0 0 0-6 0"/><path d="M3 12c3-6 15-6 18 0-3 6-15 6-18 0"/></svg>Fun</button>
   <button data-tab="family" onclick="goTab('family')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Family</button>
   <button data-tab="tools" onclick="goTab('tools')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Tools</button>
   <button onclick="openSettings()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3h.1a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5h.1a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8v.1a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>Me</button>
@@ -815,6 +1091,117 @@ body[data-tab="chats"] #mainChat{display:flex}
   <div class="sv-nav left" onclick="storyNav(-1)"></div>
   <div class="sv-nav right" onclick="storyNav(1)"></div>
 </div>
+
+<div class="modal-wrap" id="mNewGoal"><div class="modal">
+  <button class="x" onclick="closeModal('mNewGoal')">✕</button>
+  <h3 id="ngTitle">New weekly goal</h3>
+  <div class="field"><label>Category</label>
+    <select id="ngCat"></select>
+  </div>
+  <div class="field"><label>What's the goal this week?</label>
+    <textarea id="ngText" rows="2" placeholder="e.g. Read through Psalms · Save 5,000 XAF · Call grandma twice"></textarea>
+  </div>
+  <div class="field"><label>Share with</label>
+    <div class="share-chips">
+      <label><input type="radio" name="ngShare" value="private" checked><span>🔒 Private</span></label>
+      <label><input type="radio" name="ngShare" value="inno"><span>👨 Dad (inno)</span></label>
+      <label><input type="radio" name="ngShare" value="lin"><span>👩 Mum (lin)</span></label>
+      <label><input type="radio" name="ngShare" value="family"><span>👨‍👩‍👧 Whole family</span></label>
+    </div>
+  </div>
+  <button class="btn btn-grad" onclick="saveGoal()">Save goal</button>
+</div></div>
+
+<div class="modal-wrap" id="mNewHabit"><div class="modal">
+  <button class="x" onclick="closeModal('mNewHabit')">✕</button>
+  <h3 id="nhTitle">New daily habit</h3>
+  <div class="field"><label>What's the habit?</label>
+    <input id="nhText" placeholder="e.g. Pray morning and evening">
+  </div>
+  <div class="field"><label>Pick an emoji</label>
+    <div class="share-chips" id="nhEmojis"></div>
+  </div>
+  <div class="field"><label>Type</label>
+    <div class="share-chips">
+      <label><input type="radio" name="nhType" value="build" checked><span>🌱 Build (do daily)</span></label>
+      <label><input type="radio" name="nhType" value="stop"><span>🚫 Stop (avoid daily)</span></label>
+    </div>
+  </div>
+  <div class="field"><label>Share with</label>
+    <div class="share-chips">
+      <label><input type="radio" name="nhShare" value="private" checked><span>🔒 Private</span></label>
+      <label><input type="radio" name="nhShare" value="inno"><span>👨 Dad (inno)</span></label>
+      <label><input type="radio" name="nhShare" value="lin"><span>👩 Mum (lin)</span></label>
+      <label><input type="radio" name="nhShare" value="family"><span>👨‍👩‍👧 Whole family</span></label>
+    </div>
+  </div>
+  <button class="btn btn-grad" onclick="saveHabit()">Save habit</button>
+</div></div>
+
+<div class="modal-wrap" id="mNewPrio"><div class="modal">
+  <button class="x" onclick="closeModal('mNewPrio')">✕</button>
+  <h3 id="npTitle">New weekly priority</h3>
+  <div class="field"><label>What's the priority this week?</label>
+    <input id="npText" placeholder="The thing that must get done">
+  </div>
+  <div class="field"><label>Share with</label>
+    <div class="share-chips">
+      <label><input type="radio" name="npShare" value="private" checked><span>🔒 Private</span></label>
+      <label><input type="radio" name="npShare" value="inno"><span>👨 Dad (inno)</span></label>
+      <label><input type="radio" name="npShare" value="lin"><span>👩 Mum (lin)</span></label>
+      <label><input type="radio" name="npShare" value="family"><span>👨‍👩‍👧 Whole family</span></label>
+    </div>
+  </div>
+  <button class="btn btn-grad" onclick="savePriority()">Save priority</button>
+</div></div>
+
+<div class="note-prompt" id="notePrompt">
+  <h4 id="npHead">Send a note to <span id="npTo">…</span></h4>
+  <textarea id="npBody" placeholder="A few words of encouragement…"></textarea>
+  <div class="npa">
+    <button class="btn btn-ghost" onclick="closeNotePrompt()">Cancel</button>
+    <button class="btn btn-grad" onclick="sendNote()">Send</button>
+  </div>
+</div>
+
+<!-- Weekly Scorecard modal -->
+<div class="modal-wrap" id="mScorecard"><div class="modal modal-wide">
+  <button class="x" onclick="closeModal('mScorecard')">✕</button>
+  <div id="scorecardBody"></div>
+  <div class="sc-actions no-print">
+    <button class="btn btn-grad" onclick="shareScorecard()">📤 Share with family</button>
+    <button class="btn btn-ghost" onclick="printDoc()">💾 Save as PDF</button>
+  </div>
+</div></div>
+
+<!-- Diagnostic-taking modal (full-screen) -->
+<div class="diag-screen" id="diagScreen">
+  <div class="diag-inner">
+    <div class="diag-top">
+      <button class="diag-close" onclick="closeDiag()">✕</button>
+      <div class="diag-title" id="diagTitle">—</div>
+      <div style="width:32px"></div>
+    </div>
+    <div class="diag-progress"><i id="diagBar"></i></div>
+    <div class="diag-step" id="diagStep">—</div>
+    <div class="diag-body" id="diagBody"></div>
+    <div class="diag-nav">
+      <button class="btn btn-ghost" id="diagPrev" onclick="diagPrev()">← Back</button>
+      <button class="btn btn-grad" id="diagNext" onclick="diagNext()" style="display:none">See my result →</button>
+    </div>
+  </div>
+</div>
+
+<!-- Diagnostic Result modal -->
+<div class="modal-wrap" id="mDiagResult"><div class="modal modal-wide">
+  <button class="x" onclick="closeModal('mDiagResult')">✕</button>
+  <div id="diagResultBody"></div>
+  <div class="sc-actions no-print">
+    <button class="btn btn-grad" onclick="shareDiagResult()">📤 Share with family</button>
+    <button class="btn btn-ghost" onclick="printDoc()">💾 Save as PDF</button>
+    <button class="btn btn-ghost" onclick="closeModal('mDiagResult');goTab('fun')">↻ Try another</button>
+  </div>
+</div></div>
 
 <div id="imgViewer" onclick="this.classList.remove('on')"><img id="imgViewerImg" alt=""></div>
 <div class="toast" id="toast"></div>
@@ -1111,6 +1498,19 @@ function renderMsgs(scroll){
     else if(m.kind==="sticker") body=`<div class="stickermsg">${esc(m.sticker)}</div>`;
     else if(m.kind==="poll") body=renderPoll(m);
     else if(m.kind==="verse") body = verseCard(m.ref, m.caption, "vc-"+m.id) || `<div class="mtext">📖 ${esc(m.ref)}</div>`;
+    else if(m.kind==="scorecard"){
+      body=`<div class="msg-card" onclick="openScorecard()">
+        <div class="mc-h"><div class="mc-t">📊 Weekly Scorecard</div><div class="mc-pct">${m.scPct||0}%</div></div>
+        <div class="mc-tier">${esc(m.scTier||"")} · ${esc(m.scRange||"")}</div>
+        <div class="mc-tier" style="margin-top:4px">${esc(m.scBits||"")}</div>
+        <div class="mc-bar"><i style="width:${m.scPct||0}%"></i></div></div>`;
+    }
+    else if(m.kind==="diagResult"){
+      body=`<div class="msg-card" onclick="goTab('fun')">
+        <div class="mc-h"><div class="mc-t">${m.drEmoji||"🎯"} ${esc(m.drTitle||"Diagnostic result")}</div><div class="mc-pct">${m.drPct||0}%</div></div>
+        <div class="mc-tier">${esc(m.drTier||"")}</div>
+        <div class="mc-bar"><i style="width:${m.drPct||0}%"></i></div></div>`;
+    }
     else if(m.kind==="image"){
       const src=m.dataUrl||(m.fileId?("https://drive.google.com/thumbnail?id="+m.fileId+"&sz=w800"):"");
       const full=m.fileId?("https://drive.google.com/file/d/"+m.fileId+"/view"):src;
@@ -1236,6 +1636,8 @@ function msgPreview(m,short){
   if(m.kind==="verse") return "📖 "+(m.ref||"Verse");
   if(m.kind==="poll") return "📊 "+(m.question||"Poll");
   if(m.kind==="tool") return "🔗 Shared a tool";
+  if(m.kind==="scorecard") return "📊 Weekly Scorecard · "+(m.scPct||0)+"%";
+  if(m.kind==="diagResult") return (m.drEmoji||"🎯")+" "+(m.drTitle||"Diagnostic")+" · "+(m.drPct||0)+"%";
   return "Message";
 }
 function fmtDur(ms){
@@ -2271,8 +2673,829 @@ function startDM(other){
 }
 
 /* ---------- tools hub ---------- */
-function renderTools(){
-  toolsGrid.innerHTML=Object.entries(TOOLS).map(([k,t])=>
+/* ====================== GROWTH MODULE — Goals, Habits, Priorities, Encouragements ====================== */
+const GOAL_CATS=[
+  {id:"spiritual",  name:"Spiritual",     emoji:"✝️"},
+  {id:"family",     name:"Family",        emoji:"👨‍👩‍👧"},
+  {id:"financial",  name:"Financial",     emoji:"💰"},
+  {id:"physical",   name:"Physical",      emoji:"💪"},
+  {id:"educational",name:"Educational",   emoji:"📚"},
+  {id:"professional",name:"Professional", emoji:"💼"},
+  {id:"social",     name:"Social",        emoji:"🤝"},
+  {id:"other",      name:"Other",         emoji:"⭐"}
+];
+const HABIT_EMOJIS=["🙏","📖","🏃","💪","🧘","💧","💤","🚭","📵","📞","💰","🎯","🌅","🌙","✍️","🎵","☕","🍎","🥗","💭","💬","🤝","❤️","✨","🌱"];
+const PROMPTS={
+  morning:[
+    {t:"Have you prayed today?",                                i:"🙏", tag:"prayer"},
+    {t:"Did you talk with God today?",                          i:"💬", tag:"prayer"},
+    {t:"What are you grateful for this morning?",               i:"🌅", tag:"thanks"},
+    {t:"Speak life over your day — what will you declare?",     i:"💫", tag:"thought"},
+    {t:"Sow a thought, reap a destiny. Guard your mind today.", i:"🌱", tag:"thought"},
+    {t:"Have you opened the Word today?",                       i:"📖", tag:"word"},
+    {t:"What's your one big thing for today?",                  i:"🎯", tag:"focus"},
+  ],
+  afternoon:[
+    {t:"Did you do some sports today?",                         i:"🏃", tag:"physical"},
+    {t:"Did you drink water today?",                            i:"💧", tag:"physical"},
+    {t:"Have you prayed for a family member today?",            i:"🙏", tag:"family"},
+    {t:"What did you learn so far today?",                      i:"📚", tag:"growth"},
+    {t:"Did you save today, even a little?",                    i:"💰", tag:"finance"},
+    {t:"Have you encouraged someone today?",                    i:"💬", tag:"family"},
+  ],
+  anytime:[
+    {t:"Have you listened to God today?",                       i:"👂", tag:"prayer"},
+    {t:"Did you talk to someone about Jesus today?",            i:"✝️", tag:"witness"},
+    {t:"Did you give today? Time, money, or kindness?",         i:"🤲", tag:"giving"},
+    {t:"Careful what gets into your mind — guard your gates.",  i:"🛡️", tag:"thought"},
+    {t:"Examine your thoughts. Is this from God?",              i:"💭", tag:"thought"},
+    {t:"Today is a good day to be thankful. What are you grateful for?", i:"🙏", tag:"thanks"},
+    {t:"Have you called or texted a family member today?",      i:"📞", tag:"family"},
+    {t:"Speak a blessing over someone right now.",              i:"💫", tag:"family"},
+    {t:"Have you forgiven? Walk light.",                        i:"🕊️", tag:"thought"},
+    {t:"What's one step toward your big goal today?",           i:"🎯", tag:"focus"},
+    {t:"Did you take a sabbath moment today?",                  i:"🌳", tag:"rest"},
+    {t:"Did you read something that fed your soul today?",      i:"📖", tag:"word"},
+  ],
+  evening:[
+    {t:"Have you given thanks for today?",                      i:"🙏", tag:"thanks"},
+    {t:"Early to bed and early to rise — time to wind down!",   i:"🌙", tag:"rest"},
+    {t:"What was God doing in your day today?",                 i:"✨", tag:"prayer"},
+    {t:"Reflect: what would you do differently tomorrow?",      i:"📔", tag:"reflection"},
+    {t:"Confess and rest — tomorrow's mercies are fresh.",      i:"🕊️", tag:"prayer"},
+    {t:"Have you blessed someone today, in word or deed?",      i:"💝", tag:"family"},
+  ]
+};
+
+function weekId(d){ d=d||new Date(); const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); const day=t.getUTCDay()||7; t.setUTCDate(t.getUTCDate()+4-day); const ys=new Date(Date.UTC(t.getUTCFullYear(),0,1)); const wk=Math.ceil((((t-ys)/86400000)+1)/7); return t.getUTCFullYear()+"-W"+String(wk).padStart(2,"0"); }
+function dayId(d){ d=d||new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+function goals(){ return DB.get("goals",[]); }
+function habits(){ return DB.get("habits",[]); }
+function priorities(){ return DB.get("priorities",[]); }
+function checkins(){ return DB.get("checkins",[]); }
+function encs(){ return DB.get("encs",[]); }
+
+/* ---------- Prompt picker (rotates by hour) ---------- */
+function pickPrompt(){
+  const now=new Date(), h=now.getHours();
+  const slot = h<10?"morning" : h<16?"afternoon" : h<21?"anytime" : "evening";
+  const pool=[...PROMPTS[slot], ...PROMPTS.anytime];
+  // Skip prompts the user has already responded to today
+  const responded=new Set((DB.get("promptLog",[])).filter(x=>x.day===dayId()).map(x=>x.t));
+  const fresh=pool.filter(p=>!responded.has(p.t));
+  const list=fresh.length?fresh:pool;
+  // Hourly rotation seed
+  const seed=Math.floor(now.getTime()/(60*60*1000));
+  return list[seed%list.length];
+}
+function renderEncouragement(){
+  if(!ME) return;
+  const p=pickPrompt();
+  const card=document.getElementById("encourageCard"); if(!card)return;
+  card.dataset.prompt=p.t;
+  card.innerHTML=`
+    <span class="ec-i">${p.i}</span>
+    <div class="ec-eyebrow">Today · for ${esc(ME.name.split(' ')[0])}</div>
+    <div class="ec-prompt">${esc(p.t)}</div>
+    <div class="ec-actions">
+      <button class="yes" onclick="respondPrompt(1)">✅ Yes / Done</button>
+      <button onclick="respondPrompt(0)">Not yet</button>
+    </div>
+    <div class="ec-skip" onclick="skipPrompt()">↻ Show another</div>`;
+}
+function respondPrompt(yes){
+  const card=document.getElementById("encourageCard");
+  const t=card.dataset.prompt;
+  const log=DB.get("promptLog",[]);
+  log.push({t,day:dayId(),yes:!!yes,ts:Date.now()});
+  DB.set("promptLog",log);
+  toast(yes?"🙌 Well done!":"Carry on — even a small step counts.");
+  setTimeout(renderEncouragement,300);
+}
+function skipPrompt(){
+  // Force a different prompt by nudging the seed
+  const card=document.getElementById("encourageCard");
+  const fakeT=card.dataset.prompt+"_skipped";
+  const log=DB.get("promptLog",[]); log.push({t:fakeT,day:dayId(),yes:false,ts:Date.now(),skipped:true});
+  DB.set("promptLog",log);
+  renderEncouragement();
+}
+
+/* ---------- Priorities ---------- */
+function visiblePriorities(forUser){
+  forUser=forUser||ME.u;
+  return priorities().filter(p=>p.by===forUser && p.week===weekId());
+}
+function renderPriorities(){
+  const list=document.getElementById("prioritiesList"); if(!list)return;
+  const items=visiblePriorities();
+  if(!items.length){ list.innerHTML=`<div class="g-empty">No priorities yet for this week.<br>Tap <b>＋ Add</b> to set 3-5 things that matter most.</div>`; return; }
+  list.innerHTML=items.map(p=>`
+    <div class="prio-row ${p.done?'done':''}">
+      <span class="pr-check" onclick="togglePriority('${p.id}')">${p.done?'✓':''}</span>
+      <span class="pr-text">${esc(p.text)}</span>
+      <span class="pr-share ${p.share==='private'?'priv':''}" title="Visible to ${shareLabel(p.share)}">${shareIcon(p.share)}</span>
+      <span class="pr-menu" onclick="deletePriority('${p.id}')" title="Delete">×</span>
+    </div>`).join("");
+}
+function openNewPriority(){
+  document.getElementById("npText").value="";
+  document.querySelector('input[name="npShare"][value="private"]').checked=true;
+  openModal("mNewPrio"); setTimeout(()=>document.getElementById("npText").focus(),60);
+}
+function savePriority(){
+  const t=document.getElementById("npText").value.trim(); if(!t) return toast("Type the priority first");
+  const share=document.querySelector('input[name="npShare"]:checked').value;
+  const p={id:"p"+Date.now()+Math.random().toString(36).slice(2,6),by:ME.u,text:t,week:weekId(),done:false,share,created:Date.now()};
+  const all=priorities(); all.push(p); DB.set("priorities",all); cloud("addPriority",p);
+  closeModal("mNewPrio"); renderPriorities(); renderFamAcc(); toast("Priority added");
+}
+function togglePriority(id){
+  const all=priorities(); const p=all.find(x=>x.id===id); if(!p)return;
+  p.done=!p.done; p.updated=Date.now();
+  DB.set("priorities",all); cloud("addPriority",p); renderPriorities(); renderFamAcc();
+}
+function deletePriority(id){
+  if(!confirm("Delete this priority?")) return;
+  const all=priorities().filter(x=>x.id!==id); DB.set("priorities",all);
+  const p={id,deleted:true,by:ME.u}; cloud("addPriority",p);
+  renderPriorities();
+}
+
+/* ---------- Goals ---------- */
+function visibleGoals(forUser){
+  forUser=forUser||ME.u;
+  return goals().filter(g=>g.by===forUser && g.week===weekId());
+}
+function renderGoalsByCat(){
+  const cont=document.getElementById("goalsByCat"); if(!cont)return;
+  const grid=document.getElementById("catGrid");
+  const items=visibleGoals();
+  // Category cards
+  grid.innerHTML=GOAL_CATS.map(c=>{
+    const cgs=items.filter(g=>g.cat===c.id);
+    const done=cgs.filter(g=>g.done).length;
+    const pct=cgs.length?Math.round(done/cgs.length*100):0;
+    const active=currentCatFilter===c.id?"active":"";
+    return `<button class="cat-card ${active}" onclick="filterCat('${c.id}')">
+      <div class="cci">${c.emoji}</div>
+      <div class="ccn">${c.name}</div>
+      <div class="ccc">${cgs.length?(done+"/"+cgs.length+" done"):"no goals yet"}</div>
+      <div class="ccbar"><i style="width:${pct}%"></i></div></button>`;
+  }).join("");
+  // List of goals filtered by selected category (or all if none)
+  let list=items;
+  if(currentCatFilter) list=items.filter(g=>g.cat===currentCatFilter);
+  list.sort((a,b)=>(a.done?1:0)-(b.done?1:0) || b.created-a.created);
+  if(!list.length){
+    const lbl=currentCatFilter?GOAL_CATS.find(c=>c.id===currentCatFilter).name:"any category";
+    cont.innerHTML=`<div class="g-empty">No ${lbl.toLowerCase()} goals yet for this week.</div>`; return;
+  }
+  cont.innerHTML=`<div class="gc-title">${currentCatFilter?GOAL_CATS.find(c=>c.id===currentCatFilter).emoji+" "+GOAL_CATS.find(c=>c.id===currentCatFilter).name:"All goals"} · ${list.length}</div>`+list.map(g=>{
+    const c=GOAL_CATS.find(x=>x.id===g.cat)||GOAL_CATS[7];
+    return `<div class="goal-row ${g.done?'done':''}">
+      <span class="gr-check" onclick="toggleGoal('${g.id}')">${g.done?'✓':''}</span>
+      <span style="font-size:18px">${c.emoji}</span>
+      <span class="gr-text">${esc(g.text)}</span>
+      <span class="gr-share ${g.share==='private'?'priv':''}" title="Visible to ${shareLabel(g.share)}">${shareIcon(g.share)}</span>
+      <span class="gr-menu" onclick="deleteGoal('${g.id}')" title="Delete">×</span>
+    </div>`;
+  }).join("");
+}
+let currentCatFilter="";
+function filterCat(c){ currentCatFilter=currentCatFilter===c?"":c; renderGoalsByCat(); }
+function openNewGoal(){
+  document.getElementById("ngCat").innerHTML=GOAL_CATS.map(c=>`<option value="${c.id}">${c.emoji} ${c.name}</option>`).join("");
+  if(currentCatFilter) document.getElementById("ngCat").value=currentCatFilter;
+  document.getElementById("ngText").value="";
+  document.querySelector('input[name="ngShare"][value="private"]').checked=true;
+  openModal("mNewGoal"); setTimeout(()=>document.getElementById("ngText").focus(),60);
+}
+function saveGoal(){
+  const t=document.getElementById("ngText").value.trim(); if(!t) return toast("Type the goal first");
+  const cat=document.getElementById("ngCat").value;
+  const share=document.querySelector('input[name="ngShare"]:checked').value;
+  const g={id:"g"+Date.now()+Math.random().toString(36).slice(2,6),by:ME.u,cat,text:t,week:weekId(),done:false,share,created:Date.now()};
+  const all=goals(); all.push(g); DB.set("goals",all); cloud("addGoal",g);
+  closeModal("mNewGoal"); renderGoalsByCat(); renderFamAcc(); toast("Goal added");
+}
+function toggleGoal(id){
+  const all=goals(); const g=all.find(x=>x.id===id); if(!g)return;
+  g.done=!g.done; g.updated=Date.now();
+  DB.set("goals",all); cloud("addGoal",g);
+  renderGoalsByCat(); renderFamAcc();
+  if(g.done) toast("🎉 Goal done — well walked out!");
+}
+function deleteGoal(id){
+  if(!confirm("Delete this goal?")) return;
+  const all=goals().filter(x=>x.id!==id); DB.set("goals",all);
+  cloud("addGoal",{id,deleted:true,by:ME.u});
+  renderGoalsByCat();
+}
+
+/* ---------- Habits ---------- */
+function myHabits(){ return habits().filter(h=>h.by===ME.u && !h.deleted); }
+function habitDoneToday(habitId){
+  const d=dayId();
+  return checkins().some(c=>c.habitId===habitId && c.date===d && c.done);
+}
+function habitStreak(habitId){
+  const cs=checkins().filter(c=>c.habitId===habitId && c.done).map(c=>c.date).sort();
+  if(!cs.length) return 0;
+  let streak=0; let d=new Date();
+  // If not done today, streak might be alive from yesterday
+  if(!cs.includes(dayId(d))){ d.setDate(d.getDate()-1); if(!cs.includes(dayId(d))) return 0; }
+  while(cs.includes(dayId(d))){ streak++; d.setDate(d.getDate()-1); }
+  return streak;
+}
+function renderHabits(){
+  const list=document.getElementById("habitsList"); if(!list)return;
+  const items=myHabits();
+  if(!items.length){ list.innerHTML=`<div class="g-empty">No habits yet.<br>Tap <b>＋ Add habit</b> to start tracking up to 5.</div>`; return; }
+  list.innerHTML=items.map(h=>{
+    const done=habitDoneToday(h.id);
+    const st=habitStreak(h.id);
+    return `<div class="habit-row ${h.type==='stop'?'stop':''} ${done?'done':''}">
+      <div class="he">${h.emoji||"🌱"}</div>
+      <div class="hi">
+        <div class="hn">${esc(h.text)}</div>
+        <div class="hmeta">
+          <span class="hstreak ${st===0?'cold':''}">${h.type==='stop'?"🚫":"🔥"} ${st} day${st===1?"":"s"}</span>
+          <span class="hshare ${h.share==='private'?'priv':''}" title="Visible to ${shareLabel(h.share)}">${shareIcon(h.share)}</span>
+        </div>
+      </div>
+      <div class="hcheck" onclick="toggleHabitToday('${h.id}')">${done?(h.type==='stop'?'✓':'✓'):''}</div>
+      <div class="hmenu" onclick="deleteHabit('${h.id}')" title="Delete">×</div>
+    </div>`;
+  }).join("");
+}
+function openNewHabit(){
+  if(myHabits().length>=5) return toast("Habit slots are full (5) — delete one first.");
+  document.getElementById("nhText").value="";
+  document.getElementById("nhEmojis").innerHTML=HABIT_EMOJIS.map((e,i)=>
+    `<label><input type="radio" name="nhEmoji" value="${e}" ${i===0?'checked':''}><span style="font-size:18px">${e}</span></label>`).join("");
+  document.querySelector('input[name="nhType"][value="build"]').checked=true;
+  document.querySelector('input[name="nhShare"][value="private"]').checked=true;
+  openModal("mNewHabit"); setTimeout(()=>document.getElementById("nhText").focus(),60);
+}
+function saveHabit(){
+  const t=document.getElementById("nhText").value.trim(); if(!t) return toast("Type the habit first");
+  if(myHabits().length>=5) return toast("Habit slots are full (5) — delete one first.");
+  const emoji=document.querySelector('input[name="nhEmoji"]:checked')?.value||"🌱";
+  const type=document.querySelector('input[name="nhType"]:checked').value;
+  const share=document.querySelector('input[name="nhShare"]:checked').value;
+  const h={id:"h"+Date.now()+Math.random().toString(36).slice(2,6),by:ME.u,text:t,emoji,type,share,created:Date.now()};
+  const all=habits(); all.push(h); DB.set("habits",all); cloud("addHabit",h);
+  closeModal("mNewHabit"); renderHabits(); renderFamAcc(); toast("Habit added — let's go 💪");
+}
+function toggleHabitToday(habitId){
+  const d=dayId();
+  const all=checkins();
+  const ex=all.find(c=>c.habitId===habitId && c.date===d && c.by===ME.u);
+  if(ex){ ex.done=!ex.done; ex.ts=Date.now(); }
+  else all.push({id:"c"+Date.now()+Math.random().toString(36).slice(2,6),by:ME.u,habitId,date:d,done:true,ts:Date.now()});
+  DB.set("checkins",all);
+  const c=all.find(x=>x.habitId===habitId && x.date===d && x.by===ME.u);
+  cloud("addCheckin",c);
+  renderHabits(); renderFamAcc();
+  if(c.done) toast("✓ Logged. Keep that streak alive!");
+}
+function deleteHabit(id){
+  if(!confirm("Delete this habit and its tracking history?")) return;
+  const all=habits().filter(h=>h.id!==id); DB.set("habits",all);
+  cloud("addHabit",{id,deleted:true,by:ME.u});
+  renderHabits();
+}
+
+/* ---------- Family accountability ---------- */
+function itemsSharedWithMe(u){
+  // Items u has shared with: me (DM mode), "family", or "inno"/"lin" where I am that person
+  const meIsParent = ME.u==="inno"||ME.u==="lin";
+  return {
+    goals: goals().filter(g=>g.by===u && g.week===weekId() && !g.deleted && (g.share==="family" || (g.share===ME.u) || (meIsParent && g.share===ME.u))),
+    habits: habits().filter(h=>h.by===u && !h.deleted && (h.share==="family" || h.share===ME.u)),
+    priorities: priorities().filter(p=>p.by===u && p.week===weekId() && !p.deleted && (p.share==="family" || p.share===ME.u))
+  };
+}
+function renderFamAcc(){
+  const cont=document.getElementById("famAccList"); if(!cont)return;
+  const others=Object.values(users()).filter(u=>u.u!==ME.u);
+  const cards=others.map(u=>{
+    const it=itemsSharedWithMe(u.u);
+    if(!it.goals.length && !it.habits.length && !it.priorities.length) return "";
+    const totalGoals=it.goals.length, doneGoals=it.goals.filter(g=>g.done).length;
+    const todayHabits=it.habits.filter(h=>habitDoneToday(h.id)).length;
+    const top=[...it.priorities.slice(0,2),...it.goals.slice(0,3)];
+    const habitChips = it.habits.slice(0,4).map(h=>{
+      const done=habitDoneToday(h.id);
+      return `<div class="faItem ${done?'done':''}"><span class="fi-cat">${h.emoji||(h.type==='stop'?'🚫':'🌱')}</span><span class="fi-txt">${esc(h.text)}</span></div>`;
+    }).join("");
+    return `<div class="fam-acc-card">
+      <div class="fah"><div class="av" style="background:${u.color}">${u.emoji||u.name[0].toUpperCase()}</div>
+        <div style="flex:1"><div class="fan">${esc(u.name)}</div>
+          <div class="faStat">${totalGoals?doneGoals+"/"+totalGoals+" goals this week · ":""}${it.habits.length?todayHabits+"/"+it.habits.length+" habits today":""}</div>
+        </div></div>
+      <div class="faItems">${top.map(g=>`<div class="faItem ${g.done?'done':''}">
+        <span class="fi-cat">${g.cat?(GOAL_CATS.find(c=>c.id===g.cat)?.emoji||"📌"):"📌"}</span>
+        <span class="fi-txt">${esc(g.text)}</span></div>`).join("")}${habitChips}</div>
+      <div class="fab">
+        <button onclick="sendCheer('${u.u}','🙌','You can do it!')">🙌 Cheer</button>
+        <button onclick="sendCheer('${u.u}','🙏','Praying with you')">🙏 Pray with</button>
+        <button onclick="sendCheer('${u.u}','💪','Stay strong!')">💪 Strong</button>
+        <button onclick="openNoteFor('${u.u}')">✍ Note</button>
+      </div></div>`;
+  }).filter(Boolean).join("");
+  cont.innerHTML = cards || `<div class="g-empty">No family member has shared a goal or habit with you yet.<br>Be the first to share something — tap <b>＋ Add goal</b> above and pick "Whole family".</div>`;
+}
+function sendCheer(toU,emoji,msg){
+  // Drop into the DM with this user — opens chat seamlessly
+  const dmId=[ME.u,toU].sort().join("__");
+  const rs=rooms();
+  if(!rs.find(r=>r.id===dmId)){
+    const r={id:dmId,type:"dm",members:[ME.u,toU],name:"DM",emoji:"💬",created:Date.now()};
+    rs.push(r); DB.set("rooms",rs); cloud("addRoom",r);
+  }
+  const m={id:"m"+Date.now()+Math.random().toString(36).slice(2,6),room:dmId,from:ME.u,kind:"text",text:emoji+" "+msg,ts:Date.now(),cheer:true};
+  const all=msgs(); all.push(m); DB.set("msgs",all); cloud("addMsg",m);
+  toast("Sent "+emoji+" to "+(users()[toU]?.name||toU));
+}
+let noteTo=null;
+function openNoteFor(u){
+  noteTo=u; const user=users()[u];
+  document.getElementById("npTo").textContent=user?.name||u;
+  document.getElementById("npBody").value="";
+  document.getElementById("notePrompt").classList.add("on");
+  setTimeout(()=>document.getElementById("npBody").focus(),50);
+}
+function closeNotePrompt(){ document.getElementById("notePrompt").classList.remove("on"); noteTo=null; }
+function sendNote(){
+  const t=document.getElementById("npBody").value.trim(); if(!t||!noteTo) return closeNotePrompt();
+  sendCheer(noteTo,"💝",t);
+  closeNotePrompt();
+}
+
+/* ---------- Share-label helpers ---------- */
+function shareIcon(s){ return s==="private"?"🔒":s==="family"?"👨‍👩‍👧":s==="inno"?"👨":s==="lin"?"👩":"🔒"; }
+function shareLabel(s){ return s==="private"?"only you":s==="family"?"the whole family":s==="inno"?"dad (inno)":s==="lin"?"mum (lin)":"only you"; }
+
+/* ---------- Goals tab orchestrator ---------- */
+function renderGoalsTab(){
+  if(!ME) return;
+  renderEncouragement();
+  renderWeeklyMini();
+  renderPriorities();
+  renderGoalsByCat();
+  renderHabits();
+  renderFamAcc();
+}
+
+/* ====================== WEEKLY SCORECARD ====================== */
+function computeScorecard(uid){
+  uid = uid || ME.u;
+  const week = weekId();
+  const wkGoals = goals().filter(g=>g.by===uid && g.week===week && !g.deleted);
+  const wkPrios = priorities().filter(p=>p.by===uid && p.week===week && !p.deleted);
+  const myH = habits().filter(h=>h.by===uid && !h.deleted);
+  // Habit checkins: count completions this week (Mon-Sun)
+  const now=new Date(); const day=now.getDay()||7; // 1=Mon...7=Sun
+  const monday=new Date(now); monday.setDate(now.getDate()-(day-1)); monday.setHours(0,0,0,0);
+  const sunday=new Date(monday); sunday.setDate(monday.getDate()+6); sunday.setHours(23,59,59,999);
+  const weekDays = []; for(let d=new Date(monday); d<=sunday; d.setDate(d.getDate()+1)) weekDays.push(dayId(new Date(d)));
+  const elapsedDays = Math.min(weekDays.length, Math.floor((now-monday)/86400000)+1);
+  // Per-habit consistency this week
+  const habitStats = myH.map(h=>{
+    const done = checkins().filter(c=>c.by===uid && c.habitId===h.id && c.done && weekDays.includes(c.date)).length;
+    return {h, done, total: elapsedDays};
+  });
+  const totalHabitTarget = myH.length * elapsedDays;
+  const totalHabitDone = habitStats.reduce((s,x)=>s+x.done,0);
+  // Category breakdown
+  const byCat = GOAL_CATS.map(c=>{
+    const cgs = wkGoals.filter(g=>g.cat===c.id);
+    return {cat:c, total: cgs.length, done: cgs.filter(g=>g.done).length};
+  });
+  // Prompts said yes to this week
+  const promptYes = (DB.get("promptLog",[])||[]).filter(p=>p.yes && !p.skipped && weekDays.includes(p.day)).length;
+  // Score (weighted)
+  const goalsPct = wkGoals.length ? wkGoals.filter(g=>g.done).length / wkGoals.length : null;
+  const priosPct = wkPrios.length ? wkPrios.filter(p=>p.done).length / wkPrios.length : null;
+  const habitsPct = totalHabitTarget ? totalHabitDone / totalHabitTarget : null;
+  // Active components count
+  const parts = [];
+  if (goalsPct !== null) parts.push({w:.4, v:goalsPct});
+  if (priosPct !== null) parts.push({w:.2, v:priosPct});
+  if (habitsPct !== null) parts.push({w:.3, v:habitsPct});
+  // Prompts give a small bonus, capped at 10% contribution
+  if (promptYes > 0) parts.push({w:.1, v: Math.min(1, promptYes/7)});
+  const overall = parts.length ? Math.round(parts.reduce((s,p)=>s+p.w*p.v,0) / parts.reduce((s,p)=>s+p.w,0) * 100) : 0;
+  // Tier + encouragement
+  const tier = overall >= 85 ? {name:"Walking it out beautifully", msg:"This is what stewardship looks like. Keep your eyes lifted up — Joshua 1:8 lives in weeks like this."}
+             : overall >= 60 ? {name:"Walking strong", msg:"You're moving. The mountain shrinks one faithful step at a time."}
+             : overall >= 30 ? {name:"Getting moving", msg:"Showing up matters. Even one habit kept is a win. Pick ONE thing to nail next week."}
+             : {name:"Just getting started", msg:"Today is a good day to begin. Tomorrow's mercies are fresh. Set ONE small goal and walk it out."};
+  // Growing areas: top 2 categories with highest completion
+  const growing = byCat.filter(b=>b.total>0).sort((a,b)=>(b.done/b.total)-(a.done/a.total)).slice(0,2);
+  // To nurture: categories with goals but 0 done, OR no goals at all (top 2)
+  const lowCat = byCat.filter(b=>b.total>0 && b.done===0);
+  const noCat = byCat.filter(b=>b.total===0);
+  const nurture = [...lowCat, ...noCat].slice(0,2);
+  return {uid, week, range: rangeLabel(monday,sunday), overall, tier, byCat, growing, nurture,
+    wkGoals, wkPrios, myH, habitStats, totalHabitDone, totalHabitTarget, promptYes, elapsedDays};
+}
+function rangeLabel(a,b){
+  const m=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  return `${m[a.getMonth()]} ${a.getDate()} — ${m[b.getMonth()]} ${b.getDate()}, ${b.getFullYear()}`;
+}
+function renderWeeklyMini(){
+  if(!ME) return;
+  const wm=document.getElementById("weeklyMini"); if(!wm) return;
+  const sc = computeScorecard();
+  const noData = sc.wkGoals.length===0 && sc.wkPrios.length===0 && sc.myH.length===0;
+  document.getElementById("wmPct").textContent = sc.overall + "%";
+  document.getElementById("wmBar").style.width = sc.overall + "%";
+  if(noData){
+    document.getElementById("wmStats").textContent = "Set a goal, habit, or priority to start tracking your week.";
+  } else {
+    const bits=[];
+    if(sc.wkGoals.length) bits.push(`${sc.wkGoals.filter(g=>g.done).length}/${sc.wkGoals.length} goals`);
+    if(sc.myH.length) bits.push(`${sc.totalHabitDone}/${sc.totalHabitTarget} habit days`);
+    if(sc.wkPrios.length) bits.push(`${sc.wkPrios.filter(p=>p.done).length}/${sc.wkPrios.length} priorities`);
+    if(sc.promptYes) bits.push(`${sc.promptYes} prompts ✓`);
+    document.getElementById("wmStats").textContent = bits.join(" · ") + " · " + sc.tier.name;
+  }
+}
+function openScorecard(){
+  const sc = computeScorecard();
+  const body = document.getElementById("scorecardBody");
+  const noData = sc.wkGoals.length===0 && sc.wkPrios.length===0 && sc.myH.length===0;
+  body.innerHTML = `<div class="scorecard">
+    <div class="sc-header">
+      <div class="sc-name">📊 ${esc(ME.name)} · Weekly Scorecard</div>
+      <div class="sc-week">${sc.range}</div>
+    </div>
+    ${noData ? `<div class="g-empty" style="padding:30px">Nothing tracked yet this week.<br>Set a goal, habit, or priority — then come back here.</div>` : `
+    <div class="sc-hero">
+      <div class="sc-pct-big">${sc.overall}%</div>
+      <div style="flex:1">
+        <div class="sc-tier">${esc(sc.tier.name)}</div>
+        <div class="sc-msg">${esc(sc.tier.msg)}</div>
+      </div>
+    </div>
+    ${sc.wkGoals.length ? `
+    <div class="sc-section">
+      <h4>🎯 Goals by area (${sc.wkGoals.filter(g=>g.done).length}/${sc.wkGoals.length} done)</h4>
+      ${sc.byCat.filter(b=>b.total>0).map(b=>{
+        const pct = Math.round(b.done/b.total*100);
+        return `<div class="sc-row">
+          <span class="sc-r-i">${b.cat.emoji}</span>
+          <span class="sc-r-l">${b.cat.name}</span>
+          <span class="sc-bar"><i style="width:${pct}%"></i></span>
+          <span class="sc-r-v">${b.done}/${b.total}</span></div>`;
+      }).join("")}
+    </div>` : ""}
+    ${sc.myH.length ? `
+    <div class="sc-section">
+      <h4>🔥 Daily habits (${sc.totalHabitDone}/${sc.totalHabitTarget} days kept over ${sc.elapsedDays} day${sc.elapsedDays===1?"":"s"})</h4>
+      ${sc.habitStats.map(s=>{
+        const pct = s.total ? Math.round(s.done/s.total*100) : 0;
+        return `<div class="sc-row">
+          <span class="sc-r-i">${s.h.emoji||(s.h.type==='stop'?'🚫':'🌱')}</span>
+          <span class="sc-r-l">${esc(s.h.text)}</span>
+          <span class="sc-bar"><i style="width:${pct}%"></i></span>
+          <span class="sc-r-v">${s.done}/${s.total}</span></div>`;
+      }).join("")}
+    </div>` : ""}
+    ${sc.wkPrios.length ? `
+    <div class="sc-section">
+      <h4>📌 Priorities (${sc.wkPrios.filter(p=>p.done).length}/${sc.wkPrios.length} done)</h4>
+      ${sc.wkPrios.map(p=>`<div class="sc-row">
+        <span class="sc-r-i">${p.done?"✅":"⏳"}</span>
+        <span class="sc-r-l">${esc(p.text)}</span>
+        <span class="sc-r-v">${p.done?"done":"open"}</span></div>`).join("")}
+    </div>` : ""}
+    ${sc.promptYes ? `<div class="sc-section">
+      <h4>🙏 Daily prompts you said YES to</h4>
+      <div class="sc-row"><span class="sc-r-i">✨</span><span class="sc-r-l">Times you affirmed a prompt this week</span><span class="sc-r-v">${sc.promptYes}</span></div>
+    </div>` : ""}
+    ${sc.growing.length ? `<div class="sc-section">
+      <h4>🌱 Where you're growing</h4>
+      ${sc.growing.map(g=>`<div class="sc-row"><span class="sc-r-i">${g.cat.emoji}</span><span class="sc-r-l"><b>${g.cat.name}</b> · ${Math.round(g.done/g.total*100)}% complete</span></div>`).join("")}
+    </div>` : ""}
+    ${sc.nurture.length ? `<div class="sc-section">
+      <h4>💧 Areas to nurture next week</h4>
+      ${sc.nurture.map(g=>`<div class="sc-row"><span class="sc-r-i">${g.cat.emoji}</span><span class="sc-r-l"><b>${g.cat.name}</b> · ${g.total ? "set, but not yet started" : "no goal set yet"}</span></div>`).join("")}
+    </div>` : ""}
+    <div style="font-size:11.5px;color:var(--muted);text-align:center;margin-top:18px;font-style:italic">"Whatsoever thy hand findeth to do, do it with thy might." · Ecclesiastes 9:10</div>
+    `}
+  </div>`;
+  openModal("mScorecard");
+}
+function shareScorecard(){
+  const sc = computeScorecard();
+  if (!sc.wkGoals.length && !sc.wkPrios.length && !sc.myH.length) return toast("Nothing to share — track something first");
+  const m={id:"m"+Date.now()+Math.random().toString(36).slice(2,6),room:"hall",from:ME.u,kind:"scorecard",
+    text:`📊 My week — ${sc.overall}% · ${sc.tier.name}`,
+    ts:Date.now(), scPct:sc.overall, scTier:sc.tier.name, scRange:sc.range,
+    scBits:`${sc.wkGoals.filter(g=>g.done).length}/${sc.wkGoals.length||0} goals · ${sc.totalHabitDone}/${sc.totalHabitTarget||0} habit days · ${sc.wkPrios.filter(p=>p.done).length}/${sc.wkPrios.length||0} priorities`};
+  const all=msgs(); all.push(m); DB.set("msgs",all); cloud("addMsg",m);
+  closeModal("mScorecard"); toast("Shared with the family 💚");
+  goTab("chats"); openRoom("hall");
+}
+function printDoc(){
+  // Browser's print dialog — user picks "Save as PDF" as destination
+  // Print CSS hides everything except the open modal
+  try { window.print(); } catch(e) { toast("Use your browser menu → Print → Save as PDF"); }
+}
+
+/* ====================== DIAGNOSTICS ====================== */
+/* Compact format: id, e(moji), t(itle), d(esc); q: [questionText, [opt,score], [opt,score]...]; tiers: [pct, name, message] */
+const DIAGS = [
+  { id:"listener", e:"🎧", t:"Am I a Good Listener?", d:"How present are you when others speak?",
+    q:[
+      ["When someone shares something important, my mind is:", [["Wandering elsewhere",0],["Mostly present",2],["Fully here with them",3],["Already planning my reply",1]]],
+      ["When I disagree with what they're saying, I:", [["Interrupt to share my view",0],["Wait but get impatient",1],["Hold my view and ask them to say more",3],["Tune out",0]]],
+      ["After a deep conversation, I can usually:", [["Recall their main point clearly",3],["Recall the gist but missed details",2],["Barely remember what they said",0],["Recall my points more than theirs",1]]],
+      ["When someone is upset, I:", [["Try to fix their problem fast",1],["Sit with them and ask what they need",3],["Get uncomfortable and change topics",0],["Offer my own similar story",1]]],
+      ["My phone during conversations:", [["I check it often",0],["It's nearby and I glance",1],["I turn it face down",2],["I put it away completely",3]]],
+      ["When I ask 'How are you?', I:", [["Expect 'Fine, you?' and move on",0],["Listen briefly to the reply",1],["Actually wait for a real answer",3],["Don't really hear the reply",0]]],
+      ["When someone says something that surprises me, my first instinct is:", [["Defend my own view",1],["Question why they think that",2],["Get curious and ask more",3],["Dismiss what they said",0]]],
+      ["People close to me tell me:", [["'You really hear me'",3],["Sometimes I feel unheard",1],["We don't talk about that",0],["'You're a good listener'",3]]]
+    ],
+    tiers:[[0,"Just starting","You know listening matters — that's already a great first step. This week, try just one thing: when someone speaks, pause 3 silent seconds before you reply."],
+      [40,"Growing","You listen well in many moments. Watch for the moment you start forming your reply mid-sentence — that's the muscle to grow next."],
+      [70,"Strong listener","You make people feel heard. That's rare in our day. Multiply it — your family needs the listener you're becoming."],
+      [90,"Exceptional listener","You have the rare gift of presence. People trust you with deeper truths. Steward this gift carefully — it's a quiet kind of leadership."]]
+  },
+  { id:"servant", e:"🤝", t:"Servant Leadership", d:"Do you lead by lifting others up?",
+    q:[
+      ["When the team succeeds, I:", [["Take credit for the win",0],["Share credit publicly",3],["Quietly do my part without claiming credit",3],["Focus on what I personally contributed",1]]],
+      ["When someone under my care fails, I:", [["Get frustrated and point it out",0],["Quietly carry the consequences myself",2],["Talk with them about what we can learn",3],["Replace them with someone better",0]]],
+      ["My main reason for leading is:", [["To be respected and influential",1],["Because no one else stepped up",2],["To help others reach their potential",3],["To get things done efficiently",2]]],
+      ["When I have something I don't need, I:", [["Keep it just in case",1],["Give it to a family member",2],["Look for someone who actually needs it",3],["Sell it",1]]],
+      ["When someone is struggling with a task I'm skilled at, I:", [["Take over and do it myself",1],["Walk them through it patiently",3],["Tell them to figure it out",0],["Show them once and walk away",2]]],
+      ["In a disagreement with someone I lead, I:", [["Use my authority to end it",1],["Listen first, then explain my view",3],["Avoid the conversation",0],["Find a way both of us can win",3]]],
+      ["When I'm tired and someone needs help, I:", [["Say I'm too tired",0],["Help anyway and resent it",1],["Ask if it can wait — and if not, help",2],["Pour out what I have, then rest",3]]],
+      ["The people closest to me would say I:", [["Lift them up",3],["Drive them hard",1],["Look out for myself first",0],["Make them feel seen",3]]]
+    ],
+    tiers:[[0,"Just starting","Servant leadership is learned in small daily choices. This week, do one act of service no one will ever see. Mark 10:43 starts there."],
+      [40,"Growing","You're leaning the right direction. Keep watch over your motives — even good service can drift into hidden pride."],
+      [70,"Strong servant","You lead with your hands open. Others rise because of you. That's the leadership Jesus modelled."],
+      [90,"Exceptional servant leader","You have learned the secret: the towel before the throne. Steward this rare grace with deep humility — the higher you go, the lower you must kneel."]]
+  },
+  { id:"comm", e:"💬", t:"Communication Style", d:"Are you clear, kind, and heard?",
+    q:[
+      ["When I have something difficult to say, I:", [["Avoid saying it",0],["Say it bluntly to get it over",1],["Take time to find the right words",3],["Hint and hope they get it",1]]],
+      ["In conflict, I tend to:", [["Get loud and forceful",0],["Withdraw and shut down",1],["Stay calm and stay engaged",3],["Get sarcastic",0]]],
+      ["When I don't understand someone, I:", [["Pretend I do to avoid awkwardness",0],["Ask them to repeat",2],["Ask 'Can you say more about that?'",3],["Just move on",1]]],
+      ["My text messages tend to be:", [["One-word replies",1],["Long explanations",2],["Clear and warm",3],["Often misunderstood",0]]],
+      ["When I have feedback for someone, I:", [["Save it up and explode later",0],["Avoid giving it",1],["Give it directly and kindly, in private",3],["Give it publicly so others learn",0]]],
+      ["When someone is talking too much, I:", [["Interrupt them",1],["Tune out",0],["Gently redirect",2],["Listen patiently and wait my turn",3]]],
+      ["My tone when I'm frustrated:", [["Sharp and clipped",1],["Loud",0],["I work to keep it level",3],["Sarcastic",0]]],
+      ["People often respond to me with:", [["Defensiveness",0],["Understanding",3],["Confusion",1],["Warmth",3]]]
+    ],
+    tiers:[[0,"Just starting","Communication is a craft, not a personality. This week, before any hard conversation, write down what you want them to walk away with. Just that."],
+      [40,"Growing","You communicate well in many situations. The growing edge: matching your tone to your message. People hear tone before they hear truth."],
+      [70,"Strong communicator","You handle hard things well. Words are bridges in your hands, not walls. Keep using them to bring people closer."],
+      [90,"Exceptional communicator","You've learned to speak truth in love and listen with patience. Few do this. James 1:19 lives in you."]]
+  },
+  { id:"friend", e:"❤️", t:"Friendship Quality", d:"Are you the kind of friend you'd want?",
+    q:[
+      ["When a friend is going through something hard, I:", [["Wait for them to reach out",0],["Check in with them",3],["Pray for them",3],["Forget for a while",0]]],
+      ["I remember my friends' important dates:", [["Almost always",3],["Sometimes",2],["Rarely",0],["I have to be reminded",1]]],
+      ["When a friend has good news, I:", [["Genuinely celebrate it",3],["Feel a little jealous",1],["Acknowledge it but move on",1],["Want to top it with mine",0]]],
+      ["When a friend wrongs me, I:", [["Cut them off",0],["Talk to them about it",3],["Hold it in for a long time",1],["Quickly forgive but stay distant",1]]],
+      ["The last time I had a real, deep conversation with a friend was:", [["This week",3],["This month",2],["This year",1],["I can't remember",0]]],
+      ["My closest friends know:", [["My real struggles",3],["The version of me I show",1],["A bit of both",2],["I don't have close friends",0]]],
+      ["When I make plans with a friend, I:", [["Always show up",3],["Cancel often",0],["Reschedule a lot",1],["Show up but rushed",1]]],
+      ["If I asked my closest friends to describe me, they'd say:", [["I show up consistently",3],["I'm fun but flaky",1],["I'm caring but distant",1],["They'd struggle to describe me deeply",0]]]
+    ],
+    tiers:[[0,"Just starting","Real friendship takes intentional time — there's no shortcut. This week, message one friend and ask one real question. That's the start."],
+      [40,"Growing","You're a real friend in many ways. The next level: depth. One vulnerable conversation deepens a friendship more than ten surface ones."],
+      [70,"Strong friend","Your friends are blessed. Proverbs 18:24 talks about a friend who sticks closer than a brother — that's becoming you."],
+      [90,"Exceptional friend","Few people give what you give. The friendship you build now will sustain through every storm. Treasure those people."]]
+  },
+  { id:"character", e:"⚖️", t:"Character Compass", d:"Who are you when no one is watching?",
+    q:[
+      ["When no one is watching, I:", [["Behave the same as when watched",3],["Cut a few corners",1],["Relax different standards",1],["I'm not sure",0]]],
+      ["When I make a mistake that affects others, I:", [["Own it openly",3],["Quietly fix it",2],["Hope no one notices",0],["Blame someone else",0]]],
+      ["When I promise something, I:", [["Almost always do it",3],["Try but often forget",1],["Do it if convenient",1],["I rarely promise",2]]],
+      ["When I see someone treated unfairly, I:", [["Speak up even if it costs me",3],["Feel bad but stay silent",1],["Pretend I didn't see",0],["Mention it later in private",2]]],
+      ["When I'm tempted to lie to look better, I:", [["Tell the truth anyway",3],["Bend the truth slightly",1],["Make up something convincing",0],["Stay vague",1]]],
+      ["If I found money on the street, I would:", [["Try to find the owner",3],["Keep it without thinking",1],["Give it away",3],["Feel conflicted",2]]],
+      ["My online behavior vs my in-person behavior:", [["Same person both places",3],["Bolder online",1],["Kinder online",1],["Different in concerning ways",0]]],
+      ["My word means:", [["Almost everything to me",3],["I try to honor it",2],["I break it when needed",1],["It's flexible",0]]]
+    ],
+    tiers:[[0,"Just starting","Character is built brick by brick in unseen places. This week, do one right thing no one will ever know about. That brick lasts."],
+      [40,"Growing","You're growing into someone trustworthy. Keep guarding the small moments — character is rarely tested in the spotlight, it's revealed in the dark."],
+      [70,"Strong character","People trust you because you've earned it. Proverbs 22:1 — a good name is rather to be chosen than riches. You're choosing well."],
+      [90,"Exceptional integrity","Few people stand where you stand. You are a rare kind of person. Steward this — the higher you go, the more people will depend on it."]]
+  },
+  { id:"eq", e:"🧠", t:"Emotional Intelligence", d:"How well do you know yourself — and others?",
+    q:[
+      ["When I'm angry, I usually know WHY before I act:", [["Yes, almost always",3],["Most of the time",2],["Sometimes",1],["Rarely",0]]],
+      ["When I'm anxious or stressed, I:", [["Notice it early",3],["Notice when it's already big",1],["Only notice after I've reacted",0],["Try to ignore it",0]]],
+      ["When someone is upset, I can usually tell:", [["What they're feeling",3],["Something is off but not what",1],["Only if they say",0],["I read it well",3]]],
+      ["When I'm criticized fairly, I:", [["Listen and consider it",3],["Get defensive but reflect later",2],["Get defensive",0],["Shut down",1]]],
+      ["My emotions:", [["I can name them precisely",3],["I know happy/sad/angry",1],["I don't think about them much",0],["I feel them deeply and name them",3]]],
+      ["When I disagree with someone, I:", [["Stay curious about their view",3],["Argue my point hard",1],["Get emotional",0],["Avoid disagreement",1]]],
+      ["When I make someone else upset, I:", [["Notice quickly and try to repair",3],["Notice only if they tell me",1],["Wait for them to come to me",1],["Feel defensive",0]]],
+      ["Big emotions in others:", [["Don't shake me — I stay present",3],["Make me uncomfortable",1],["Overwhelm me too",0],["I match their energy",1]]]
+    ],
+    tiers:[[0,"Just starting","Emotional self-awareness is the foundation of every other skill. This week, name one feeling out loud each day — even just to yourself. That's the start."],
+      [40,"Growing","You read yourself well in many moments. The growing edge: pause between feeling and reacting. That tiny space is where wisdom lives."],
+      [70,"Strong EQ","You handle yourself and others with grace. You're the calm in many rooms. Keep cultivating it — it's a gift to everyone around you."],
+      [90,"Exceptional EQ","You've developed a rare capacity — to feel deeply and stay present. People trust their hearts to you. Steward that trust."]]
+  },
+  { id:"social", e:"🌍", t:"Social Intelligence", d:"Can you read the room and adapt?",
+    q:[
+      ["Walking into a room of strangers, I:", [["Read the room before engaging",3],["Engage everyone quickly",2],["Stay by the door",0],["Find one person to talk to",2]]],
+      ["I adapt how I speak based on who I'm with:", [["Almost always, naturally",3],["When I remember",2],["I'm the same with everyone",1],["I struggle to read people",0]]],
+      ["I remember names of people I meet:", [["Most of them",3],["About half",2],["Few",1],["Rarely",0]]],
+      ["When two people I know disagree, I:", [["Help them see each other's point",3],["Pick a side",1],["Stay out of it",1],["Get caught in the middle",0]]],
+      ["In group settings, I can sense:", [["The unspoken tensions",3],["The general mood",2],["The loudest voice",1],["Not much",0]]],
+      ["When meeting someone new, I:", [["Ask questions about them",3],["Talk about myself",1],["Stay quiet",1],["Notice details about them",3]]],
+      ["My social energy:", [["I draw energy from people",3],["I enjoy people but need breaks",2],["Crowds drain me fast",1],["I prefer being alone",1]]],
+      ["Difficult conversations:", [["I navigate them with care",3],["I avoid them",0],["I push through awkwardness",2],["I freeze",0]]]
+    ],
+    tiers:[[0,"Just starting","Social skill is a learned thing. This week, in one conversation, ask three questions before sharing anything about yourself. Just three. Watch what shifts."],
+      [40,"Growing","You navigate social space well in many situations. Push further: notice who in a room hasn't spoken yet, and turn toward them."],
+      [70,"Strong social skill","You make rooms warmer just by being in them. That's a gift. Use it for the quiet ones — they need you most."],
+      [90,"Exceptional social intelligence","You read people the way some read books. Few have this. Use it to build bridges, not to manipulate — the difference is everything."]]
+  },
+  { id:"creativity", e:"🎨", t:"Creativity Score", d:"How freely do new ideas come to you?",
+    q:[
+      ["When solving a problem, I usually:", [["Try the obvious approach first",1],["Brainstorm many options",3],["Wait for inspiration",1],["Look for unconventional angles",3]]],
+      ["When I see something done a certain way, I:", [["Accept it",1],["Wonder if there's a better way",3],["Ask why it's done that way",3],["Don't think about it",0]]],
+      ["I try new things:", [["Often",3],["Sometimes",2],["Rarely",1],["I prefer the familiar",0]]],
+      ["When I'm stuck, I:", [["Push harder",1],["Take a walk or break",3],["Give up",0],["Ask others",2]]],
+      ["My ideas:", [["Flow when I'm relaxed",3],["Come from constraints I set",3],["I rarely have new ideas",0],["Come when I see something inspiring",2]]],
+      ["When someone presents a wild idea, I:", [["Find what's valuable in it",3],["Point out why it won't work",1],["Get curious about it",3],["Dismiss it",0]]],
+      ["I keep notes or sketches of ideas:", [["Yes, regularly",3],["Sometimes",2],["I rely on memory",1],["I don't",0]]],
+      ["My fear of looking foolish:", [["Doesn't stop me from trying",3],["Sometimes stops me",1],["Often stops me",0],["I love looking foolish if I learn",3]]]
+    ],
+    tiers:[[0,"Just starting","Creativity isn't a personality trait — it's a practice. This week, write down 3 wild ideas a day, even if they're terrible. Volume comes before quality."],
+      [40,"Growing","You think creatively in many areas. Push the edge: try something this week that scares you a little. New ideas come from the edges of comfort."],
+      [70,"Strong creator","You see angles others miss. Keep capturing your ideas — most are lost simply because no one wrote them down."],
+      [90,"Exceptional creativity","You have the maker's eye — seeing what isn't there yet. Steward this with discipline. Creativity without follow-through is just daydreaming."]]
+  },
+  { id:"resilience", e:"🔥", t:"Resilience Score", d:"How do you bounce back from hard things?",
+    q:[
+      ["When something hard happens, I:", [["Process it and move forward",3],["Dwell on it for weeks",1],["Quickly forget about it",1],["Get stronger from it",3]]],
+      ["When a goal fails, I:", [["Try again with adjustments",3],["Give up",0],["Blame circumstances",1],["Take time, then try again",3]]],
+      ["When criticism hurts, I:", [["Recover quickly",3],["Stew for days",1],["Pretend it didn't",0],["Take what's useful, let go of the rest",3]]],
+      ["In a crisis, I:", [["Stay clear-headed",3],["Panic but function",2],["Freeze",0],["Lead others through",3]]],
+      ["When tired, I:", [["Rest properly",3],["Push through endlessly",1],["Collapse",0],["Pace myself",3]]],
+      ["My setbacks have:", [["Made me wiser",3],["Crushed me",0],["Been quickly forgotten",1],["Built my character",3]]],
+      ["When I face uncertainty, I:", [["Trust the process",3],["Get anxious",1],["Plan for every scenario",2],["Pray and move",3]]],
+      ["After a hard season, I:", [["Reflect on what I learned",3],["Just want to forget it",1],["Share what I learned with others",3],["Stay stuck",0]]]
+    ],
+    tiers:[[0,"Just starting","Resilience is built in seasons, not days. This week, when something hard hits, name it — out loud or in writing. Naming it is half the battle."],
+      [40,"Growing","You bounce back well in many areas. The deeper work: turning setbacks into lessons you carry forward. Reflection is what makes pain useful."],
+      [70,"Strong resilience","You've learned how to bend without breaking. Romans 5:3-4 — that's the path you're walking. Keep walking it."],
+      [90,"Exceptional resilience","You've been through fire and come out refined. Your scars are credentials now. Use them to help others through their valleys."]]
+  },
+  { id:"soft", e:"🌟", t:"Soft Skills Audit", d:"Work ethic, adaptability, follow-through.",
+    q:[
+      ["My time:", [["I plan it well",3],["I react to whoever shouts loudest",1],["I run out of it",0],["I balance work and rest",3]]],
+      ["In a team, I:", [["Take initiative",3],["Wait for direction",1],["Collaborate easily",3],["Prefer to work alone",1]]],
+      ["When plans change suddenly, I:", [["Adapt quickly",3],["Get frustrated",1],["Need time to adjust",2],["Resist the change",0]]],
+      ["My work quality:", [["Consistently strong",3],["Depends on my mood",1],["Better when interested",2],["Slowly improving",2]]],
+      ["When I make a promise, I:", [["Almost always keep it",3],["Try my best",2],["Often forget",0],["I rarely make them",1]]],
+      ["When someone gives me feedback, I:", [["Apply it where it fits",3],["Defend my way",0],["Take it personally",1],["Ask follow-up questions",3]]],
+      ["Under pressure, I:", [["Get clearer",3],["Get sharper but stressed",2],["Get scattered",0],["Stay calm",3]]],
+      ["My follow-through:", [["I finish what I start",3],["I start many things",1],["I struggle to start",0],["I follow through when held accountable",2]]]
+    ],
+    tiers:[[0,"Just starting","Soft skills are the bedrock of everything. This week, pick ONE habit — show up on time, finish one thing, or keep one promise. Just one. Build from there."],
+      [40,"Growing","You're solid in many areas. The growing edge: consistency. The person who shows up daily beats the genius who shows up sometimes."],
+      [70,"Strong soft skills","You bring excellence to your work. People notice. Keep raising your standard quietly — your work speaks louder than your words."],
+      [90,"Exceptional soft skills","Few combine your reliability with your skill. You're the kind of person teams build around. Steward that — others will keep raising their game to match yours."]]
+  }
+];
+
+let curDiag=null, curDiagAns=[], curDiagIdx=0;
+function renderFunTab(){
+  if(!ME) return;
+  const grid=document.getElementById("funGrid"); if(!grid) return;
+  const results=DB.get("diagResults",[])||[];
+  grid.innerHTML = DIAGS.map(d=>{
+    const mine=results.filter(r=>r.by===ME.u && r.diagId===d.id).sort((a,b)=>b.ts-a.ts);
+    const last=mine[0];
+    const lastLabel = last
+      ? `Last: ${ago(last.ts)} · ${last.pct}% · ${esc(last.tier)}`
+      : "Not yet taken — give it a try";
+    return `<button class="fun-card" onclick="openDiag('${d.id}')">
+      <div class="fc-e">${d.e}</div>
+      <div class="fc-t">${esc(d.t)}</div>
+      <div class="fc-d">${esc(d.d)}</div>
+      <div class="fc-last ${last?'':'never'}">${lastLabel}</div>
+      <div class="fc-cta">${last?'Take again':'Take it'} →</div>
+    </button>`;
+  }).join("");
+}
+function ago(ts){
+  const s=Math.floor((Date.now()-ts)/1000);
+  if(s<60)return"just now"; const m=Math.floor(s/60);
+  if(m<60)return m+"m ago"; const h=Math.floor(m/60);
+  if(h<24)return h+"h ago"; const d=Math.floor(h/24);
+  if(d<7)return d+"d ago"; const w=Math.floor(d/7);
+  if(w<5)return w+"w ago"; return Math.floor(d/30)+"mo ago";
+}
+function openDiag(id){
+  curDiag=DIAGS.find(d=>d.id===id); if(!curDiag) return;
+  curDiagAns=new Array(curDiag.q.length).fill(null);
+  curDiagIdx=0;
+  document.getElementById("diagTitle").textContent = curDiag.e + " " + curDiag.t;
+  document.getElementById("diagScreen").classList.add("on");
+  renderDiagStep();
+}
+function closeDiag(){ document.getElementById("diagScreen").classList.remove("on"); curDiag=null; }
+function renderDiagStep(){
+  if(!curDiag) return;
+  if(curDiagIdx<0 || curDiagIdx>=curDiag.q.length) return;
+  const total=curDiag.q.length;
+  const idx=curDiagIdx;
+  document.getElementById("diagBar").style.width = ((idx+1)/total*100) + "%";
+  document.getElementById("diagStep").textContent = `Question ${idx+1} of ${total}`;
+  const [qText, opts] = curDiag.q[idx];
+  const picked = curDiagAns[idx];
+  document.getElementById("diagBody").innerHTML = `
+    <div class="diag-q">${esc(qText)}</div>
+    ${opts.map((o,i)=>`<button class="diag-opt ${picked===i?'picked':''}" onclick="pickDiagOpt(${i})">${esc(o[0])}</button>`).join("")}
+  `;
+  document.getElementById("diagPrev").style.visibility = idx===0?"hidden":"visible";
+  // Next button only shown on last question, once answered
+  const isLast = idx===total-1;
+  const nextBtn = document.getElementById("diagNext");
+  nextBtn.style.display = (isLast && picked!==null) ? "block" : "none";
+}
+function pickDiagOpt(i){
+  curDiagAns[curDiagIdx]=i;
+  const isLast = curDiagIdx === curDiag.q.length-1;
+  if(isLast){ renderDiagStep(); return; } // show "See result" button
+  // Auto-advance after a brief feedback delay
+  renderDiagStep();
+  setTimeout(()=>{ curDiagIdx++; renderDiagStep(); }, 220);
+}
+function diagPrev(){
+  if(curDiagIdx>0){ curDiagIdx--; renderDiagStep(); }
+}
+function diagNext(){
+  // Compute and show result
+  if(curDiagAns.includes(null)) return toast("Answer all questions first");
+  const score = curDiagAns.reduce((s,i,qi)=>s + curDiag.q[qi][1][i][1], 0);
+  const maxScore = curDiag.q.reduce((s,q)=>s + Math.max(...q[1].map(o=>o[1])), 0);
+  const pct = Math.round(score/maxScore*100);
+  const tier = [...curDiag.tiers].reverse().find(t=>pct>=t[0]) || curDiag.tiers[0];
+  // Find growth areas: questions where they scored 0 or 1
+  const growItems = curDiagAns
+    .map((i,qi)=>({qi, pts:curDiag.q[qi][1][i][1], q:curDiag.q[qi][0], picked:curDiag.q[qi][1][i][0]}))
+    .filter(x=>x.pts<=1)
+    .sort((a,b)=>a.pts-b.pts)
+    .slice(0,3);
+  // Save result
+  const result={id:"dr"+Date.now()+Math.random().toString(36).slice(2,6), by:ME.u, diagId:curDiag.id,
+    diagTitle:curDiag.t, diagEmoji:curDiag.e, score, maxScore, pct, tier:tier[1], msg:tier[2],
+    answers:curDiagAns, ts:Date.now()};
+  const all=DB.get("diagResults",[]); all.push(result); DB.set("diagResults",all);
+  cloud("addDiagResult", result);
+  // Render result
+  renderDiagResult(result, growItems);
+  closeDiag();
+  openModal("mDiagResult");
+}
+function renderDiagResult(r, growItems){
+  document.getElementById("diagResultBody").innerHTML = `
+    <div class="sc-header">
+      <div class="sc-name">${r.diagEmoji} ${esc(r.diagTitle)}</div>
+      <div class="sc-week">${esc(ME.name)} · ${new Date(r.ts).toLocaleDateString()}</div>
+    </div>
+    <div class="dr-hero">
+      <div class="dr-emoji">${r.diagEmoji}</div>
+      <div class="dr-pct">${r.pct}%</div>
+      <div class="dr-tier">${esc(r.tier)}</div>
+      <div class="dr-name">Score: ${r.score} of ${r.maxScore}</div>
+    </div>
+    <div class="dr-msg">${esc(r.msg)}</div>
+    ${growItems && growItems.length ? `<div class="dr-grow">
+      <h4>🌱 Where to grow next</h4>
+      <ul>${growItems.map(g=>`<li><div><b>${esc(g.q)}</b><br><span style="color:var(--muted);font-size:12.5px">Your answer: "${esc(g.picked)}"</span></div></li>`).join("")}</ul>
+    </div>` : ""}
+    <div style="font-size:11.5px;color:var(--muted);text-align:center;margin-top:8px;font-style:italic">"Iron sharpeneth iron; so a man sharpeneth the countenance of his friend." · Proverbs 27:17</div>
+  `;
+  // Stash for share/print
+  window._lastDiagResult = r;
+}
+function shareDiagResult(){
+  const r = window._lastDiagResult; if(!r) return;
+  const m={id:"m"+Date.now()+Math.random().toString(36).slice(2,6),room:"hall",from:ME.u,kind:"diagResult",
+    text:`${r.diagEmoji} ${r.diagTitle} — ${r.pct}% · ${r.tier}`,
+    ts:Date.now(), drEmoji:r.diagEmoji, drTitle:r.diagTitle, drPct:r.pct, drTier:r.tier};
+  const all=msgs(); all.push(m); DB.set("msgs",all); cloud("addMsg",m);
+  closeModal("mDiagResult"); toast("Shared with the family 💚");
+  goTab("chats"); openRoom("hall");
+}
+
+function renderTools(){  toolsGrid.innerHTML=Object.entries(TOOLS).map(([k,t])=>
     `<a class="card toolcard" style="margin:0;max-width:none;border-left-width:5px" href="${t.url}" target="_blank" rel="noopener">
      <div class="ti">${t.e}</div><div><b>${esc(t.n)}</b><span>${esc(t.d)}</span></div></a>`).join("");
 }
@@ -2301,8 +3524,11 @@ function goTab(tab,silent){
   viewEvents.classList.toggle("on",tab==="events");
   viewFamily.classList.toggle("on",tab==="family");
   viewTools.classList.toggle("on",tab==="tools");
+  document.getElementById("viewGoals").classList.toggle("on",tab==="goals");
+  document.getElementById("viewFun").classList.toggle("on",tab==="fun");
   if(tab==="chats" && !silent) document.body.dataset.screen="";
   if(tab==="events")renderEvents(); if(tab==="family")renderFamily();
+  if(tab==="goals")renderGoalsTab(); if(tab==="fun")renderFunTab();
 }
 function openModal(id){ document.getElementById(id).classList.add("on"); }
 function closeModal(id){ document.getElementById(id).classList.remove("on"); }
@@ -2506,6 +3732,20 @@ function mergeCloud(data){
     });
     if(eventsChanged) DB.set("events",evs);
   }
+  // Growth module sync (goals, habits, priorities, checkins, diagResults)
+  let growthChanged=false;
+  ["goals","habits","priorities","checkins","diagResults"].forEach(k=>{
+    if(!data[k]) return;
+    const local=DB.get(k,[]);
+    data[k].forEach(ci=>{
+      const ex=local.find(x=>x.id===ci.id);
+      if(ci.deleted){ const i=local.findIndex(x=>x.id===ci.id); if(i>=0){ local.splice(i,1); growthChanged=true; } return; }
+      if(!ex){ local.push(ci); growthChanged=true; }
+      else { const before=JSON.stringify(ex); Object.assign(ex,ci); if(JSON.stringify(ex)!==before) growthChanged=true; }
+    });
+    if(growthChanged) DB.set(k,local);
+  });
+  if(growthChanged && document.body.dataset.tab==="goals") renderGoalsTab();
   // Only invoke the heavy renderers when something actually changed
   if(msgsChanged||eventsChanged) { lastRender=""; renderMsgs(false); }
   if(msgsChanged||roomsChanged||usersChanged) renderPanel();
