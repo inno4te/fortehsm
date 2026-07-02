@@ -9,17 +9,35 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --green:#0B4D2A; --green-soft:#177A45; --green-tint:#E3F0E8;
-  --orange:#F2772B; --orange-soft:#FF8C42; --orange-tint:#FDEEDF;
-  --paper:#F7FAF6; --ink:#152A1E; --muted:#5E7367; --line:#DCE5DC;
-  --card:#FFFFFF; --accent:var(--green); --accent-soft:var(--green-soft); --accent-tint:var(--green-tint);
-  --r:16px; --shadow:0 4px 18px rgba(11,77,42,.09);
-  --grad:linear-gradient(120deg,#0B4D2A 0%,#177A45 42%,#2FA866 64%,var(--orange) 100%);
+  --green:#059669; --green-soft:#10B981; --green-deep:#065F46; --green-tint:rgba(16,185,129,.14);
+  --orange:#FF6D1F; --orange-soft:#FF8C42; --orange-tint:rgba(255,109,31,.13);
+  --vivid-cyan:#06B6D4; --vivid-violet:#8B5CF6; --vivid-pink:#EC4899;
+  --paper:rgba(255,255,255,.55); --ink:#08201A; --muted:#3E5A4C; --line:rgba(5,150,105,.18);
+  --card:rgba(255,255,255,.78); --glass-hi:rgba(255,255,255,.86); --glass-edge:rgba(255,255,255,.7);
+  --accent:var(--green); --accent-soft:var(--green-soft); --accent-tint:var(--green-tint);
+  --r:18px; --shadow:0 8px 32px rgba(6,95,70,.14), 0 2px 8px rgba(6,95,70,.08);
+  --glow-g:0 0 24px rgba(16,185,129,.35); --glow-o:0 0 24px rgba(255,109,31,.35);
+  --grad:linear-gradient(120deg,#059669 0%,#10B981 34%,#06B6D4 62%,#FF6D1F 100%);
+  --grad-hot:linear-gradient(120deg,#10B981 0%,#06B6D4 40%,#8B5CF6 70%,#EC4899 100%);
+  --mesh:
+    radial-gradient(42% 38% at 12% 8%,  rgba(16,185,129,.30) 0%, transparent 70%),
+    radial-gradient(38% 42% at 88% 12%, rgba(6,182,212,.24)  0%, transparent 70%),
+    radial-gradient(46% 40% at 85% 88%, rgba(255,109,31,.26) 0%, transparent 70%),
+    radial-gradient(40% 44% at 10% 90%, rgba(139,92,246,.20) 0%, transparent 70%),
+    radial-gradient(30% 30% at 50% 50%, rgba(236,72,153,.10) 0%, transparent 70%),
+    linear-gradient(160deg,#EFFEF6 0%,#EAFBFF 45%,#FFF4EA 100%);
 }
 [data-mode="dark"]{
-  --paper:#0D1B12; --ink:#E9F2EB; --muted:#8DA496; --line:#22382A;
-  --card:#142519; --green-tint:#173823; --orange-tint:#3A2A1B;
-  --shadow:0 4px 18px rgba(0,0,0,.4);
+  --paper:rgba(6,18,12,.58); --ink:#F1FAF4; --muted:#A6C4B4; --line:rgba(16,185,129,.26);
+  --card:rgba(11,26,18,.74); --glass-hi:rgba(30,62,44,.68); --glass-edge:rgba(120,255,190,.16);
+  --green-tint:rgba(16,185,129,.18); --orange-tint:rgba(255,140,66,.16);
+  --shadow:0 10px 36px rgba(0,0,0,.5), 0 2px 8px rgba(0,0,0,.35);
+  --mesh:
+    radial-gradient(44% 40% at 12% 8%,  rgba(16,185,129,.30) 0%, transparent 70%),
+    radial-gradient(38% 42% at 88% 12%, rgba(6,182,212,.22)  0%, transparent 70%),
+    radial-gradient(46% 40% at 85% 88%, rgba(255,109,31,.24) 0%, transparent 70%),
+    radial-gradient(40% 44% at 10% 90%, rgba(139,92,246,.22) 0%, transparent 70%),
+    linear-gradient(160deg,#04150C 0%,#061A20 50%,#160D04 100%);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
@@ -325,7 +343,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 .goals-view{padding:20px 22px 110px;max-width:880px}
 .goals-head{margin-bottom:18px}
 .goals-view h2{font-size:24px;font-weight:800;margin:0 0 4px}
-.encourage-card{background:linear-gradient(135deg,#0B4D2A 0%,#177A45 70%,#F2772B 130%);color:#fff;border-radius:18px;padding:18px 20px;margin-bottom:22px;box-shadow:0 6px 24px rgba(11,77,42,.22);position:relative;overflow:hidden}
+.encourage-card{background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.20)),linear-gradient(135deg,#0B4D2A 0%,#177A45 70%,#D9631C 130%);color:#fff;border-radius:18px;padding:18px 20px;margin-bottom:22px;box-shadow:0 6px 24px rgba(11,77,42,.22);position:relative;overflow:hidden}
 .encourage-card::before{content:"";position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:rgba(255,255,255,.08);border-radius:50%}
 .encourage-card .ec-i{font-size:22px;display:inline-block;background:rgba(255,255,255,.2);padding:7px 10px;border-radius:11px}
 .encourage-card .ec-eyebrow{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.85;margin-top:8px}
@@ -432,7 +450,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 .weekly-mini:hover{border-color:var(--accent);border-left-color:var(--orange);transform:translateY(-1px);box-shadow:0 4px 14px rgba(11,77,42,.08)}
 .weekly-mini .wm-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
 .weekly-mini .wm-title{font-weight:800;font-size:14px;color:var(--accent)}
-.weekly-mini .wm-pct{font-weight:900;font-size:22px;background:linear-gradient(to right,var(--green),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
+.weekly-mini .wm-pct{font-weight:900;font-size:22px;background:linear-gradient(to right,#047857,#C2410C);-webkit-background-clip:text;background-clip:text;color:transparent}
 .weekly-mini .wm-bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:8px}
 .weekly-mini .wm-bar i{display:block;height:100%;background:linear-gradient(to right,var(--green),var(--orange));border-radius:4px;width:0%;transition:width .35s}
 .weekly-mini .wm-stats{font-size:12.5px;color:var(--muted);line-height:1.45}
@@ -445,7 +463,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 .sc-header .sc-name{font-size:20px;font-weight:800;color:var(--accent)}
 .sc-header .sc-week{font-size:12px;color:var(--muted);margin-top:2px}
 .sc-hero{display:flex;align-items:center;gap:18px;background:linear-gradient(135deg,#F4F8F5,#FFFBF6);border:1.5px solid var(--accent-tint);border-radius:14px;padding:16px 18px;margin-bottom:18px}
-.sc-hero .sc-pct-big{font-size:42px;font-weight:900;background:linear-gradient(to right,var(--green),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.sc-hero .sc-pct-big{font-size:42px;font-weight:900;background:linear-gradient(to right,#047857,#C2410C);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
 .sc-hero .sc-tier{font-size:14px;font-weight:800;color:var(--accent)}
 .sc-hero .sc-msg{font-size:13px;color:#444;margin-top:3px;line-height:1.45}
 .sc-section{margin-bottom:16px}
@@ -493,7 +511,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 .diag-nav button{flex:1;max-width:200px}
 
 /* Diagnostic result card */
-.dr-hero{text-align:center;padding:20px;background:linear-gradient(135deg,#0B4D2A 0%,#177A45 70%,#F2772B 130%);color:#fff;border-radius:16px;margin-bottom:16px;position:relative;overflow:hidden}
+.dr-hero{text-align:center;padding:20px;background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.20)),linear-gradient(135deg,#0B4D2A 0%,#177A45 70%,#D9631C 130%);color:#fff;border-radius:16px;margin-bottom:16px;position:relative;overflow:hidden}
 .dr-hero::before{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;background:rgba(255,255,255,.08);border-radius:50%}
 .dr-emoji{font-size:48px;line-height:1;margin-bottom:6px}
 .dr-pct{font-size:48px;font-weight:900;line-height:1;margin:4px 0}
@@ -512,7 +530,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 .msg-card:hover{border-color:var(--accent)}
 .msg-card .mc-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
 .msg-card .mc-t{font-weight:800;font-size:13.5px;color:var(--accent)}
-.msg-card .mc-pct{font-weight:900;font-size:18px;background:linear-gradient(to right,var(--green),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent}
+.msg-card .mc-pct{font-weight:900;font-size:18px;background:linear-gradient(to right,#047857,#C2410C);-webkit-background-clip:text;background-clip:text;color:transparent}
 .msg-card .mc-tier{font-size:11.5px;color:var(--muted);font-weight:700}
 .msg-card .mc-bar{height:4px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
 .msg-card .mc-bar i{display:block;height:100%;background:linear-gradient(to right,var(--green),var(--orange));border-radius:3px}
@@ -685,6 +703,398 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 body:not([data-tab="chats"]) .panel{display:none}
 #mainChat{display:none}
 body[data-tab="chats"] #mainChat{display:flex}
+/* ============================================================
+   LIQUID GLASS — vivid 3D design layer (overrides base styles)
+   ============================================================ */
+body{
+  background:var(--mesh);
+  background-size:200% 200%, 200% 200%, 200% 200%, 200% 200%, 200% 200%, 100% 100%;
+  background-attachment:fixed;
+  animation:meshDrift 26s ease-in-out infinite alternate;
+}
+[data-mode="dark"] body,body[data-mode="dark"]{background:var(--mesh);background-attachment:fixed}
+@keyframes meshDrift{
+  0%  {background-position:0% 0%, 100% 0%, 100% 100%, 0% 100%, 50% 50%, 0 0}
+  100%{background-position:12% 18%, 82% 14%, 86% 82%, 16% 84%, 44% 56%, 0 0}
+}
+@media (prefers-reduced-motion: reduce){ body{animation:none} }
+
+/* Frosted structural surfaces */
+.rail,.panel,.mob-nav,.composer{
+  background:var(--card);
+  -webkit-backdrop-filter:blur(20px) saturate(1.7);
+  backdrop-filter:blur(20px) saturate(1.7);
+  border-color:var(--glass-edge);
+}
+.rail{box-shadow:inset -1px 0 0 var(--glass-edge), 4px 0 24px rgba(6,95,70,.06)}
+.panel{box-shadow:inset -1px 0 0 var(--glass-edge)}
+.mob-nav{box-shadow:0 -8px 32px rgba(6,95,70,.10);border-top:1px solid var(--glass-edge)}
+.main{background:transparent}
+.view{background:transparent}
+
+/* Glass cards — 3D lift with lit top edge */
+.modal{
+  background:var(--card);
+  -webkit-backdrop-filter:blur(26px) saturate(1.8);
+  backdrop-filter:blur(26px) saturate(1.8);
+  border:1px solid var(--glass-edge);
+  box-shadow:inset 0 1px 0 var(--glass-hi), 0 24px 64px rgba(6,95,70,.22), 0 4px 16px rgba(6,95,70,.10);
+}
+.chan{border:1px solid transparent}
+.chan:hover{background:var(--glass-hi);border-color:var(--glass-edge)}
+.chan.active{
+  background:linear-gradient(120deg,var(--green-tint),var(--orange-tint));
+  border:1px solid var(--glass-edge);
+  box-shadow:inset 0 1px 0 var(--glass-hi), 0 6px 18px rgba(16,185,129,.16);
+}
+.fun-card,.weekly-mini,.encourage-card,.msg-card,.ev-card,.eventcard,.toolcard,.habit-row,.prio-row,.fam-acc-card,.dr-msg,.dr-grow,.vision{
+  background:var(--card);
+  -webkit-backdrop-filter:blur(16px) saturate(1.6);
+  backdrop-filter:blur(16px) saturate(1.6);
+  border:1px solid var(--glass-edge);
+  box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow);
+}
+.fun-card:hover,.weekly-mini:hover{
+  transform:translateY(-3px) scale(1.012);
+  box-shadow:inset 0 1px 0 var(--glass-hi), 0 18px 44px rgba(16,185,129,.22), var(--glow-g);
+  border-color:rgba(16,185,129,.4);
+}
+input,textarea,select{
+  background:var(--glass-hi);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  border:1px solid var(--glass-edge);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4), inset 0 2px 6px rgba(6,95,70,.05);
+}
+input:focus,textarea:focus,select:focus{border-color:var(--green-soft);box-shadow:0 0 0 3px rgba(16,185,129,.18), var(--glow-g)}
+[data-mode="dark"] input,[data-mode="dark"] textarea,[data-mode="dark"] select{box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+
+/* Vivid buttons with liquid gradient + glow */
+.btn-grad{
+  background:var(--grad);background-size:220% 220%;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 10px 28px rgba(16,185,129,.35), 0 2px 8px rgba(255,109,31,.2);
+  transition:.25s;border:none;
+}
+.btn-grad:hover{background-position:90% 60%;transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 16px 40px rgba(6,182,212,.4), var(--glow-o)}
+.btn-ghost{
+  background:var(--card);border:1px solid var(--glass-edge);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  box-shadow:inset 0 1px 0 var(--glass-hi);
+}
+.btn-ghost:hover{border-color:var(--green-soft);box-shadow:inset 0 1px 0 var(--glass-hi), var(--glow-g)}
+
+/* Message bubbles — glass drops */
+.msg .bub{
+  -webkit-backdrop-filter:blur(12px) saturate(1.5);
+  backdrop-filter:blur(12px) saturate(1.5);
+  border:1px solid var(--glass-edge);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.32), 0 4px 14px rgba(6,95,70,.10);
+}
+.msg.mine .bub{
+  background:linear-gradient(120deg,rgba(16,185,129,.22),rgba(6,182,212,.14));
+  border:1px solid rgba(16,185,129,.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28), 0 6px 18px rgba(16,185,129,.22);
+}
+[data-mode="dark"] .msg.mine .bub{background:linear-gradient(120deg,rgba(16,185,129,.20),rgba(6,182,212,.12))}
+
+/* Vivid gradient headline accents */
+.wm-pct,.mc-pct,.sc-pct-big,.dr-pct{background:linear-gradient(120deg,#047857 0%,#0891B2 45%,#6D28D9 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+[data-mode="dark"] .wm-pct,[data-mode="dark"] .mc-pct,[data-mode="dark"] .sc-pct-big,[data-mode="dark"] .dr-pct{background:linear-gradient(120deg,#34D399 0%,#22D3EE 50%,#C4B5FD 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+[data-mode="dark"] .weekly-mini .wm-pct,[data-mode="dark"] .sc-hero .sc-pct-big,[data-mode="dark"] .msg-card .mc-pct{background:linear-gradient(to right,#34D399,#FB923C);-webkit-background-clip:text;background-clip:text;color:transparent}
+.diag-progress i,.wm-bar i,.mc-bar i,.sc-bar i{background:var(--grad)}
+.dr-hero{background:linear-gradient(135deg,#065F46 0%,#059669 30%,#06B6D4 65%,#FF6D1F 115%)}
+
+/* Rail buttons glow when active */
+.rail-btn.active,.mob-nav button.active{color:var(--green-soft);text-shadow:0 0 18px rgba(16,185,129,.6)}
+.rail-btn.active svg,.mob-nav button.active svg{filter:drop-shadow(0 0 8px rgba(16,185,129,.55))}
+
+/* Login joins the liquid world */
+#login{background:var(--mesh);background-attachment:fixed}
+.login-card{
+  background:var(--card);
+  -webkit-backdrop-filter:blur(26px) saturate(1.8);backdrop-filter:blur(26px) saturate(1.8);
+  border:1px solid var(--glass-edge);
+  box-shadow:inset 0 1px 0 var(--glass-hi), 0 28px 72px rgba(6,95,70,.24), 0 6px 20px rgba(6,95,70,.10);
+}
+/* Chat header floats on glass */
+.main-head{
+  background:var(--card);
+  -webkit-backdrop-filter:blur(20px) saturate(1.7);backdrop-filter:blur(20px) saturate(1.7);
+  border-bottom:1px solid var(--glass-edge);
+  box-shadow:0 4px 20px rgba(6,95,70,.07);
+}
+.story-tile{border:1px solid var(--glass-edge);box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow)}
+.mini-btn{background:var(--glass-hi);border:1px solid var(--glass-edge);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+
+/* ============================================================
+   PRAYER JOURNAL
+   ============================================================ */
+.journal-view{padding:20px 22px 110px;max-width:880px}
+.seg{display:flex;gap:6px;background:var(--card);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--glass-edge);border-radius:16px;padding:5px;margin:14px 0 18px;box-shadow:inset 0 1px 0 var(--glass-hi)}
+.seg button{flex:1;padding:11px 8px;border-radius:12px;font-weight:800;font-size:14px;color:var(--muted);transition:.2s}
+.seg button.active{background:var(--grad);color:#fff;box-shadow:0 6px 18px rgba(16,185,129,.35), inset 0 1px 0 rgba(255,255,255,.3)}
+.pj-filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+.pj-filters button{padding:7px 14px;border-radius:999px;font-size:12.5px;font-weight:800;border:1px solid var(--glass-edge);background:var(--card);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--muted);transition:.15s}
+.pj-filters button.active{background:linear-gradient(120deg,var(--green-tint),var(--orange-tint));color:var(--accent);border-color:rgba(16,185,129,.45);box-shadow:var(--glow-g)}
+.pj-card{
+  background:var(--card);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
+  border:1px solid var(--glass-edge);border-left:5px solid var(--green-soft);
+  border-radius:16px;padding:15px 17px;margin-bottom:12px;
+  box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow);transition:.18s;position:relative;overflow:hidden
+}
+.pj-card:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 var(--glass-hi), 0 14px 36px rgba(16,185,129,.18)}
+.pj-card.dream{border-left-color:var(--vivid-violet)}
+.pj-card.praise{border-left-color:var(--orange)}
+.pj-card.answered{border-left-color:#F5B301;background:linear-gradient(120deg,rgba(245,179,1,.10),var(--card))}
+.pj-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:6px}
+.pj-emoji{font-size:24px;line-height:1;filter:drop-shadow(0 2px 6px rgba(6,95,70,.25))}
+.pj-title{font-weight:800;font-size:15px;flex:1;line-height:1.35}
+.pj-kind{font-size:10.5px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;padding:4px 10px;border-radius:999px;background:var(--green-tint);color:var(--green-deep);white-space:nowrap}
+[data-mode="dark"] .pj-kind{color:#7CF2C0}
+.pj-card.dream .pj-kind{background:rgba(139,92,246,.16);color:#6D28D9}
+[data-mode="dark"] .pj-card.dream .pj-kind{color:#C4B5FD}
+.pj-card.praise .pj-kind{background:var(--orange-tint);color:#C2410C}
+[data-mode="dark"] .pj-card.praise .pj-kind{color:#FDBA74}
+.pj-card.answered .pj-kind{background:rgba(245,179,1,.2);color:#92600A}
+[data-mode="dark"] .pj-card.answered .pj-kind{color:#FCD34D}
+.pj-detail{font-size:13.5px;line-height:1.5;color:var(--ink);opacity:.9;margin-bottom:8px;white-space:pre-wrap}
+.pj-meta{font-size:11.5px;color:var(--muted);font-weight:600;margin-bottom:8px}
+.pj-testimony{background:linear-gradient(120deg,rgba(245,179,1,.13),rgba(16,185,129,.08));border:1px solid rgba(245,179,1,.35);border-radius:12px;padding:11px 13px;margin:8px 0;font-size:13px;line-height:1.5}
+.pj-testimony b{color:#92600A}
+[data-mode="dark"] .pj-testimony b{color:#FCD34D}
+.pj-actions{display:flex;gap:7px;flex-wrap:wrap}
+.pj-actions button{padding:7px 13px;border-radius:10px;font-size:12px;font-weight:800;border:1px solid var(--glass-edge);background:var(--glass-hi);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:.15s}
+.pj-actions button:hover{border-color:var(--green-soft);box-shadow:var(--glow-g);transform:translateY(-1px)}
+.pj-actions .pj-ans{background:linear-gradient(120deg,#F5B301,#FF8C42);color:#fff;border:none;box-shadow:0 4px 14px rgba(245,179,1,.4)}
+.pj-actions .pj-share{background:var(--grad);color:#fff;border:none;box-shadow:0 4px 14px rgba(16,185,129,.35)}
+.pj-empty{text-align:center;padding:44px 20px;color:var(--muted);font-size:14px;line-height:1.6}
+.pj-empty .pe-big{font-size:44px;margin-bottom:10px;filter:drop-shadow(0 4px 12px rgba(16,185,129,.3))}
+.type-pills{display:flex;gap:8px;margin-bottom:4px}
+.type-pills label{flex:1;cursor:pointer}
+.type-pills input{display:none;width:auto}
+.type-pills span{display:block;text-align:center;padding:11px 6px;border-radius:13px;border:1px solid var(--glass-edge);background:var(--glass-hi);font-weight:800;font-size:13px;transition:.15s}
+.type-pills input:checked+span{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 6px 16px rgba(16,185,129,.35)}
+
+/* ============================================================
+   NOTEPADS
+   ============================================================ */
+.note-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px;margin-top:4px}
+.note-card{
+  background:var(--card);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
+  border:1px solid var(--glass-edge);border-radius:16px;padding:15px;cursor:pointer;text-align:left;
+  box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow);transition:.18s;
+  display:flex;flex-direction:column;gap:7px;min-height:130px;position:relative;overflow:hidden
+}
+.note-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:var(--grad)}
+.note-card:hover{transform:translateY(-3px) scale(1.01);box-shadow:inset 0 1px 0 var(--glass-hi), 0 16px 40px rgba(6,182,212,.2), var(--glow-g);border-color:rgba(16,185,129,.4)}
+.note-card .nc-t{font-weight:800;font-size:15px;margin-top:3px}
+.note-card .nc-snip{font-size:12.5px;color:var(--muted);line-height:1.45;flex:1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.note-card .nc-foot{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--muted);font-weight:700}
+.nc-avs{display:flex}
+.nc-avs i{width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;font-style:normal;margin-left:-6px;border:2px solid var(--card);box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.nc-avs i:first-child{margin-left:0}
+.note-new{border:2px dashed rgba(16,185,129,.45);background:var(--green-tint);align-items:center;justify-content:center;color:var(--accent);font-weight:800;font-size:14px;gap:6px}
+.note-new::before{display:none}
+.note-new .nn-plus{font-size:30px;line-height:1}
+/* Full-screen note editor */
+.note-screen{position:fixed;inset:0;z-index:80;display:none;flex-direction:column;background:var(--mesh);background-attachment:fixed}
+.note-screen.on{display:flex}
+.note-inner{flex:1;display:flex;flex-direction:column;max-width:760px;width:100%;margin:0 auto;padding:14px 14px calc(14px + env(safe-area-inset-bottom));min-height:0}
+.note-top{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.note-top .nt-back{font-size:22px;padding:6px 12px;border-radius:12px;background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--glass-edge);box-shadow:inset 0 1px 0 var(--glass-hi)}
+#noteTitle{flex:1;font-weight:800;font-size:17px;background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.note-toolbar{display:flex;gap:5px;flex-wrap:wrap;background:var(--card);-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);border:1px solid var(--glass-edge);border-radius:14px;padding:7px;margin-bottom:10px;box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow)}
+.note-toolbar button{min-width:38px;height:38px;border-radius:10px;font-size:15px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;transition:.12s;border:1px solid transparent}
+.note-toolbar button:hover{background:var(--green-tint);border-color:rgba(16,185,129,.35);box-shadow:var(--glow-g)}
+.note-toolbar .tb-sep{width:1px;background:var(--glass-edge);margin:4px 3px}
+.note-toolbar .tb-color{border-radius:50%;min-width:26px;width:26px;height:26px;margin:6px 2px;border:2px solid rgba(255,255,255,.7);box-shadow:0 2px 8px rgba(0,0,0,.2)}
+#noteBody{
+  flex:1;overflow-y:auto;background:var(--card);-webkit-backdrop-filter:blur(20px) saturate(1.6);backdrop-filter:blur(20px) saturate(1.6);
+  border:1px solid var(--glass-edge);border-radius:16px;padding:18px;font-size:15px;line-height:1.65;outline:none;
+  box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow);min-height:0
+}
+#noteBody:focus{border-color:var(--green-soft);box-shadow:0 0 0 3px rgba(16,185,129,.15), inset 0 1px 0 var(--glass-hi)}
+#noteBody h3{margin:10px 0 6px;font-size:19px}
+#noteBody ul,#noteBody ol{padding-left:24px;margin:6px 0}
+#noteBody:empty::before{content:"Start writing… your words are safe here.";color:var(--muted)}
+.note-foot{display:flex;gap:8px;margin-top:10px}
+.note-foot button{flex:1}
+.note-collab{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.invite-chips{display:flex;flex-direction:column;gap:8px;margin:8px 0}
+.invite-chips label{display:flex;align-items:center;gap:10px;padding:11px 13px;border-radius:13px;border:1px solid var(--glass-edge);background:var(--glass-hi);cursor:pointer;font-weight:700;font-size:14px;transition:.15s}
+.invite-chips label:has(input:checked){background:linear-gradient(120deg,var(--green-tint),var(--orange-tint));border-color:rgba(16,185,129,.5);box-shadow:var(--glow-g)}
+.invite-chips input{width:auto;accent-color:var(--green)}
+/* prayer + note message cards in chat */
+.msg-prayer{border-left:5px solid var(--green-soft)}
+.msg-prayer.answered{border-left-color:#F5B301}
+.msg-prayer.dream{border-left-color:var(--vivid-violet)}
+.msg-prayer.praise{border-left-color:var(--orange)}
+@media (max-width:700px){
+  .journal-view{padding:14px 14px 110px}
+  .note-grid{grid-template-columns:repeat(2,1fr)}
+  .note-toolbar button{min-width:34px;height:34px}
+}
+/* ============================================================
+   MaD — MAKE A DIFFERENCE
+   ============================================================ */
+.mad-view{padding:20px 22px 110px;max-width:880px}
+.mad-hero{
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.18),rgba(0,0,0,.28)),
+    linear-gradient(135deg,#054C39 0%,#047857 30%,#0E8FA8 58%,#6D45C9 88%,#E15A16 120%);
+  border-radius:22px;padding:24px 22px;color:#fff;margin-bottom:16px;position:relative;overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 18px 48px rgba(6,95,70,.3);
+}
+.mad-hero::before{content:"";position:absolute;top:-60px;right:-40px;width:220px;height:220px;background:rgba(255,255,255,.10);border-radius:50%}
+.mad-hero::after{content:"";position:absolute;bottom:-80px;left:-50px;width:200px;height:200px;background:rgba(255,255,255,.07);border-radius:50%}
+.mad-logo{font-size:15px;font-weight:900;letter-spacing:.12em;opacity:.92}
+.mad-name{font-size:27px;font-weight:900;margin:4px 0 2px}
+.mad-slogan{font-size:16px;font-weight:800;font-style:italic;color:#FFFDF5;text-shadow:0 1px 4px rgba(0,0,0,.45)}
+.mad-sub{font-size:13px;opacity:.9;margin-top:8px;line-height:1.5;max-width:480px}
+.mad-actions-bar{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap}
+.mad-actions-bar .btn{flex:1;min-width:150px}
+.mad-card{
+  background:var(--card);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
+  border:1px solid var(--glass-edge);border-radius:18px;padding:16px 17px;margin-bottom:13px;
+  box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow);transition:.18s;position:relative;overflow:hidden
+}
+.mad-card:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 var(--glass-hi), 0 16px 40px rgba(6,182,212,.18)}
+.mad-card.promoted{border:1.5px solid rgba(255,109,31,.55);background:linear-gradient(120deg,rgba(255,109,31,.10),var(--card))}
+.mad-promo-tag{position:absolute;top:0;right:0;background:linear-gradient(120deg,#FF6D1F,#EC4899);color:#fff;font-size:10.5px;font-weight:900;letter-spacing:.05em;padding:5px 14px;border-radius:0 0 0 14px;box-shadow:0 4px 12px rgba(255,109,31,.4)}
+.mad-head{display:flex;gap:10px;align-items:flex-start;margin-bottom:6px}
+.mad-src{font-size:22px;filter:drop-shadow(0 2px 6px rgba(6,95,70,.3))}
+.mad-title{font-weight:800;font-size:15.5px;flex:1;line-height:1.35;padding-right:60px}
+.mad-detail{font-size:13.5px;line-height:1.55;opacity:.92;margin-bottom:8px;white-space:pre-wrap}
+.mad-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:800;color:var(--vivid-cyan);margin-bottom:8px;text-decoration:none;word-break:break-all}
+.mad-meta{font-size:11.5px;color:var(--muted);font-weight:600;margin-bottom:10px}
+.mad-bar{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.mad-bar button{padding:8px 14px;border-radius:11px;font-size:12.5px;font-weight:800;border:1px solid var(--glass-edge);background:var(--glass-hi);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:.15s}
+.mad-bar button:hover{transform:translateY(-1px);box-shadow:var(--glow-g)}
+.mad-vote.voted{background:linear-gradient(120deg,var(--green-tint),rgba(6,182,212,.18));border-color:rgba(16,185,129,.5);color:var(--green-deep)}
+[data-mode="dark"] .mad-vote.voted{color:#7CF2C0}
+.mad-promote.on{background:linear-gradient(120deg,#FF6D1F,#EC4899);color:#fff;border:none;box-shadow:0 4px 14px rgba(255,109,31,.4)}
+.mad-pledge-btn{background:var(--grad);color:#fff;border:none;box-shadow:0 4px 14px rgba(16,185,129,.35)}
+.mad-pledges{margin-top:10px;border-top:1px dashed var(--line);padding-top:9px}
+.mad-pl-head{font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);margin-bottom:6px}
+.mad-pl{display:flex;gap:8px;align-items:center;font-size:12.5px;padding:4px 0}
+.mad-pl i{font-style:normal;font-size:15px}
+.mad-pl b{color:var(--accent)}
+.mg-row{display:flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--glass-edge);border-radius:12px;background:var(--glass-hi);margin-top:8px;font-size:13px}
+.mg-row b{flex:1}
+.mg-row button{padding:6px 11px;border-radius:9px;font-size:11.5px;font-weight:800;background:var(--green-tint);border:1px solid rgba(16,185,129,.4)}
+/* Guest mode: only MaD visible */
+body[data-guest="1"] .rail,body[data-guest="1"] .mob-nav,body[data-guest="1"] .panel,body[data-guest="1"] #mainChat{display:none !important}
+body[data-guest="1"] #viewMad{display:flex !important}
+body[data-guest="1"] #madGuestBtn{display:none}
+.guest-banner{background:linear-gradient(120deg,rgba(139,92,246,.16),rgba(6,182,212,.14));border:1px solid rgba(139,92,246,.35);border-radius:14px;padding:11px 14px;font-size:13px;font-weight:700;margin-bottom:14px}
+
+/* ============================================================
+   LIFE HACKS
+   ============================================================ */
+.hack-card .fc-e{filter:drop-shadow(0 3px 8px rgba(6,182,212,.35))}
+.hk-badges{display:flex;gap:6px;align-items:center;font-size:11px;font-weight:800}
+.hk-badges .hb{padding:3px 9px;border-radius:999px;background:var(--green-tint);color:var(--green-deep)}
+[data-mode="dark"] .hk-badges .hb{color:#7CF2C0}
+.hk-badges .hb.cert{background:linear-gradient(120deg,rgba(245,179,1,.25),rgba(255,109,31,.18));color:#92600A}
+[data-mode="dark"] .hk-badges .hb.cert{color:#FCD34D}
+.hk-title{flex:1;text-align:center;font-weight:900;font-size:16px}
+.hk-body{flex:1;overflow-y:auto;min-height:0;padding-bottom:30px}
+.hk-hero{background:var(--grad);border-radius:18px;padding:18px;color:#fff;margin-bottom:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 14px 36px rgba(16,185,129,.3)}
+.hk-hero .he{font-size:38px;line-height:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.2))}
+.hk-hero .ht{font-size:21px;font-weight:900;margin:6px 0 3px}
+.hk-hero .hg{font-size:13px;opacity:.94;line-height:1.5}
+.hk-sec{
+  background:var(--card);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
+  border:1px solid var(--glass-edge);border-left:4px solid var(--green-soft);border-radius:14px;
+  padding:13px 15px;margin-bottom:10px;box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow)
+}
+.hk-sec h4{font-size:14px;font-weight:900;margin-bottom:5px;color:var(--accent)}
+.hk-sec p{font-size:13.5px;line-height:1.6;white-space:pre-wrap}
+.hk-sec .hk-ref{font-size:11px;color:var(--muted);font-style:italic;margin-top:6px;display:block}
+.hk-quiz{margin-top:18px}
+.hk-quiz-head{font-size:16px;font-weight:900;margin-bottom:4px;background:linear-gradient(120deg,#047857,#7C3AED);-webkit-background-clip:text;background-clip:text;color:transparent}
+[data-mode="dark"] .hk-quiz-head{background:linear-gradient(120deg,#34D399,#C4B5FD);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hk-quiz-sub{font-size:12.5px;color:var(--muted);margin-bottom:12px}
+.hq-q{background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--glass-edge);border-radius:14px;padding:13px 15px;margin-bottom:10px;box-shadow:inset 0 1px 0 var(--glass-hi)}
+.hq-q .hq-t{font-weight:800;font-size:13.5px;margin-bottom:8px}
+.hq-opt{display:block;width:100%;text-align:left;padding:10px 13px;border:1.5px solid var(--glass-edge);background:var(--glass-hi);border-radius:11px;margin-bottom:7px;font-size:13px;cursor:pointer;transition:.13s;line-height:1.4}
+.hq-opt:hover{border-color:var(--green-soft)}
+.hq-opt.picked{border-color:var(--green-soft);background:linear-gradient(120deg,var(--green-tint),rgba(6,182,212,.12));font-weight:800}
+.hq-opt.correct{border-color:#059669;background:rgba(16,185,129,.2);font-weight:800}
+.hq-opt.wrong{border-color:#EF4444;background:rgba(239,68,68,.14)}
+.hk-submit{width:100%;margin-top:6px}
+.hk-result{text-align:center;padding:16px;border-radius:16px;margin-top:12px;font-weight:800;font-size:15px}
+.hk-result.pass{background:linear-gradient(120deg,rgba(16,185,129,.2),rgba(245,179,1,.16));border:1.5px solid rgba(16,185,129,.5)}
+.hk-result.fail{background:rgba(239,68,68,.1);border:1.5px solid rgba(239,68,68,.3)}
+
+/* Certificate */
+.cert{
+  border:3px double #C9A227;border-radius:16px;padding:26px 22px;text-align:center;position:relative;overflow:hidden;
+  background:
+    radial-gradient(60% 50% at 50% 0%, rgba(245,179,1,.14) 0%, transparent 70%),
+    linear-gradient(160deg,rgba(255,255,255,.85),rgba(255,251,235,.9));
+}
+[data-mode="dark"] .cert{background:radial-gradient(60% 50% at 50% 0%, rgba(245,179,1,.12) 0%, transparent 70%),linear-gradient(160deg,rgba(20,30,22,.92),rgba(30,26,12,.92))}
+.cert::before{content:"✦";position:absolute;top:10px;left:14px;color:#C9A227;font-size:18px}
+.cert::after{content:"✦";position:absolute;top:10px;right:14px;color:#C9A227;font-size:18px}
+.cert .c-brand{font-size:11px;font-weight:900;letter-spacing:.22em;color:#92600A;text-transform:uppercase}
+.cert .c-title{font-size:24px;font-weight:900;margin:8px 0 2px;background:linear-gradient(90deg,#92600A,#C9A227,#F5B301);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cert .c-cert{font-size:12px;color:var(--muted);font-style:italic}
+.cert .c-name{font-size:26px;font-weight:900;margin:14px 0 3px;color:var(--ink)}
+.cert .c-line{width:180px;height:2px;background:linear-gradient(90deg,transparent,#C9A227,transparent);margin:0 auto 12px}
+.cert .c-body{font-size:13.5px;line-height:1.6;max-width:380px;margin:0 auto 12px}
+.cert .c-hack{font-weight:900;color:#92600A}
+[data-mode="dark"] .cert .c-hack{color:#FCD34D}
+.cert .c-score{display:inline-block;background:linear-gradient(120deg,#F5B301,#FF8C42);color:#fff;font-weight:900;font-size:13px;padding:5px 16px;border-radius:999px;box-shadow:0 4px 14px rgba(245,179,1,.4);margin-bottom:12px}
+.cert .c-date{font-size:11.5px;color:var(--muted)}
+.cert .c-seal{font-size:34px;margin-top:6px;filter:drop-shadow(0 4px 10px rgba(201,162,39,.5))}
+@media (max-width:700px){
+  .mad-view{padding:14px 14px 110px}
+  .mob-nav button{font-size:8.5px}
+  .mob-nav button svg{width:19px;height:19px}
+}
+
+/* ============================================================
+   CONTRAST SAFETY — readable fallbacks + AA guarantees
+   ============================================================ */
+/* If background-clip:text isn't supported, transparent text would vanish. Give a solid fallback. */
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .login-card h1 span,.wm-pct,.mc-pct,.sc-pct-big,.dr-pct,.hk-quiz-head,.cert .c-title{
+    color:var(--green-deep) !important;background:none !important;-webkit-text-fill-color:currentColor !important;
+  }
+  [data-mode="dark"] .login-card h1 span,[data-mode="dark"] .wm-pct,[data-mode="dark"] .mc-pct,
+  [data-mode="dark"] .sc-pct-big,[data-mode="dark"] .dr-pct,[data-mode="dark"] .hk-quiz-head{
+    color:var(--green-soft) !important;
+  }
+}
+/* Body text on translucent views must never rely on the mesh alone — enforce ink weight */
+.view,.journal-view,.mad-view{color:var(--ink)}
+.vsub,.fc-d,.mad-detail,.pj-detail,.hk-sec p,.mc-tier{color:var(--ink)}
+.vsub,.fc-d,.mad-detail{opacity:1}
+.pj-detail{opacity:1;color:var(--ink)}
+.mad-sub{opacity:1}
+/* Muted text: darken/lighten to reach comfortable contrast on glass */
+.mad-meta,.pj-meta,.nc-snip,.nc-foot,.note-collab,.hk-quiz-sub,.hk-sec .hk-ref,.fc-d{color:var(--muted)}
+/* Dark-mode: light-tint badges/boxes need dark text, not the default light ink */
+[data-mode="dark"] .pj-card.answered .pj-testimony,[data-mode="dark"] .pj-testimony{color:#F1FAF4}
+[data-mode="dark"] .hk-result.pass{color:#EAFBF2}
+[data-mode="dark"] .hq-opt.correct{color:#EAFBF2}
+[data-mode="dark"] .mad-vote.voted{color:#CFFCE6}
+[data-mode="dark"] .guest-banner{color:#EAF6FF}
+/* Answered prayer tint is light-yellow in BOTH modes — force dark ink so it never washes */
+.pj-card.answered .pj-detail,.pj-card.answered .pj-title{color:#1A2E22}
+[data-mode="dark"] .pj-card.answered .pj-detail,[data-mode="dark"] .pj-card.answered .pj-title{color:#F5EFD6}
+/* Encourage / hero cards: their eyebrow/skip were very faint — lift to readable */
+.encourage-card .ec-eyebrow{opacity:1;color:rgba(255,255,255,.92)}
+.encourage-card .ec-skip{opacity:1;color:rgba(255,255,255,.82)}
+.dr-name{opacity:1}
+/* Links on glass: ensure the cyan is dark enough in light mode */
+.mad-link{color:#0E7490}
+[data-mode="dark"] .mad-link{color:#67E8F9}
+/* Certificate body text sits on a pale gold panel — keep it truly dark in light mode */
+.cert .c-body,.cert .c-cert,.cert .c-name{color:#2A2418}
+[data-mode="dark"] .cert .c-body,[data-mode="dark"] .cert .c-cert{color:#EDE6D0}
+[data-mode="dark"] .cert .c-name{color:#FBF6E6}
 </style>
 </head>
 <body data-tab="chats">
@@ -735,6 +1145,8 @@ body[data-tab="chats"] #mainChat{display:flex}
     <button class="rail-btn" data-tab="events" onclick="goTab('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>Events</button>
     <button class="rail-btn" data-tab="goals" onclick="goTab('goals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Goals</button>
     <button class="rail-btn" data-tab="fun" onclick="goTab('fun')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11a3 3 0 1 0 6 0 3 3 0 0 0-6 0"/><path d="M3 12c3-6 15-6 18 0-3 6-15 6-18 0"/></svg>Fun</button>
+    <button class="rail-btn" data-tab="journal" onclick="goTab('journal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-1.2-.9-2.6-2.2C6 15.7 3 13 3 9.5 3 7 5 5 7.5 5c1.6 0 3 .8 4.5 2.5C13.5 5.8 14.9 5 16.5 5 19 5 21 7 21 9.5c0 3.5-3 6.2-6.4 9.3C13.2 20.1 12 21 12 21z"/><path d="M12 7.5v4M10 9.5h4"/></svg>Journal</button>
+    <button class="rail-btn" data-tab="mad" onclick="goTab('mad')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.55 1 1.5 1 2.5h6c0-1 .4-1.95 1-2.5A6 6 0 0 0 12 3z"/></svg>MaD</button>
     <button class="rail-btn" data-tab="family" onclick="goTab('family')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Family</button>
     <button class="rail-btn" data-tab="tools" onclick="goTab('tools')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Tools</button>
     <div class="rail-spacer"></div>
@@ -897,14 +1309,63 @@ body[data-tab="chats"] #mainChat{display:flex}
   <div class="main view fun-view" id="viewFun">
     <div class="goals-head">
       <h2>Fun & growth</h2>
-      <div class="vsub">Quick honest diagnostics — discover where you're strong, where to grow. Be honest. There are no wrong answers.</div>
+      <div class="vsub" id="funSub">Quick honest diagnostics — discover where you're strong, where to grow. Be honest. There are no wrong answers.</div>
     </div>
-    <div class="fun-grid" id="funGrid"></div>
+    <div class="seg" id="funSegBar">
+      <button class="active" data-seg="diags" onclick="funSeg('diags')">🧪 Diagnostics</button>
+      <button data-seg="hacks" onclick="funSeg('hacks')">🎓 Life Hacks</button>
+    </div>
+    <div id="segDiags"><div class="fun-grid" id="funGrid"></div></div>
+    <div id="segHacks" style="display:none"><div class="fun-grid" id="hacksGrid"></div></div>
     <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
       <b>The Forteh Family Vision</b>
       <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
       <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
     </div>
+  </div>
+  <div class="main view journal-view" id="viewJournal">
+    <div class="goals-head">
+      <h2>🙏 Journal</h2>
+      <div class="vsub">Prayers, dreams, praise reports — and shared notepads. "Pray without ceasing. In every thing give thanks." · 1 Thess 5:17-18</div>
+    </div>
+    <div class="seg" id="journalSeg">
+      <button class="active" data-seg="prayers" onclick="journalSeg('prayers')">🙏 Prayer Journal</button>
+      <button data-seg="notes" onclick="journalSeg('notes')">📝 Notepads</button>
+    </div>
+    <div id="segPrayers">
+      <button class="btn btn-grad" onclick="openNewPrayer()" style="margin-bottom:14px">＋ Add prayer · dream · praise report</button>
+      <div class="pj-filters" id="pjFilters">
+        <button class="active" data-f="all" onclick="pjFilter('all')">All</button>
+        <button data-f="prayer" onclick="pjFilter('prayer')">🙏 Prayers</button>
+        <button data-f="dream" onclick="pjFilter('dream')">💭 Dreams</button>
+        <button data-f="praise" onclick="pjFilter('praise')">🎉 Praise</button>
+        <button data-f="answered" onclick="pjFilter('answered')">✅ Answered</button>
+        <button data-f="family" onclick="pjFilter('family')">👨‍👩‍👧 Family wall</button>
+      </div>
+      <div id="pjList"></div>
+    </div>
+    <div id="segNotes" style="display:none">
+      <div class="note-grid" id="noteGrid"></div>
+    </div>
+  </div>
+  <div class="main view mad-view" id="viewMad">
+    <div class="mad-hero">
+      <div class="mad-logo">💡 MaD</div>
+      <div class="mad-name">Make a Difference</div>
+      <div class="mad-slogan">Giving life to likes.</div>
+      <div class="mad-sub">Where the family stops scrolling and starts acting — on the issues we feel strongly about.</div>
+    </div>
+    <div class="mad-actions-bar">
+      <button class="btn btn-grad" onclick="openNewIdea()">＋ Post an idea</button>
+      <button class="btn btn-ghost" id="madGuestBtn" onclick="openGuests()">🔗 Invite a friend</button>
+    </div>
+    <div class="pj-filters" id="madFilters">
+      <button class="active" data-f="all" onclick="madFilter('all')">All ideas</button>
+      <button data-f="promoted" onclick="madFilter('promoted')">🚀 Promoted</button>
+      <button data-f="top" onclick="madFilter('top')">🔥 Most voted</button>
+      <button data-f="mine" onclick="madFilter('mine')">💡 Mine</button>
+    </div>
+    <div id="madList"></div>
   </div>
   <div class="main view" id="viewFamily">
     <h2>The family</h2><div class="vsub">Everyone in ForTe Fam, wherever they are in the world.</div>
@@ -931,6 +1392,8 @@ body[data-tab="chats"] #mainChat{display:flex}
   <button data-tab="events" onclick="goTab('events')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>Events</button>
   <button data-tab="goals" onclick="goTab('goals')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Goals</button>
   <button data-tab="fun" onclick="goTab('fun')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11a3 3 0 1 0 6 0 3 3 0 0 0-6 0"/><path d="M3 12c3-6 15-6 18 0-3 6-15 6-18 0"/></svg>Fun</button>
+  <button data-tab="journal" onclick="goTab('journal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-1.2-.9-2.6-2.2C6 15.7 3 13 3 9.5 3 7 5 5 7.5 5c1.6 0 3 .8 4.5 2.5C13.5 5.8 14.9 5 16.5 5 19 5 21 7 21 9.5c0 3.5-3 6.2-6.4 9.3C13.2 20.1 12 21 12 21z"/></svg>Journal</button>
+  <button data-tab="mad" onclick="goTab('mad')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.6.55 1 1.5 1 2.5h6c0-1 .4-1.95 1-2.5A6 6 0 0 0 12 3z"/></svg>MaD</button>
   <button data-tab="family" onclick="goTab('family')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9.5" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Family</button>
   <button data-tab="tools" onclick="goTab('tools')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Tools</button>
   <button onclick="openSettings()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-1.8-.3 1.6 1.6 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-1-1.5 1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0 .3-1.8 1.6 1.6 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.5-1 1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3h.1a1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 1 1.5h.1a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8v.1a1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z"/></svg>Me</button>
@@ -1192,7 +1655,180 @@ body[data-tab="chats"] #mainChat{display:flex}
   </div>
 </div>
 
+<!-- New prayer / dream / praise modal -->
+<div class="modal-wrap" id="mNewPrayer"><div class="modal">
+  <button class="x" onclick="closeModal('mNewPrayer')">✕</button>
+  <h3>New journal entry</h3>
+  <div class="field"><label>Type</label>
+    <div class="type-pills">
+      <label><input type="radio" name="pjType" value="prayer" checked><span>🙏 Prayer</span></label>
+      <label><input type="radio" name="pjType" value="dream"><span>💭 Dream</span></label>
+      <label><input type="radio" name="pjType" value="praise"><span>🎉 Praise</span></label>
+    </div>
+  </div>
+  <div class="field"><label>Topic</label>
+    <input id="pjTopic" placeholder="e.g. Wisdom for the INSAPT deployment · Linda's book launch">
+  </div>
+  <div class="field"><label>Details (optional)</label>
+    <textarea id="pjDetail" rows="3" placeholder="What are you bringing before God? What did you dream? What is He doing?"></textarea>
+  </div>
+  <div class="field"><label>Date</label>
+    <input type="date" id="pjDate">
+  </div>
+  <button class="btn btn-grad" onclick="savePrayer()">Save to my journal</button>
+</div></div>
+
+<!-- Mark prayer answered modal -->
+<div class="modal-wrap" id="mAnswerPrayer"><div class="modal">
+  <button class="x" onclick="closeModal('mAnswerPrayer')">✕</button>
+  <h3>✅ God answered!</h3>
+  <div class="vsub" id="apTopic" style="margin-bottom:12px;font-weight:700"></div>
+  <div class="field"><label>How did God answer this prayer?</label>
+    <textarea id="apTestimony" rows="4" placeholder="Tell the story — this becomes a testimony the family can be encouraged by."></textarea>
+  </div>
+  <div class="field"><label>Date answered</label>
+    <input type="date" id="apDate">
+  </div>
+  <button class="btn btn-grad" onclick="saveAnswer()">Save testimony ✓</button>
+</div></div>
+
+<!-- New notepad modal -->
+<div class="modal-wrap" id="mNewNote"><div class="modal">
+  <button class="x" onclick="closeModal('mNewNote')">✕</button>
+  <h3>📝 New notepad</h3>
+  <div class="field"><label>Title</label>
+    <input id="nnTitle" placeholder="e.g. Family trip ideas · Sermon notes · Recipes">
+  </div>
+  <div class="field"><label>Invite family members to collaborate (optional)</label>
+    <div class="invite-chips" id="nnInvite"></div>
+  </div>
+  <button class="btn btn-grad" onclick="createNote()">Create notepad</button>
+</div></div>
+
+<!-- Invite collaborators modal (from inside editor) -->
+<div class="modal-wrap" id="mNoteInvite"><div class="modal">
+  <button class="x" onclick="closeModal('mNoteInvite')">✕</button>
+  <h3>Invite to this notepad</h3>
+  <div class="vsub" style="margin-bottom:10px">Invited members can read and edit this note.</div>
+  <div class="invite-chips" id="niChips"></div>
+  <button class="btn btn-grad" onclick="saveInvites()">Save collaborators</button>
+</div></div>
+
+<!-- Full-screen note editor -->
+<div class="note-screen" id="noteScreen">
+  <div class="note-inner">
+    <div class="note-top">
+      <button class="nt-back" onclick="closeNote()">←</button>
+      <input id="noteTitle" placeholder="Untitled note" oninput="noteDirty()">
+    </div>
+    <div class="note-collab" id="noteCollab"></div>
+    <div class="note-toolbar">
+      <button onclick="fmt('bold')" title="Bold"><b>B</b></button>
+      <button onclick="fmt('italic')" title="Italic"><i>I</i></button>
+      <button onclick="fmt('underline')" title="Underline"><u>U</u></button>
+      <button onclick="fmt('strikeThrough')" title="Strike"><s>S</s></button>
+      <div class="tb-sep"></div>
+      <button onclick="fmt('formatBlock','h3')" title="Heading">H</button>
+      <button onclick="fmt('insertUnorderedList')" title="Bullets">≔</button>
+      <button onclick="fmt('insertOrderedList')" title="Numbered">1.</button>
+      <div class="tb-sep"></div>
+      <button class="tb-color" style="background:#059669" onclick="fmt('foreColor','#059669')" title="Green"></button>
+      <button class="tb-color" style="background:#FF6D1F" onclick="fmt('foreColor','#FF6D1F')" title="Orange"></button>
+      <button class="tb-color" style="background:#8B5CF6" onclick="fmt('foreColor','#8B5CF6')" title="Violet"></button>
+      <button class="tb-color" style="background:#EC4899" onclick="fmt('foreColor','#EC4899')" title="Pink"></button>
+      <div class="tb-sep"></div>
+      <button onclick="fmt('removeFormat')" title="Clear formatting">⌫</button>
+    </div>
+    <div id="noteBody" contenteditable="true" oninput="noteDirty()"></div>
+    <div class="note-foot">
+      <button class="btn btn-ghost" onclick="openInvites()">👥 Invite</button>
+      <button class="btn btn-ghost" onclick="deleteNote()">🗑 Delete</button>
+      <button class="btn btn-grad" onclick="shareNote()">📤 Share to chat</button>
+    </div>
+  </div>
+</div>
+
 <!-- Diagnostic Result modal -->
+<!-- MaD: new idea modal -->
+<div class="modal-wrap" id="mNewIdea"><div class="modal">
+  <button class="x" onclick="closeModal('mNewIdea')">✕</button>
+  <h3>💡 Post an idea</h3>
+  <div class="vsub" style="margin-bottom:10px">Something that could change the world, your community — or one life.</div>
+  <div class="field"><label>Source</label>
+    <div class="type-pills">
+      <label><input type="radio" name="miSrc" value="text" checked><span>✍️ My idea</span></label>
+      <label><input type="radio" name="miSrc" value="article"><span>📰 Article</span></label>
+      <label><input type="radio" name="miSrc" value="community"><span>🏘️ Seen locally</span></label>
+    </div>
+  </div>
+  <div class="field"><label>Title</label>
+    <input id="miTitle" placeholder="e.g. Clean water point for the school in Bafut">
+  </div>
+  <div class="field"><label>The idea — what, why, and what it would change</label>
+    <textarea id="miDetail" rows="4" placeholder="Describe it. What breaks your heart or fires you up about this?"></textarea>
+  </div>
+  <div class="field"><label>Link (optional — news article, video, page)</label>
+    <input id="miLink" placeholder="https://…">
+  </div>
+  <button class="btn btn-grad" onclick="saveIdea()">Post to the marketplace</button>
+</div></div>
+
+<!-- MaD: pledge modal -->
+<div class="modal-wrap" id="mPledge"><div class="modal">
+  <button class="x" onclick="closeModal('mPledge')">✕</button>
+  <h3>🤝 I'm in — my contribution</h3>
+  <div class="vsub" id="plIdeaTitle" style="margin-bottom:10px;font-weight:700"></div>
+  <div class="field"><label>How will you contribute?</label>
+    <div class="type-pills">
+      <label><input type="radio" name="plType" value="cash" checked><span>💰 Cash</span></label>
+      <label><input type="radio" name="plType" value="time"><span>⏰ Time</span></label>
+      <label><input type="radio" name="plType" value="skills"><span>🛠 Skills</span></label>
+      <label><input type="radio" name="plType" value="other"><span>🎁 Other</span></label>
+    </div>
+  </div>
+  <div class="field"><label>Details (amount, hours, what you'll do…)</label>
+    <input id="plDetail" placeholder="e.g. 50,000 XAF · 4 hours a week · design the flyers">
+  </div>
+  <button class="btn btn-grad" onclick="savePledge()">Commit it 💚</button>
+</div></div>
+
+<!-- MaD: guest links modal -->
+<div class="modal-wrap" id="mGuests"><div class="modal">
+  <button class="x" onclick="closeModal('mGuests')">✕</button>
+  <h3>🔗 Invite trusted friends to MaD</h3>
+  <div class="vsub" style="margin-bottom:10px">Validated external contacts get a personal link that opens <b>only the MaD marketplace</b> — no chats, no journal, nothing else. They can view, vote, and pledge.</div>
+  <div class="field"><label>Friend's name</label>
+    <div style="display:flex;gap:8px">
+      <input id="mgName" placeholder="e.g. Dr Inas · Pastor Emmanuel" style="flex:1">
+      <button class="btn btn-grad" style="white-space:nowrap" onclick="addGuest()">Create link</button>
+    </div>
+  </div>
+  <div id="mgList"></div>
+</div></div>
+
+<!-- Life Hack reader (full-screen) -->
+<div class="note-screen hack-screen" id="hackScreen">
+  <div class="note-inner">
+    <div class="note-top">
+      <button class="nt-back" onclick="closeHack()">←</button>
+      <div class="hk-title" id="hkTitle">—</div>
+      <button class="nt-back" id="hkLikeBtn" onclick="toggleHackLike()">🤍</button>
+      <button class="nt-back" onclick="shareHack()">📤</button>
+    </div>
+    <div class="hk-body" id="hkBody"></div>
+  </div>
+</div>
+
+<!-- Certificate modal -->
+<div class="modal-wrap" id="mCert"><div class="modal modal-wide">
+  <button class="x" onclick="closeModal('mCert')">✕</button>
+  <div class="cert" id="certBody"></div>
+  <div class="sc-actions no-print">
+    <button class="btn btn-grad" onclick="shareCert()">📤 Share with the family</button>
+    <button class="btn btn-ghost" onclick="printDoc()">💾 Save as PDF</button>
+  </div>
+</div></div>
+
 <div class="modal-wrap" id="mDiagResult"><div class="modal modal-wide">
   <button class="x" onclick="closeModal('mDiagResult')">✕</button>
   <div id="diagResultBody"></div>
@@ -1505,6 +2141,48 @@ function renderMsgs(scroll){
         <div class="mc-tier" style="margin-top:4px">${esc(m.scBits||"")}</div>
         <div class="mc-bar"><i style="width:${m.scPct||0}%"></i></div></div>`;
     }
+    else if(m.kind==="prayer"){
+      const pjCls=m.pjAnswered?"answered":(m.pjKind||"prayer");
+      const pjIco=m.pjAnswered?"✅":({prayer:"🙏",dream:"💭",praise:"🎉"}[m.pjKind]||"🙏");
+      const pjLbl=m.pjAnswered?"Answered Prayer · Testimony":({prayer:"Prayer Request",dream:"Dream",praise:"Praise Report"}[m.pjKind]||"Prayer");
+      body=`<div class="msg-card msg-prayer ${pjCls}" onclick="goTab('journal')">
+        <div class="mc-h"><div class="mc-t">${pjIco} ${esc(pjLbl)}</div></div>
+        <div style="font-weight:800;font-size:14px;margin:2px 0 4px">${esc(m.pjTopic||"")}</div>
+        ${m.pjAnswered&&m.pjTestimony?`<div class="pj-testimony" style="margin:6px 0 2px"><b>How God answered:</b> ${esc(m.pjTestimony)}</div>`
+          :(m.pjDetail?`<div class="mc-tier">${esc(m.pjDetail)}</div>`:"")}
+        ${m.pjDate?`<div class="mc-tier" style="margin-top:4px">📅 ${esc(fmtDateNice(m.pjDate))}</div>`:""}
+      </div>`;
+    }
+    else if(m.kind==="note"){
+      body=`<div class="msg-card" onclick="openNote('${m.ntId}')">
+        <div class="mc-h"><div class="mc-t">📝 ${esc(m.ntTitle||"Notepad")}</div></div>
+        <div class="mc-tier">${esc(m.ntSnip||"")}</div>
+        <div class="mc-tier" style="margin-top:5px;color:var(--accent);font-weight:800">Tap to open →</div>
+      </div>`;
+    }
+    else if(m.kind==="mad"){
+      body=`<div class="msg-card" onclick="goTab('mad')" style="border-left:5px solid var(--vivid-cyan)">
+        <div class="mc-h"><div class="mc-t">💡 MaD Idea ${m.mdPromo?"· 🚀 PROMOTED":""}</div></div>
+        <div style="font-weight:800;font-size:14px;margin:2px 0 4px">${esc(m.mdTitle||"")}</div>
+        <div class="mc-tier">💚 ${m.mdVotes||0} votes · 🤝 ${m.mdPledges||0} committed · Giving life to likes</div>
+        <div class="mc-tier" style="margin-top:5px;color:var(--accent);font-weight:800">Vote & pledge in MaD →</div>
+      </div>`;
+    }
+    else if(m.kind==="hack"){
+      body=`<div class="msg-card" onclick="goTab('fun');funSeg('hacks');openHack('${m.hkId}')" style="border-left:5px solid var(--orange)">
+        <div class="mc-h"><div class="mc-t">🎓 Life Hack</div></div>
+        <div style="font-weight:800;font-size:14px;margin:2px 0 4px">${m.hkE||"🎓"} ${esc(m.hkT||"")}</div>
+        <div class="mc-tier">${esc(m.hkG||"")}</div>
+        <div class="mc-tier" style="margin-top:5px;color:var(--accent);font-weight:800">Read & take the quiz →</div>
+      </div>`;
+    }
+    else if(m.kind==="hackcert"){
+      body=`<div class="msg-card" style="border-left:5px solid #F5B301;background:linear-gradient(120deg,rgba(245,179,1,.14),var(--card))">
+        <div class="mc-h"><div class="mc-t">🏅 Certificate of Hacking</div><div class="mc-pct">${m.hcScore||0}/5</div></div>
+        <div style="font-weight:800;font-size:14px;margin:2px 0 4px">${esc(m.hcName||"")} hacked: ${m.hcE||""} ${esc(m.hcT||"")}</div>
+        <div class="mc-tier">"Study to shew thyself approved" · 2 Tim 2:15</div>
+      </div>`;
+    }
     else if(m.kind==="diagResult"){
       body=`<div class="msg-card" onclick="goTab('fun')">
         <div class="mc-h"><div class="mc-t">${m.drEmoji||"🎯"} ${esc(m.drTitle||"Diagnostic result")}</div><div class="mc-pct">${m.drPct||0}%</div></div>
@@ -1637,6 +2315,11 @@ function msgPreview(m,short){
   if(m.kind==="poll") return "📊 "+(m.question||"Poll");
   if(m.kind==="tool") return "🔗 Shared a tool";
   if(m.kind==="scorecard") return "📊 Weekly Scorecard · "+(m.scPct||0)+"%";
+  if(m.kind==="prayer") return (m.pjAnswered?"✅ Answered: ":({prayer:"🙏 ",dream:"💭 ",praise:"🎉 "}[m.pjKind]||"🙏 "))+(m.pjTopic||"Journal entry");
+  if(m.kind==="note") return "📝 Notepad: "+(m.ntTitle||"Untitled");
+  if(m.kind==="mad") return "💡 MaD idea: "+(m.mdTitle||"");
+  if(m.kind==="hack") return "🎓 Life Hack: "+(m.hkT||"");
+  if(m.kind==="hackcert") return "🏅 "+(m.hcName||"")+" hacked "+(m.hcT||"")+" ("+(m.hcScore||0)+"/5)";
   if(m.kind==="diagResult") return (m.drEmoji||"🎯")+" "+(m.drTitle||"Diagnostic")+" · "+(m.drPct||0)+"%";
   return "Message";
 }
@@ -3369,6 +4052,86 @@ const DIAGS = [
       [40,"Growing","You're solid in many areas. The growing edge: consistency. The person who shows up daily beats the genius who shows up sometimes."],
       [70,"Strong soft skills","You bring excellence to your work. People notice. Keep raising your standard quietly — your work speaks louder than your words."],
       [90,"Exceptional soft skills","Few combine your reliability with your skill. You're the kind of person teams build around. Steward that — others will keep raising their game to match yours."]]
+  },
+  { id:"bible", e:"📖", t:"Bible Knowledge", d:"How well do you know the Book of books?",
+    q:[
+      ["How many books are in the whole Bible?", [["66",3],["39",1],["27",1],["72",0]]],
+      ["Who led the children of Israel out of Egypt?", [["Moses",3],["Abraham",0],["Joshua",1],["David",0]]],
+      ["Where was Jesus born?", [["Bethlehem",3],["Nazareth",1],["Jerusalem",1],["Capernaum",0]]],
+      ["The fruit of the Spirit (love, joy, peace…) is listed in:", [["Galatians 5",3],["John 3",0],["Psalm 23",0],["Romans 12",1]]],
+      ["Who denied Jesus three times before the cock crowed?", [["Peter",3],["Judas",1],["Thomas",1],["John",0]]],
+      ["\u201CTrust in the LORD with all thine heart\u201D — where is it found?", [["Proverbs 3",3],["Psalm 1",1],["Isaiah 40",1],["Matthew 6",1]]],
+      ["What did God create on the very first day?", [["Light",3],["The sun and moon",1],["Animals",0],["Man",0]]],
+      ["Who was thrown into the lions' den and lived?", [["Daniel",3],["Joseph",1],["Shadrach",1],["Elijah",0]]]
+    ],
+    tiers:[[0,"Opening the Book","Every expert in the Word started at page one. This week, read one chapter of Proverbs a day — the Book will open itself to you."],
+      [40,"Growing in the Word","You know the landmarks of Scripture. Now go deeper: pick one book (start with John or Proverbs) and read it slowly, twice."],
+      [70,"Strong in Scripture","You know your Bible well. Psalm 119:11 — keep hiding it in your heart, and start teaching what you know to someone younger."],
+      [90,"Mighty in the Scriptures","Like Apollos — mighty in the scriptures (Acts 18:24). Your knowledge is a family treasure. Teach it, share it, live it."]]
+  },
+  { id:"disciple", e:"✝️", t:"Christian Commitment", d:"Am I truly a disciple — or just a fan?",
+    q:[
+      ["My time in God's Word is:", [["Daily — it's my bread",3],["A few times a week",2],["Mostly Sundays",1],["Rare lately",0]]],
+      ["My prayer life looks like:", [["An ongoing conversation through the day",3],["Set times of prayer daily",3],["Mostly when I'm in need",1],["Rare lately",0]]],
+      ["When following Jesus costs me something, I:", [["Obey anyway — He is worth it",3],["Struggle, then obey",2],["Often avoid the cost",1],["Quietly compromise",0]]],
+      ["Talking about my faith with others:", [["Comes naturally — I share freely",3],["I share when asked",2],["Makes me uncomfortable",1],["I keep it hidden",0]]],
+      ["Forgiving those who hurt me:", [["I forgive quickly, by grace",3],["I get there eventually",2],["I hold on for a long time",1],["I keep score",0]]],
+      ["My money and giving:", [["I give first, cheerfully",3],["I give regularly",2],["I give occasionally",1],["It's hard for me to release",0]]],
+      ["Church and fellowship:", [["Committed and serving",3],["I attend regularly",2],["Occasional visits",1],["Disconnected right now",0]]],
+      ["If someone secretly watched my whole week, they would:", [["See a disciple of Jesus",3],["See faith in some places",2],["Be unsure what I believe",1],["Never guess I'm a believer",0]]]
+    ],
+    tiers:[[0,"Called — come closer","Jesus isn't looking for perfect people; He's looking for willing ones. Start with ONE thing this week: open the Word daily, even 5 minutes. He will meet you there."],
+      [40,"Following — keep walking","You're on the road. The gap between fan and disciple closes in the costly moments — the next time obedience costs you something, that's your growth moment. Luke 9:23."],
+      [70,"A true disciple","Your life carries the marks of following Jesus. Keep your first love hot (Rev 2:4) and start pouring into someone else — disciples make disciples."],
+      [90,"Wholehearted disciple","You have counted the cost and keep choosing Him. That's rare and precious. Guard against pride, stay at His feet, and multiply — your family and generation need what you carry."]]
+  },
+  { id:"apologetics", e:"🛡️", t:"Apologetics Challenge", d:"Hard questions — can you give an answer? (1 Pet 3:15)",
+    q:[
+      ["\u201CIf God is good, why is there so much suffering?\u201D — your best first move:", [["Listen and acknowledge their pain, then point to free will and to God entering our suffering in Christ",3],["Say \u201CGod's ways are higher\u201D and leave it there",1],["Tell them their sin caused it",0],["Change the subject",0]]],
+      ["\u201CHasn't science disproved God?\u201D", [["Science explains how things work, not why anything exists at all — they answer different questions",3],["Many founders of modern science were believers; faith and evidence aren't enemies",3],["\u201CScience is of the devil\u201D",0],["I wouldn't know what to say",0]]],
+      ["\u201CHow do you know the Bible is reliable?\u201D", [["Thousands of early manuscripts, fulfilled prophecy, and eyewitness-era accounts",3],["\u201CBecause the Bible says so\u201D",1],["\u201CYou just have to believe\u201D",1],["I've never checked",0]]],
+      ["\u201CDon't all religions lead to the same God?\u201D", [["They make contradictory claims, so they can't all be true — and Jesus claimed to be THE way",3],["\u201CYes, basically\u201D",0],["I'd agree just to keep the peace",1],["I'd get upset",0]]],
+      ["\u201CWhy would a loving God send people to hell?\u201D", [["God honors human choice; the cross shows how far He went so no one has to go there",3],["\u201CHe doesn't really\u201D",1],["I try not to think about it",0],["I'm not sure",1]]],
+      ["\u201CWasn't the resurrection just made up?\u201D", [["Empty tomb, hundreds of eyewitnesses, and disciples who died rather than deny what they saw",3],["\u201CMaybe it's symbolic\u201D",1],["\u201CYou can't question that!\u201D",1],["I don't know the evidence",0]]],
+      ["When someone attacks my faith, my spirit is:", [["Gentleness and respect — 1 Peter 3:15",3],["Defensive",1],["Angry",0],["I retreat in silence",1]]],
+      ["My preparation to give an answer:", [["I study the hard questions and their answers",3],["I know a few answers",2],["I rely on feelings alone",1],["I've never thought about it",0]]]
+    ],
+    tiers:[[0,"Time to arm up","Every defender of the faith started unarmed. Start small: this week, learn ONE good answer to ONE hard question. 1 Peter 3:15 — readiness is built, not born."],
+      [40,"Building your defense","You can hold ground on some questions. Now strengthen the weak walls — pick the question that scared you most in this test and study it this month."],
+      [70,"Ready to give an answer","You defend the faith with substance AND gentleness — that combination is the whole command of 1 Peter 3:15. Look for opportunities; God will send askers."],
+      [90,"A defender of the faith","Like Apollos, you 'mightily convince' (Acts 18:28) — with grace. Steward this: mentor younger believers in it, and never let sharp answers outrun a soft heart."]]
+  },
+  { id:"growthdaily", e:"🌱", t:"Personal Growth Audit", d:"Today under the microscope — reading, time, learning.",
+    q:[
+      ["What did I read today?", [["Scripture AND a book",3],["Scripture or a book",2],["Articles / news only",1],["Only social media feeds",0]]],
+      ["How did I use my time today?", [["Planned it and mostly followed the plan",3],["About half was intentional",2],["Reacted to whatever came at me",1],["Honestly, I wasted much of it",0]]],
+      ["Am I learning something new right now?", [["Actively building a new skill",3],["Learning occasionally",2],["Stalled on something I started",1],["I stopped learning new things",0]]],
+      ["My body this week — sleep, movement, good food:", [["Cared for all three",3],["Two of the three",2],["Only one",1],["Neglected all three",0]]],
+      ["Did I invest in someone else's growth today?", [["Yes — mentored or encouraged someone intentionally",3],["A small word of encouragement",2],["Too busy today",1],["It didn't cross my mind",0]]],
+      ["Reflection on my day:", [["I journaled or reviewed my day",3],["Thought about it briefly",2],["I rarely reflect",1],["Never",0]]],
+      ["The hardest thing on my list today:", [["I did it first",3],["I got to it eventually",2],["I postponed it again",1],["I avoided it completely",0]]],
+      ["Tomorrow:", [["My top priority is already set",3],["I have a rough idea",2],["I'll figure it out tomorrow",1],["No plan at all",0]]]
+    ],
+    tiers:[[0,"Seed in the ground","Growth starts with one honest look — you just took it. Pick ONE question you scored lowest on and fix only that this week. Small hinges swing big doors."],
+      [40,"Sprouting","You're growing in patches. The next level is consistency: same wake time, daily reading, one hard thing first. Ecclesiastes 9:10 — with thy might."],
+      [70,"Growing strong","Your days are building something. Keep the streak, protect your reflection time, and remember rest is part of growth too — even the land keeps a Sabbath."],
+      [90,"Compounding daily","You've mastered what most never do: ordinary days done extraordinarily well. Luke 16:10 — faithful in little, ruler over much. Now lift others onto this path."]]
+  },
+  { id:"detox", e:"📵", t:"Digital Detox Check", d:"Is your phone a tool — or your master?",
+    q:[
+      ["The first 30 minutes after I wake up:", [["No phone — prayer, quiet, or the Word first",3],["A quick check, then I put it away",2],["I scroll in bed a while",0],["Phone is in my hand before my eyes fully open",0]]],
+      ["My daily screen time outside work/study:", [["Under 1 hour",3],["1–2 hours",2],["3–4 hours",1],["5+ hours",0]]],
+      ["My phone during meals with people:", [["Put away completely",3],["Face down on the table",2],["On the table — I check it",1],["I scroll while eating",0]]],
+      ["My notifications:", [["Most are switched off",3],["Some are off",2],["All on",1],["All on — and I feel phantom buzzes",0]]],
+      ["When I'm bored for two minutes, I:", [["Can sit with my thoughts",3],["Sometimes reach for the phone",2],["Instantly reach for it",0],["Feel anxious without it",0]]],
+      ["Social media and my heart:", [["I use it with purpose and log off",3],["Mostly fine; occasional comparison",2],["I often compare and feel worse",1],["It steals my joy regularly",0]]],
+      ["The last hour before sleep:", [["No screens — I wind down without them",3],["Only reading on a device",2],["TV or scrolling",1],["I fall asleep mid-scroll",0]]],
+      ["Could I do a 24-hour phone fast?", [["I already do them regularly",3],["Yes, without much struggle",2],["It would be hard",1],["Honestly, no",0]]]
+    ],
+    tiers:[[0,"The phone is winning","No shame — these things are engineered to capture you. Fight back with ONE move this week: no phone for the first 30 minutes of the day. Give God the firstfruits of your attention."],
+      [40,"Taking ground back","You've got some healthy fences up. Next: kill non-human notifications and put ONE no-phone hour in your evening. Your attention is your life — spend it on purpose."],
+      [70,"The tool serves you","You use the phone; it doesn't use you. That's rare discipline in this generation. Guard it — and model it for the younger ones watching how you live."],
+      [90,"Fully present","You've mastered what a whole generation is losing: the ability to be here. Psalm 46:10 — 'Be still, and know.' Your presence is a gift to everyone around you. Keep it."]]
   }
 ];
 
@@ -3495,6 +4258,978 @@ function shareDiagResult(){
   goTab("chats"); openRoom("hall");
 }
 
+/* ====================== 🙏 PRAYER JOURNAL ====================== */
+function prayers(){ return DB.get("prayers",[]); }
+let PJ_FILTER = "all", JOURNAL_SEG = "prayers";
+
+function journalSeg(seg){
+  JOURNAL_SEG = seg;
+  document.querySelectorAll("#journalSeg button").forEach(b=>b.classList.toggle("active", b.dataset.seg===seg));
+  document.getElementById("segPrayers").style.display = seg==="prayers" ? "" : "none";
+  document.getElementById("segNotes").style.display   = seg==="notes"   ? "" : "none";
+  if(seg==="prayers") renderPrayers(); else renderNotes();
+}
+function renderJournalTab(){
+  if(!ME) return;
+  if(JOURNAL_SEG==="prayers") renderPrayers(); else renderNotes();
+}
+function pjFilter(f){
+  PJ_FILTER=f;
+  document.querySelectorAll("#pjFilters button").forEach(b=>b.classList.toggle("active", b.dataset.f===f));
+  renderPrayers();
+}
+const PJ_EMOJI = { prayer:"🙏", dream:"💭", praise:"🎉" };
+const PJ_LABEL = { prayer:"Prayer", dream:"Dream", praise:"Praise report" };
+
+function fmtDateNice(iso){
+  if(!iso) return "";
+  try{ const [y,m,d]=iso.split("-").map(Number);
+    return new Date(y,m-1,d).toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"});
+  }catch(e){ return iso; }
+}
+
+function renderPrayers(){
+  if(!ME) return;
+  const el=document.getElementById("pjList"); if(!el) return;
+  let list = prayers().filter(p=>!p.deleted);
+  if(PJ_FILTER==="family"){ list = list.filter(p=>p.shared && p.by!==ME.u); }
+  else {
+    list = list.filter(p=>p.by===ME.u);
+    if(PJ_FILTER==="answered") list=list.filter(p=>p.answered);
+    else if(PJ_FILTER!=="all") list=list.filter(p=>p.kind===PJ_FILTER && !p.answered);
+  }
+  list.sort((a,b)=>(b.up||b.ts)-(a.up||a.ts));
+  if(!list.length){
+    const msgs={
+      all:"Your journal is waiting.<br>Add your first prayer, dream, or praise report — and watch God move.",
+      prayer:"No open prayers here yet.<br>Bring something before the Lord — He hears.",
+      dream:"No dreams recorded yet.<br>Write them down — Habakkuk 2:2.",
+      praise:"No praise reports yet.<br>Look back — there's always something to thank Him for.",
+      answered:"No answered prayers marked yet.<br>When God moves, come mark it ✓ and tell the story.",
+      family:"Nothing on the family wall yet.<br>When family members share entries, they appear here."
+    };
+    el.innerHTML=`<div class="pj-empty"><div class="pe-big">🙏</div>${msgs[PJ_FILTER]||msgs.all}</div>`;
+    return;
+  }
+  const us=users();
+  el.innerHTML=list.map(p=>{
+    const u=us[p.by]||{name:p.by,color:"#059669"};
+    const mine=p.by===ME.u;
+    const cls=p.answered?"answered":p.kind;
+    const kindLabel=p.answered?"✅ Answered":PJ_EMOJI[p.kind]+" "+PJ_LABEL[p.kind];
+    return `<div class="pj-card ${cls}">
+      <div class="pj-head">
+        <div class="pj-emoji">${p.answered?"✅":PJ_EMOJI[p.kind]||"🙏"}</div>
+        <div class="pj-title">${esc(p.topic)}</div>
+        <div class="pj-kind">${kindLabel}</div>
+      </div>
+      ${p.detail?`<div class="pj-detail">${esc(p.detail)}</div>`:""}
+      <div class="pj-meta">${PJ_FILTER==="family"?`<b style="color:${u.color}">${esc(u.name)}</b> · `:""}${fmtDateNice(p.date)}${p.answered&&p.answeredDate?` → answered ${fmtDateNice(p.answeredDate)}`:""}</div>
+      ${p.answered&&p.testimony?`<div class="pj-testimony"><b>How God answered:</b> ${esc(p.testimony)}</div>`:""}
+      ${mine?`<div class="pj-actions">
+        ${!p.answered&&p.kind==="prayer"?`<button class="pj-ans" onclick="openAnswer('${p.id}')">✓ God answered!</button>`:""}
+        <button class="pj-share" onclick="sharePrayer('${p.id}')">📤 Share</button>
+        <button onclick="deletePrayer('${p.id}')">🗑</button>
+      </div>`:""}
+    </div>`;
+  }).join("");
+}
+
+function openNewPrayer(){
+  document.getElementById("pjTopic").value="";
+  document.getElementById("pjDetail").value="";
+  document.getElementById("pjDate").value=dayId();
+  document.querySelector('input[name="pjType"][value="prayer"]').checked=true;
+  openModal("mNewPrayer");
+}
+function savePrayer(){
+  const topic=document.getElementById("pjTopic").value.trim();
+  if(!topic) return toast("Give it a topic first");
+  const kind=document.querySelector('input[name="pjType"]:checked').value;
+  const p={id:"pj"+Date.now()+Math.random().toString(36).slice(2,6), by:ME.u, kind,
+    topic, detail:document.getElementById("pjDetail").value.trim(),
+    date:document.getElementById("pjDate").value||dayId(),
+    ts:Date.now(), up:Date.now(), answered:false, shared:false};
+  const all=prayers(); all.push(p); DB.set("prayers",all); cloud("addPrayer",p);
+  closeModal("mNewPrayer");
+  toast(kind==="prayer"?"Added to your prayer journal 🙏":kind==="dream"?"Dream recorded 💭":"Praise report saved 🎉");
+  renderPrayers();
+}
+let ANSWER_ID=null;
+function openAnswer(id){
+  const p=prayers().find(x=>x.id===id); if(!p) return;
+  ANSWER_ID=id;
+  document.getElementById("apTopic").textContent="🙏 "+p.topic;
+  document.getElementById("apTestimony").value=p.testimony||"";
+  document.getElementById("apDate").value=dayId();
+  openModal("mAnswerPrayer");
+}
+function saveAnswer(){
+  const t=document.getElementById("apTestimony").value.trim();
+  if(!t) return toast("Tell the story — how did God answer?");
+  const all=prayers(); const p=all.find(x=>x.id===ANSWER_ID); if(!p) return;
+  p.answered=true; p.testimony=t;
+  p.answeredDate=document.getElementById("apDate").value||dayId();
+  p.up=Date.now();
+  DB.set("prayers",all); cloud("addPrayer",p);
+  closeModal("mAnswerPrayer");
+  toast("Hallelujah! Testimony saved ✅");
+  renderPrayers();
+}
+function deletePrayer(id){
+  if(!confirm("Delete this entry from your journal?")) return;
+  const all=prayers(); const p=all.find(x=>x.id===id); if(!p) return;
+  p.deleted=true; p.up=Date.now();
+  DB.set("prayers",all.filter(x=>x.id!==id));
+  cloud("addPrayer",p);
+  renderPrayers(); toast("Entry deleted");
+}
+function sharePrayer(id){
+  const all=prayers(); const p=all.find(x=>x.id===id); if(!p) return;
+  if(!p.shared){ p.shared=true; p.up=Date.now(); DB.set("prayers",all); cloud("addPrayer",p); }
+  const m={id:"m"+Date.now()+Math.random().toString(36).slice(2,6), room:"hall", from:ME.u,
+    kind:"prayer", text:(p.answered?"✅ Answered prayer: ":PJ_EMOJI[p.kind]+" ")+p.topic,
+    ts:Date.now(), pjId:p.id, pjKind:p.kind, pjTopic:p.topic, pjAnswered:!!p.answered,
+    pjTestimony:(p.testimony||"").slice(0,400), pjDetail:(p.detail||"").slice(0,300), pjDate:p.date};
+  const allM=msgs(); allM.push(m); DB.set("msgs",allM); cloud("addMsg",m);
+  toast("Shared with the family 💚");
+  goTab("chats"); openRoom("hall");
+}
+
+/* ====================== 📝 COLLABORATIVE NOTEPADS ====================== */
+function notes(){ return DB.get("notes",[]); }
+let NOTE_ID=null, noteSaveT=null;
+
+const NOTE_ALLOWED={B:1,STRONG:1,I:1,EM:1,U:1,S:1,STRIKE:1,H3:1,DIV:1,P:1,BR:1,UL:1,OL:1,LI:1,SPAN:1,FONT:1};
+function sanitizeNote(html){
+  const tmp=document.createElement("div"); tmp.innerHTML=html||"";
+  (function walk(node){
+    [...node.childNodes].forEach(ch=>{
+      if(ch.nodeType===1){
+        if(!NOTE_ALLOWED[ch.tagName]){ ch.replaceWith(...ch.childNodes); walk(node); return; }
+        [...ch.attributes].forEach(a=>{
+          const n=a.name.toLowerCase();
+          if(n==="color" && ch.tagName==="FONT") return;
+          if(n==="style"){ const c=ch.style.color; ch.removeAttribute("style"); if(c) ch.style.color=c; return; }
+          ch.removeAttribute(a.name);
+        });
+        walk(ch);
+      } else if(ch.nodeType!==3){ ch.remove(); }
+    });
+  })(tmp);
+  return tmp.innerHTML.slice(0,40000);
+}
+function myNotes(){
+  return notes().filter(n=>!n.deleted && (n.owner===ME.u || (n.members||[]).includes(ME.u)))
+    .sort((a,b)=>(b.up||0)-(a.up||0));
+}
+function noteSnippet(html){
+  const tmp=document.createElement("div"); tmp.innerHTML=html||"";
+  return (tmp.textContent||"").trim().slice(0,120)||"Empty note";
+}
+function renderNotes(){
+  if(!ME) return;
+  const grid=document.getElementById("noteGrid"); if(!grid) return;
+  const us=users();
+  const cards=myNotes().map(n=>{
+    const people=[n.owner,...(n.members||[])].filter((v,i,a)=>a.indexOf(v)===i);
+    const avs=people.slice(0,4).map(uid=>{ const u=us[uid]||{name:uid,color:"#059669"};
+      return `<i style="background:${u.color}" title="${esc(u.name)}">${(u.emoji||u.name[0]).slice(0,2)}</i>`; }).join("");
+    return `<button class="note-card" onclick="openNote('${n.id}')">
+      <div class="nc-t">${esc(n.title||"Untitled")}</div>
+      <div class="nc-snip">${esc(noteSnippet(n.html))}</div>
+      <div class="nc-foot"><span class="nc-avs">${avs}${people.length>4?`<i style="background:#64748B">+${people.length-4}</i>`:""}</span><span>${ago(n.up||n.ts||Date.now())}</span></div>
+    </button>`;
+  }).join("");
+  grid.innerHTML=`<button class="note-card note-new" onclick="openNewNote()"><span class="nn-plus">＋</span>New notepad</button>`+cards;
+}
+function inviteChipsHTML(containerId, checked){
+  const us=users();
+  return Object.values(us).filter(u=>u.u!==ME.u).map(u=>
+    `<label><input type="checkbox" value="${u.u}" ${checked&&checked.includes(u.u)?"checked":""}>
+      <span style="display:inline-flex;align-items:center;gap:8px"><i style="width:26px;height:26px;border-radius:50%;background:${u.color};display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:900;font-style:normal">${(u.emoji||u.name[0]).slice(0,2)}</i>${esc(u.name)}</span></label>`
+  ).join("");
+}
+function openNewNote(){
+  document.getElementById("nnTitle").value="";
+  document.getElementById("nnInvite").innerHTML=inviteChipsHTML("nnInvite");
+  openModal("mNewNote");
+}
+function createNote(){
+  const title=document.getElementById("nnTitle").value.trim()||"Untitled";
+  const members=[...document.querySelectorAll("#nnInvite input:checked")].map(i=>i.value);
+  const n={id:"nt"+Date.now()+Math.random().toString(36).slice(2,6), owner:ME.u, members,
+    title, html:"", ts:Date.now(), up:Date.now(), updatedBy:ME.u};
+  const all=notes(); all.push(n); DB.set("notes",all); cloud("addNote",n);
+  closeModal("mNewNote"); renderNotes(); openNote(n.id);
+}
+function openNote(id){
+  const n=notes().find(x=>x.id===id); if(!n) return;
+  if(n.owner!==ME.u && !(n.members||[]).includes(ME.u)){
+    const us=users(); const o=us[n.owner]||{name:n.owner};
+    return toast(`🔒 Ask ${o.name} to invite you to this notepad`);
+  }
+  NOTE_ID=id;
+  document.getElementById("noteTitle").value=n.title||"";
+  document.getElementById("noteBody").innerHTML=sanitizeNote(n.html);
+  renderNoteCollab(n);
+  document.getElementById("noteScreen").classList.add("on");
+}
+function renderNoteCollab(n){
+  const us=users();
+  const people=[n.owner,...(n.members||[])].filter((v,i,a)=>a.indexOf(v)===i);
+  document.getElementById("noteCollab").innerHTML=
+    "👥 "+people.map(uid=>{ const u=us[uid]||{name:uid,color:"#059669"};
+      return `<b style="color:${u.color}">${esc(u.name)}${uid===n.owner?" (owner)":""}</b>`; }).join(" · ")
+    + (n.updatedBy&&n.updatedBy!==ME.u?` · last edit by ${esc((us[n.updatedBy]||{name:n.updatedBy}).name)}`:"");
+}
+function noteDirty(){
+  clearTimeout(noteSaveT);
+  noteSaveT=setTimeout(saveNoteNow, 900);
+}
+function saveNoteNow(){
+  if(!NOTE_ID) return;
+  const all=notes(); const n=all.find(x=>x.id===NOTE_ID); if(!n) return;
+  const newTitle=document.getElementById("noteTitle").value.trim()||"Untitled";
+  const newHtml=sanitizeNote(document.getElementById("noteBody").innerHTML);
+  if(n.title===newTitle && n.html===newHtml) return;
+  n.title=newTitle; n.html=newHtml; n.up=Date.now(); n.updatedBy=ME.u;
+  DB.set("notes",all); cloud("addNote",n);
+}
+function closeNote(){
+  clearTimeout(noteSaveT); saveNoteNow();
+  NOTE_ID=null;
+  document.getElementById("noteScreen").classList.remove("on");
+  renderNotes();
+}
+function fmt(cmd,val){
+  document.getElementById("noteBody").focus();
+  try{ document.execCommand(cmd,false,val||null); }catch(e){}
+  noteDirty();
+}
+function openInvites(){
+  const n=notes().find(x=>x.id===NOTE_ID); if(!n) return;
+  if(n.owner!==ME.u) return toast("Only the owner can invite");
+  document.getElementById("niChips").innerHTML=inviteChipsHTML("niChips", n.members||[]);
+  openModal("mNoteInvite");
+}
+function saveInvites(){
+  const all=notes(); const n=all.find(x=>x.id===NOTE_ID); if(!n) return;
+  n.members=[...document.querySelectorAll("#niChips input:checked")].map(i=>i.value);
+  n.up=Date.now(); n.updatedBy=ME.u;
+  DB.set("notes",all); cloud("addNote",n);
+  closeModal("mNoteInvite"); renderNoteCollab(n);
+  toast("Collaborators updated 👥");
+}
+function deleteNote(){
+  const all=notes(); const n=all.find(x=>x.id===NOTE_ID); if(!n) return;
+  if(n.owner!==ME.u) return toast("Only the owner can delete");
+  if(!confirm("Delete this notepad for everyone?")) return;
+  n.deleted=true; n.up=Date.now();
+  DB.set("notes",all.filter(x=>x.id!==n.id));
+  cloud("addNote",n);
+  NOTE_ID=null;
+  document.getElementById("noteScreen").classList.remove("on");
+  renderNotes(); toast("Notepad deleted");
+}
+function shareNote(){
+  saveNoteNow();
+  const n=notes().find(x=>x.id===NOTE_ID); if(!n) return;
+  const m={id:"m"+Date.now()+Math.random().toString(36).slice(2,6), room:"hall", from:ME.u,
+    kind:"note", text:"📝 Notepad: "+n.title, ts:Date.now(),
+    ntId:n.id, ntTitle:n.title, ntSnip:noteSnippet(n.html).slice(0,140)};
+  const allM=msgs(); allM.push(m); DB.set("msgs",allM); cloud("addMsg",m);
+  closeNote();
+  toast("Shared with the family 💚");
+  goTab("chats"); openRoom("hall");
+}
+
+/* ====================== 🎓 LIFE HACKS ======================
+   Format: {id,e,t,g(tagline),s:[[head,body,ref?]...],q:[[question,[4 opts],correctIdx]...]}
+   Pass = 4/5 correct → gold certificate. */
+const HACKS = [
+{ id:"spanish", e:"🇪🇸", t:"Street Spanish in a Day", g:"20 phrases that unlock a whole language. ¡Vamos!",
+  s:[
+    ["Greet like a local","Hola (OH-lah) = Hello · Buenos días = Good morning · Buenas tardes = Good afternoon · Buenas noches = Good evening/night. Hack: before 12 say días, after lunch tardes, after dark noches.","Standard Latin American usage"],
+    ["The magic four","Por favor = please · Gracias (GRAH-syas) = thank you · Perdón = sorry/excuse me · De nada = you're welcome. These four open doors everywhere Spanish is spoken."],
+    ["Survive any market","¿Cuánto cuesta? = How much? · Muy caro = too expensive · ¿Dónde está…? = Where is…? · El baño = the bathroom. Say '¿Dónde está el baño?' and you'll never be stranded."],
+    ["Count to 10","uno, dos, tres, cuatro, cinco, seis, siete, ocho, nueve, diez. Hack: 'seis' sounds like 'saze', 'siete' = 'SYEH-teh'."],
+    ["Introduce yourself","Me llamo… (meh YAH-moh) = My name is… · Soy de Camerún = I'm from Cameroon · Mucho gusto = Nice to meet you."],
+    ["Emergency kit","Ayuda = Help · No entiendo = I don't understand · ¿Habla inglés? = Do you speak English? · Más despacio, por favor = Slower, please."],
+    ["The 80/20 of grammar","Yo quiero = I want · Yo necesito = I need · ¿Puedo…? = Can I…? Stack any noun after these three and you can express most daily needs.","Pareto principle applied to phrasebooks"]
+  ],
+  q:[
+    ["How would you say 'thank you'?",["Gracias","Perdón","De nada","Hola"],0],
+    ["'¿Cuánto cuesta?' means:",["Where is the bathroom?","How much does it cost?","What time is it?","Do you speak English?"],1],
+    ["Which greeting fits the morning?",["Buenas noches","Buenas tardes","Buenos días","Mucho gusto"],2],
+    ["'I need' in Spanish is:",["Yo quiero","Yo necesito","Me llamo","Ayuda"],1],
+    ["Seven in Spanish is:",["seis","ocho","cinco","siete"],3]
+  ]},
+{ id:"slquotes", e:"👑", t:"Servant Leadership Quote Bank", g:"Words to lead by — from the Towel to the Throne.",
+  s:[
+    ["The founder's definition","Robert Greenleaf, who coined the term in 1970: 'The servant-leader is servant first.' The test: do those you serve grow — become healthier, wiser, freer, more likely to serve others themselves?","Robert K. Greenleaf, The Servant as Leader (1970)"],
+    ["The original Servant Leader","'For even the Son of man came not to be ministered unto, but to minister, and to give his life a ransom for many.' Every leadership book since is a footnote to this verse.","Mark 10:45, KJV"],
+    ["Greatness redefined","'Everybody can be great… because anybody can serve.' You don't need a title, a degree, or a platform — you need a heart full of grace.","Martin Luther King Jr., The Drum Major Instinct (1968)"],
+    ["Lift as you climb","'If you want to lift yourself up, lift up someone else.' Service is the elevator that carries two people at once.","Booker T. Washington"],
+    ["The way-shower","'A leader is one who knows the way, goes the way, and shows the way.' Knowing isn't enough; going isn't enough; servant leaders show.","John C. Maxwell"],
+    ["Impossible until done","'It always seems impossible until it's done.' Keep this one for the middle of any hard assignment.","Attributed to Nelson Mandela"],
+    ["Use them well","Hack: memorise ONE quote a week. Open a meeting with it, live it that week, then teach it to someone younger. A quote applied beats a hundred quotes collected."]
+  ],
+  q:[
+    ["Who coined the modern term 'servant leadership'?",["John Maxwell","Robert Greenleaf","Peter Drucker","Nelson Mandela"],1],
+    ["Mark 10:45 says the Son of man came to:",["be ministered unto","build a kingdom","minister, and give his life","judge the nations"],2],
+    ["Greenleaf's test of a servant-leader is whether those served:",["obey faster","grow — healthier, wiser, freer","pay more","stay loyal"],1],
+    ["'Everybody can be great… because anybody can serve' is from:",["Mandela","Booker T. Washington","Greenleaf","Martin Luther King Jr."],3],
+    ["The best way to use a quote bank is to:",["collect hundreds","post them all online","memorise one a week and live it","save them for speeches"],2]
+  ]},
+{ id:"motivation", e:"🔥", t:"Motivation Vault", g:"Fuel for the days your feelings don't cooperate.",
+  s:[
+    ["Start ugly","'You don't have to be great to start, but you have to start to be great.' Waiting to feel ready is how dreams die politely.","Zig Ziglar"],
+    ["Your five people","'You are the average of the five people you spend the most time with.' Audit your circle — motivation is contagious, and so is mediocrity.","Jim Rohn"],
+    ["Dreams have a deadline","'The future belongs to those who believe in the beauty of their dreams.' Believing is step one; Habakkuk 2:2 adds step two — write the vision down.","Eleanor Roosevelt; Habakkuk 2:2"],
+    ["Discipline > mood","Motivation gets you started; discipline keeps you going when motivation sleeps in. Build systems, not moods: same time, same place, small daily quota."],
+    ["The compound effect","1% better every day = roughly 37× better in a year (1.01³⁶⁵ ≈ 37.8). Small is not insignificant — small is the strategy.","James Clear, Atomic Habits (math)"],
+    ["God's word on grit","'And let us not be weary in well doing: for in due season we shall reap, if we faint not.' The harvest has a season — your job is to not quit before it.","Galatians 6:9, KJV"],
+    ["Use the vault","Hack: pick your 'anthem quote' for this season. Write it on your mirror, your lock screen, your journal's first page. Repetition turns words into fuel."]
+  ],
+  q:[
+    ["Zig Ziglar: you have to ____ to be great.",["be talented","start","be lucky","wait"],1],
+    ["Jim Rohn says you are the average of:",["your habits","your goals","the five people closest to you","your income"],2],
+    ["1% daily improvement over a year compounds to roughly:",["2× better","5× better","37× better","100× better"],2],
+    ["Galatians 6:9 promises a harvest if we:",["work harder than others","faint not","plant more","pray longer"],1],
+    ["Motivation vs discipline:",["motivation is enough","discipline replaces vision","motivation starts, discipline sustains","they're the same"],2]
+  ]},
+{ id:"myplate", e:"🍽️", t:"The Healthy Plate", g:"Eat well without counting a single calorie — just look at your plate.",
+  s:[
+    ["The one-glance rule","USDA MyPlate: make HALF your plate fruits and vegetables, a QUARTER grains (at least half whole grains), a QUARTER protein, plus a side of dairy or a calcium-rich alternative.","USDA, MyPlate.gov"],
+    ["Half the plate, most of the power","Vegetables and fruits deliver fibre, vitamins, and water for very few calories. Hack: eat the vegetable half FIRST — you'll naturally eat less of the rest."],
+    ["Go for whole grains","Choose rice that's brown, bread that's whole-wheat, corn, millet, fonio, oats. Whole grains keep the fibre that refined grains throw away — steadier energy, happier gut.","USDA Dietary Guidelines"],
+    ["Vary your protein","Rotate beans, lentils, groundnuts, fish, eggs, chicken. Plant proteins bring fibre with them; fish brings omega-3s. Red and processed meat: occasional, not daily.","USDA MyPlate protein guidance"],
+    ["Drink smart","Make water your default drink. Sugary drinks are the easiest calories to cut — a single soda a day is ~15 kg of sugar a year."],
+    ["Portion hack","No scale needed: palm = protein portion · fist = carbs · thumb = fats · two open hands = vegetables. Your own hand scales to your own body."],
+    ["The 80/20 grace","Eat by the plate 80% of the time; enjoy feasts and celebrations freely the other 20%. Food is also fellowship — Ecclesiastes 9:7."]
+  ],
+  q:[
+    ["On MyPlate, fruits + vegetables should fill:",["a quarter","a third","half","most"],2],
+    ["At least half your grains should be:",["white","whole","fried","imported"],1],
+    ["A palm-sized portion approximates your:",["carbs","vegetables","fats","protein"],3],
+    ["The smartest default drink is:",["juice","soda","water","energy drinks"],2],
+    ["Eating vegetables first helps because:",["they taste better","you naturally eat less of the rest","they digest slower","it's tradition"],1]
+  ]},
+{ id:"hydrate", e:"💧", t:"Hydrate — Water & the Word", g:"The cheapest health upgrade on earth, with wisdom from the oldest Book.",
+  s:[
+    ["Why water runs everything","Your body is roughly 60% water; your brain about 75%. Even 1–2% dehydration measurably dents focus, mood, and energy — usually BEFORE you feel thirsty.","NIH / general physiology"],
+    ["How much?","Simple rules of thumb: drink to thirst, aim for pale-yellow urine, and add more in heat (N'Djamena!), exercise, illness, or pregnancy. The '8 glasses' is a memory aid, not a law — needs vary.","U.S. National Academies fluid guidance"],
+    ["The morning litre hack","A large glass (or two) first thing after waking rehydrates the overnight loss and jumpstarts alertness — cheaper than coffee and works with it."],
+    ["Cold water for the soul","'As cold waters to a thirsty soul, so is good news from a far country.' Scripture keeps using water because everyone everywhere understands thirst.","Proverbs 25:25, KJV"],
+    ["Living water","Jesus to the woman at the well: 'whosoever drinketh of the water that I shall give him shall never thirst.' Hydrate the body daily; hydrate the spirit daily too.","John 4:14, KJV"],
+    ["Planted by the water","The blessed man is 'like a tree planted by the rivers of water… whatsoever he doeth shall prosper.' Position yourself at the source — physically and spiritually.","Psalm 1:3, KJV"],
+    ["Make it automatic","Hack: a bottle on your desk, a glass before every meal, water first when you feel hungry (thirst often disguises itself as hunger)."]
+  ],
+  q:[
+    ["Your brain is roughly what % water?",["25%","50%","75%","90%"],2],
+    ["The best simple hydration check is:",["counting exactly 8 glasses","pale-yellow urine and thirst","drinking only when dizzy","weighing yourself"],1],
+    ["'As cold waters to a thirsty soul' compares water to:",["wealth","good news from a far country","long life","wisdom"],1],
+    ["Jesus offered 'living water' in John 4 to:",["Nicodemus","Peter","the woman at the well","the centurion"],2],
+    ["Feeling hungry between meals? First try:",["a snack","a nap","a glass of water","coffee"],2]
+  ]},
+{ id:"plants", e:"🌿", t:"God's Pharmacy — Medicinal Plants", g:"The garden heals — used wisely, with real medicine alongside.",
+  s:[
+    ["Aloe vera — the burn nurse","The inner gel soothes minor burns, sunburn, and dry skin: split a leaf, apply the clear gel. Note: for skin use; don't swallow the yellow latex layer — it's a harsh irritant.","WHO monographs on selected medicinal plants"],
+    ["Ginger — the stomach settler","Fresh ginger tea (sliced, steeped 10 min) is well-evidenced for nausea — travel sickness, morning queasiness. Bonus: anti-inflammatory warmth for colds.","Multiple clinical reviews on ginger & nausea"],
+    ["Moringa — the multivitamin tree","Moringa leaves are exceptionally dense in vitamins A & C, calcium, iron, and protein. Dry and powder the leaves; add a spoon to sauces and pap. Africa's own superfood.","FAO / nutritional analyses of Moringa oleifera"],
+    ["Senna — the traditional laxative","Senna leaf tea is a recognised short-term remedy for constipation (it's in real pharmacies too). Use LOW doses, occasionally — never daily long-term, and drink plenty of water.","WHO essential medicines list (sennosides)"],
+    ["Hibiscus & lemongrass — the pressure teas","Hibiscus (folléré/bissap) tea has repeatedly shown modest blood-pressure-lowering effects in trials; lemongrass tea calms and aids digestion. Delicious daily habits.","Meta-analyses on Hibiscus sabdariffa & BP"],
+    ["⚠️ Malaria — the honest truth","Artemisia annua gave the world artemisinin, the backbone of modern malaria drugs (Nobel Prize 2015). BUT: WHO advises against relying on herbal teas to treat malaria — doses are unreliable and underdosing breeds resistance. Fever in a malaria zone = TEST and take approved ACT treatment fast. Plants support health; malaria needs medicine.","WHO position statement on non-pharmaceutical Artemisia"],
+    ["The golden rules","1) Identify plants with someone experienced. 2) Small amounts first. 3) Pregnant? Chronic illness? On medication? Ask a professional first. 4) Herbs COMPLEMENT care — they don't replace hospitals. Sirach of old and science today agree: honour the physician."]
+  ],
+  q:[
+    ["Aloe vera gel is best used for:",["drinking daily","minor burns and skin","treating malaria","headaches"],1],
+    ["The best-evidenced use of ginger tea is:",["insomnia","nausea","malaria","toothache"],1],
+    ["Senna tea should be used:",["daily for life","in low doses, short-term","in triple doses","never — it's toxic"],1],
+    ["For fever in a malaria zone, the right move is:",["artemisia tea only","wait it out","test and take approved ACT treatment","cold baths"],2],
+    ["Moringa leaves are prized for being:",["a strong sedative","rich in vitamins, iron and protein","a painkiller","purely decorative"],1]
+  ]},
+{ id:"wealth", e:"💰", t:"Wealth Without Losing Your Soul", g:"Get money like a steward, not a slave. Mark 8:36 economics.",
+  s:[
+    ["The founding question","'For what shall it profit a man, if he shall gain the whole world, and lose his own soul?' Write your definition of 'enough' BEFORE the money comes — or the money will define you.","Mark 8:36, KJV"],
+    ["Reputation is capital","'A good name is rather to be chosen than great riches.' Integrity compounds like interest: people bring opportunities to those they trust. One shortcut can liquidate decades of it.","Proverbs 22:1, KJV"],
+    ["Give first, then budget","The steward's order: give (tithe/generosity) → save → live on the rest. Giving first breaks money's grip on the heart — it's the antidote to 1 Timothy 6:10, where the LOVE of money (not money) is the root.","Malachi 3:10; 1 Timothy 6:10"],
+    ["Slow money beats fast money","'Wealth gotten by vanity shall be diminished: but he that gathereth by labour shall increase.' Beware anything promising fast riches — Ponzis, pressure, 'secret' schemes. Boring and consistent wins.","Proverbs 13:11, KJV"],
+    ["The steward's toolkit","Emergency fund (3–6 months) → kill high-interest debt → then invest steadily in what you understand (index funds, land, a business you can run). Diversify: 'give a portion to seven, and also to eight' — Ecclesiastes 11:2, the oldest diversification advice on record."],
+    ["Multiple streams, one master","Build skills → side income → assets. But schedule Sabbath and family BEFORE hustle fills the calendar. If the empire costs you your children or your prayer life, it's a loss dressed as a win."],
+    ["The final audit","You'll leave 100% of it behind (1 Tim 6:7). Wealth's highest use: funding your family's calling and blessing others — 'a good man leaveth an inheritance to his children's children.' Proverbs 13:22."]
+  ],
+  q:[
+    ["Mark 8:36 warns against gaining the world but losing:",["your health","your friends","your soul","your youth"],2],
+    ["1 Timothy 6:10 says the root of all evil is:",["money","the love of money","poverty","banks"],1],
+    ["Proverbs 13:11 favours wealth gathered by:",["vanity","speed","labour","inheritance"],2],
+    ["Ecclesiastes 11:2 ('a portion to seven, and also to eight') teaches:",["tithing","diversification","debt","saving nothing"],1],
+    ["The steward's money order is:",["live → save → give","save → live → give","give → save → live","invest → give → live"],2]
+  ]},
+{ id:"africa", e:"🌍", t:"Build Africa — Your Part", g:"The continent doesn't need saviours. It needs builders. Starting with you.",
+  s:[
+    ["The demographic superpower","By 2050, one in four humans will be African, with the world's youngest population. That's not a problem to manage — it's the largest builder-generation in history. The question: will we build for them or with them?","UN World Population Prospects"],
+    ["Trade with ourselves","AfCFTA (African Continental Free Trade Area) is the world's largest free-trade area by member count — 54 countries. Your part: buy African first. Made-in-Cameroon, Chadian, Kenyan — every purchase is a vote for a factory.","African Union, AfCFTA"],
+    ["Send skills, not just money","Diaspora remittances to Africa exceed most foreign aid flows. Upgrade yours: pair money with mentorship — teach a cousin to code, review a nephew's business plan, fund a certification instead of only consumption.","World Bank remittance data"],
+    ["Strengthen institutions","Africa rises on boring things done well: procurement systems, labs, courts, registries. Serve in or support institutions (like NPHIs!) — a working institution outlives every hero.","The Africa CDC model"],
+    ["Teach one, free one","Knowledge is the only resource that multiplies when shared. Run a free class, digitise your notes, mentor three young people a year. Education is the cheapest infrastructure."],
+    ["Feed the value chain","Africa exports raw cocoa and imports chocolate. Wherever you can, push one step up the chain: process, package, brand, export finished goods. Value addition is the whole game."],
+    ["Start where your feet are","Nehemiah rebuilt the wall nearest his own house first (Neh 3). Fix your street, your school, your church's bookkeeping. The continent is the sum of its neighbourhoods.","Nehemiah 3, applied"]
+  ],
+  q:[
+    ["By 2050, roughly what share of humanity will be African?",["1 in 10","1 in 4","1 in 2","1 in 20"],1],
+    ["AfCFTA is:",["a bank","an African free-trade area","a UN agency","a currency"],1],
+    ["The hack for smarter remittances is to:",["send less","pair money with mentorship and skills","send only goods","stop sending"],1],
+    ["Africa's cocoa problem illustrates the need for:",["more exports of raw goods","value addition","fewer farmers","imports"],1],
+    ["Nehemiah's rebuilding strategy teaches:",["wait for government","start with the wall nearest your house","outsource the work","build the gates last"],1]
+  ]},
+{ id:"usnumbers", e:"🚨", t:"Numbers That Save You in the US", g:"Nine numbers every family member in America should know cold.",
+  s:[
+    ["911 — Life or death","Fire, crime in progress, medical emergency, car crash with injuries. Call, state your LOCATION first, then the problem. Texting 911 works in many areas if calling is unsafe.","FCC"],
+    ["988 — Suicide & Crisis Lifeline","Call or text 988 for a mental-health, suicide, or emotional crisis — for yourself OR someone you're worried about. Free, 24/7, confidential.","988lifeline.org"],
+    ["Poison Control — 1-800-222-1222","Swallowed something wrong, chemical exposure, medicine mix-up. Experts answer 24/7 and often save you an ER trip. Put it in your phone NOW.","AAPCC"],
+    ["211 — Help with life","Food assistance, rent help, utilities, shelters, childcare resources. The 'I don't know where to start' number, run by United Way.","211.org"],
+    ["311 — Your city","Non-emergency city services: potholes, noise complaints, trash pickup, broken streetlights. Keeps 911 free for real emergencies."],
+    ["511 & road wisdom","511 gives traffic and road conditions in most states — check before long drives, especially in winter."],
+    ["The paperwork trio","IRS: 1-800-829-1040 (taxes) · SSA: 1-800-772-1213 (social security) · USCIS: 1-800-375-5283 (immigration case status). Call early morning to beat the queues."],
+    ["Family hack","Save all of these as contacts TODAY, and set one family member abroad as your ICE (In Case of Emergency) contact with a listed US contact too."]
+  ],
+  q:[
+    ["The mental-health crisis line in the US is:",["911","411","988","511"],2],
+    ["When you call 911, state first:",["your name","your location","the time","your insurance"],1],
+    ["Poison Control is reached at:",["1-800-222-1222","911 only","311","988"],0],
+    ["For help finding food or rent assistance, dial:",["511","211","311","611"],1],
+    ["A pothole or noise complaint goes to:",["911","988","311","511"],2]
+  ]},
+{ id:"vision", e:"🎯", t:"Vision & Discipline — The Twin Engines", g:"Vision picks the mountain. Discipline climbs it.",
+  s:[
+    ["Why vision first","'Where there is no vision, the people perish.' Without a picture of the destination, every option looks equally good — which means you drift. Vision is a decision filter.","Proverbs 29:18, KJV"],
+    ["Write it down","'Write the vision, and make it plain upon tables, that he may run that readeth it.' Unwritten vision is a wish. Written vision recruits your attention, your calendar, and other runners.","Habakkuk 2:2, KJV"],
+    ["Discipline is remembering","Discipline isn't punishment — it's remembering what you want MOST over what you want NOW. Every 'no' to a distraction is a 'yes' to the vision."],
+    ["The daily bridge","Vision (10 years) → goals (this year) → priorities (this week) → the ONE thing (today). If today's task doesn't ladder up to the vision, question it. This app's Goals tab is that ladder."],
+    ["Systems beat willpower","Willpower is a battery; environment is a solar panel. Design defaults: Bible on the pillow, gym bag by the door, phone charging OUTSIDE the bedroom. Make the right thing the easy thing."],
+    ["The compounding secret","Discipline feels invisible daily and unmistakable yearly. 'No chastening for the present seemeth to be joyous… nevertheless afterward it yieldeth the peaceable fruit.' Hebrews 12:11 — 'afterward' is where the trophies live.","Hebrews 12:11, KJV"],
+    ["Guard the vision","Share the vision with runners, not scoffers (Nehemiah kept building while critics shouted from below). Review it every Monday; revise it every year."]
+  ],
+  q:[
+    ["Proverbs 29:18 — without vision, the people:",["complain","perish","prosper","wait"],1],
+    ["Habakkuk 2:2 commands us to:",["hide the vision","write the vision plainly","delay the vision","sell the vision"],1],
+    ["Discipline is best defined here as:",["punishment","talent","remembering what you want most over what you want now","strict rules"],2],
+    ["'Willpower is a battery; environment is a…'",["prison","mirror","solar panel","cage"],2],
+    ["Hebrews 12:11 says discipline yields fruit:",["immediately","never","afterward","only for leaders"],2]
+  ]},
+{ id:"mental", e:"🧠", t:"Mind Care — Faith & Resilience", g:"Guarding the garden between your ears.",
+  s:[
+    ["The prescription in Philippians","'Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God. And the peace of God… shall keep your hearts and minds.' Prayer + gratitude, then peace stands guard. Order matters.","Philippians 4:6-7, KJV"],
+    ["Name it to tame it","Feelings lose power when named precisely. 'I'm stressed' → 'I'm anxious about Thursday's presentation.' Naming moves the load from the alarm brain to the thinking brain — then you can act.","Affect labeling research (UCLA, Lieberman)"],
+    ["The Big Five foundations","Sleep 7–9h · move your body most days · eat real food · sunlight early · real human connection. No app or verse replaces the basics God built your body to need."],
+    ["Resilience is a rhythm","Elijah's burnout recovery (1 Kings 19): God gave him sleep, food, more sleep — THEN the conversation. Rest is not weakness; it's step one of every comeback.","1 Kings 19:5-8"],
+    ["Gratitude rewires","Write three specific gratitudes daily ('In every thing give thanks' — 1 Thess 5:18). Studies link the practice to measurably improved mood in weeks. Cheap, ancient, effective.","Emmons & McCullough gratitude studies"],
+    ["Community is medicine","'Bear ye one another's burdens' — isolation amplifies every struggle; sharing halves it. Tell one trusted person the true state of your heart this week.","Galatians 6:2, KJV"],
+    ["When to get help","If dark thoughts persist for weeks, or hope feels gone — that's not weak faith, it's a health matter, like malaria of the mind. Talk to a doctor or counsellor; in the US call/text 988. God works through physicians too."]
+  ],
+  q:[
+    ["Philippians 4:6-7 pairs prayer with:",["fasting","thanksgiving","silence","sacrifice"],1],
+    ["'Name it to tame it' means:",["ignore feelings","label emotions precisely to calm them","blame others","rename your problems"],1],
+    ["God's first treatment for burned-out Elijah was:",["a rebuke","a new assignment","sleep and food","a fast"],2],
+    ["A proven gratitude practice is writing:",["one complaint","three specific gratitudes daily","your goals","other people's faults"],1],
+    ["Persistent dark thoughts mean you should:",["hide them","wait a year","talk to a professional / call 988 in the US","just try harder"],2]
+  ]},
+{ id:"mandarin", e:"🇨🇳", t:"Mandarin First Steps", g:"1.1 billion people. Ten phrases. Start here.",
+  s:[
+    ["Hello & thanks","Nǐ hǎo (nee-how) = Hello · Xièxie (shyeh-shyeh) = Thank you · Bú kèqi (boo kuh-chee) = You're welcome. Say xièxie warmly and doors open."],
+    ["The tones — don't panic","Mandarin has 4 tones: mā (flat) má (rising) mǎ (dip) mà (falling). Same sound, different words! Hack: learn phrases from audio, mimicking melody like a song, not letters."],
+    ["Count to 10","yī, èr, sān, sì, wǔ, liù, qī, bā, jiǔ, shí. Bonus: Chinese numbers are logical — 11 is shí-yī (ten-one), 20 is èr-shí (two-ten)."],
+    ["Survival set","Duìbuqǐ = Sorry · Wǒ bù dǒng = I don't understand · Duōshǎo qián? = How much money? · Cèsuǒ zài nǎlǐ? = Where's the toilet?"],
+    ["Introduce yourself","Wǒ jiào… = My name is… · Wǒ shì Kāmàilóng rén = I am Cameroonian · Hěn gāoxìng rènshi nǐ = Nice to meet you."],
+    ["Why it matters for Africa","China is Africa's largest trading partner. A greeting in Mandarin at a negotiation table is respect made audible — and respect is leverage.","China-Africa trade statistics"],
+    ["The 15-minute habit","Hack: one phrase a day, spoken aloud 10 times, used once for real (even to yourself in the mirror). Language lives in the mouth, not the notebook."]
+  ],
+  q:[
+    ["'Thank you' in Mandarin:",["Nǐ hǎo","Xièxie","Duìbuqǐ","Wǒ jiào"],1],
+    ["Mandarin has how many main tones?",["2","3","4","6"],2],
+    ["Eleven in Chinese is literally:",["one-one","ten-one","two-ten","one-ten"],1],
+    ["'Wǒ bù dǒng' means:",["How much?","I don't understand","Where's the toilet?","Goodbye"],1],
+    ["The best way to learn tones is:",["reading silently","mimicking audio like a song","writing characters","ignoring them"],1]
+  ]},
+{ id:"arabic", e:"🕌", t:"Arabic Essentials", g:"The key to 400 million neighbours — and to Chad.",
+  s:[
+    ["The greeting that opens everything","As-salāmu ʿalaykum = Peace be upon you · reply: Wa ʿalaykumu s-salām = And upon you, peace. In Chad and across the Sahel, this greeting is the handshake before the handshake."],
+    ["Gratitude & grace","Shukran = Thank you · ʿAfwan = You're welcome / excuse me · Min faḍlik = Please · Āsif = Sorry."],
+    ["Count to 10","wāḥid, ithnān, thalātha, arbaʿa, khamsa, sitta, sabʿa, thamāniya, tisʿa, ʿashara. Hack: you already know some — 'sifr' (zero) gave us 'cipher' and 'zero'!"],
+    ["Getting around","Ayna…? = Where is…? · Kam? = How much? · Lā afham = I don't understand · Hal tatakallam al-inglīziyya? = Do you speak English?"],
+    ["Yes, no, God willing","Naʿam = yes · Lā = no · In shāʾ Allāh = God willing (you'll hear this hourly in N'Djamena — it's Proverbs 27:1 and James 4:15 in daily speech)."],
+    ["Chad connection","Chadian Arabic (Shuwa) is the market lingua franca across much of Chad. Even basic greetings transform how you're received — from stranger to guest.","Sociolinguistics of Chad"],
+    ["Script later, sound now","Hack: don't start with the alphabet. Master 20 spoken phrases first (they carry you for months), then learn the beautiful script as chapter two."]
+  ],
+  q:[
+    ["The reply to 'As-salāmu ʿalaykum' is:",["Shukran","Wa ʿalaykumu s-salām","Naʿam","Āsif"],1],
+    ["'Shukran' means:",["please","sorry","thank you","where"],2],
+    ["'In shāʾ Allāh' means:",["good morning","God willing","let's go","how much"],1],
+    ["'Ayna…?' asks:",["how much","why","where is…","who"],2],
+    ["The recommended first step in Arabic is:",["the alphabet","calligraphy","20 spoken phrases","grammar tables"],2]
+  ]},
+{ id:"jesusgod", e:"✝️", t:"Is Jesus God? — The Case", g:"What Jesus claimed, what witnesses swore, what it means.",
+  s:[
+    ["He claimed it plainly","'Before Abraham was, I AM' (John 8:58) — claiming God's own name from Exodus 3:14. His audience understood perfectly: 'then took they up stones to cast at him.' Blasphemy — unless it was true.","John 8:58-59; Exodus 3:14"],
+    ["The Word was God","'In the beginning was the Word, and the Word was with God, and the Word was God… and the Word was made flesh.' John opens his Gospel with the thesis; the rest is evidence.","John 1:1,14, KJV"],
+    ["He did what only God may do","Jesus forgave sins ('Who can forgive sins but God only?' — the scribes saw the claim instantly, Mark 2:5-7), accepted worship (Matt 14:33, John 9:38), and claimed authority to judge all nations (Matt 25:31-32)."],
+    ["The eyewitness verdict","Doubting Thomas, hands in the wounds: 'My Lord and my God.' Jesus doesn't correct him — He blesses him. The earliest confession of the church is a divine title.","John 20:28-29"],
+    ["Fullness of deity","'For in him dwelleth all the fulness of the Godhead bodily' (Col 2:9). 'Who, being in the form of God…' (Phil 2:6). The letters written within living memory of Jesus already worship Him as God.","Colossians 2:9; Philippians 2:6-11"],
+    ["The trilemma","C.S. Lewis: a man claiming what Jesus claimed is either a liar, a lunatic — or Lord. 'Great moral teacher' is the one option He did not leave us. His character rules out liar; His wisdom rules out lunatic.","C.S. Lewis, Mere Christianity"],
+    ["Why it matters","If Jesus is God, then God has a face, grace has a name, and the cross is God Himself paying — not a third party. That's not one doctrine among many; it's the whole engine of the faith."]
+  ],
+  q:[
+    ["In John 8:58 Jesus applied to Himself:",["the title Rabbi","the name 'I AM' from Exodus","the role of prophet","the name Messiah only"],1],
+    ["John 1:1 states the Word was:",["with God only","an angel","God","created first"],2],
+    ["The scribes called Jesus' forgiving of sins blasphemy because:",["it broke Sabbath law","only God can forgive sins","he wasn't a priest","he charged money"],1],
+    ["Thomas's confession in John 20:28 was:",["'My teacher'","'My Lord and my God'","'A prophet'","'The son of Joseph'"],1],
+    ["Lewis's trilemma says Jesus is liar, lunatic, or:",["legend","leader","Lord","teacher"],2]
+  ]},
+{ id:"casechrist", e:"📜", t:"The Case for Christianity", g:"Evidence for a faith that invites investigation.",
+  s:[
+    ["It rests on ONE testable event","'If Christ be not raised, your faith is vain' (1 Cor 15:17). Christianity uniquely stakes everything on a public, historical claim — the resurrection — and invites you to check it.","1 Corinthians 15:14-17"],
+    ["The creed too early to be legend","1 Cor 15:3-7 quotes a creed scholars date to within ~5 years of the crucifixion, naming eyewitnesses 'of whom the greater part remain unto this present' — i.e., go ask them. Legends need generations; this had none.","Dating of the 1 Cor 15 creed (widely accepted in scholarship)"],
+    ["Witnesses who wouldn't recant","The apostles gained poverty, prison, and execution for their testimony. People die for beliefs they think true — but not for what they KNOW they invented. Something turned cowards (Peter!) into martyrs overnight."],
+    ["A document trail like no other","The New Testament has ~5,800 Greek manuscripts (plus thousands more in other languages), some fragments within decades of writing — dwarfing every other ancient text. We can be confident we're reading what they wrote.","Manuscript counts, standard textual criticism"],
+    ["Hostile confirmation","Tacitus (Roman historian) records Christ's execution under Pilate; Josephus mentions Jesus and his brother James. Even opponents corroborated the core facts: he lived, was crucified, and his movement exploded.","Tacitus, Annals 15.44; Josephus, Antiquities"],
+    ["Prophecy written in advance","Isaiah 53 — 'wounded for our transgressions… numbered with the transgressors' — was in Jewish hands centuries before the cross (the Dead Sea Scrolls prove pre-Christian dating). Read it, then read the crucifixion accounts.","Isaiah 53; Great Isaiah Scroll, Qumran"],
+    ["The final evidence is alive","Changed lives — from Saul the persecutor to your own family's testimonies (Ndezo's prayers, answered ones in your Journal tab). 'Taste and see' remains the standing invitation. Psalm 34:8."]
+  ],
+  q:[
+    ["Paul says if Christ is not raised, our faith is:",["still useful","vain","stronger","private"],1],
+    ["The 1 Corinthians 15 creed is dated to within about:",["5 years of the cross","100 years","300 years","1000 years"],0],
+    ["The martyrdom argument says people don't die for:",["any belief","their families","what they know they invented","their nations"],2],
+    ["The New Testament's Greek manuscripts number about:",["58","580","5,800","58,000"],2],
+    ["Isaiah 53's pre-Christian date is proven by:",["church tradition","the Dead Sea Scrolls","Roman records","carbon dating of the cross"],1]
+  ]},
+{ id:"speak", e:"🗣️", t:"Speak So People Listen", g:"Say it clearly, land it warmly, be remembered.",
+  s:[
+    ["BLUF — Bottom Line Up Front","State your conclusion FIRST, then support it. 'I recommend option B. Three reasons…' Busy people (and tired family) decide in the first sentence whether to listen to the rest.","Military & executive communication standard"],
+    ["The rule of three","Ideas in threes stick: 'faith, hope, love' · 'life, liberty, happiness.' Structure any pitch as three points — the mind carries three, drops four."],
+    ["The power of the pause","A 2-second silence before your key point makes the room lean in. Rushing signals nerves; pausing signals weight. 'Even a fool, when he holdeth his peace, is counted wise.' Prov 17:28."],
+    ["Story beats statistics","Facts inform; stories move. Formula: Situation → Struggle → Turn → Lesson. Jesus taught almost entirely in parables — the master's method.","Matthew 13:34"],
+    ["Speak to the listener's 'why'","Before speaking, finish this sentence: 'This matters to YOU because…' If you can't, you're not ready — you have information, not a message."],
+    ["Kill the fillers","'Um, like, you know' leak authority. Hack: record one voice note weekly and count them. Awareness alone cuts fillers in half within a month."],
+    ["Seasoned with grace","'Let your speech be alway with grace, seasoned with salt' — clarity without kindness is a weapon; kindness without clarity is fog. Aim for both, every time.","Colossians 4:6, KJV"]
+  ],
+  q:[
+    ["BLUF means:",["build up slowly","bottom line up front","be loud up front","brief, light, upbeat, friendly"],1],
+    ["The mind most easily carries points in:",["pairs","threes","fives","tens"],1],
+    ["A pause before your key point signals:",["nerves","forgetfulness","weight and confidence","the end"],2],
+    ["Jesus' primary teaching method was:",["lectures","debates","parables (stories)","written letters"],2],
+    ["Colossians 4:6 says season your speech with:",["sugar","salt","fire","honey"],1]
+  ]},
+{ id:"budget", e:"💵", t:"Budget Like a Steward", g:"Tell your money where to go — or wonder where it went.",
+  s:[
+    ["The 50/30/20 skeleton","After giving: ~50% needs (rent, food, transport), 30% wants, 20% savings & debt payoff. It's a starting skeleton — squeeze 'wants' hard in building seasons.","Popularised by Elizabeth Warren, All Your Worth"],
+    ["Count before you build","'For which of you, intending to build a tower, sitteth not down first, and counteth the cost?' Jesus made budgeting a discipleship skill, not a boring chore.","Luke 14:28, KJV"],
+    ["The envelope method","Give every franc/dollar a named job at the start of the month (physical envelopes or app categories). When the 'eating out' envelope empties, eating out ends. Boundaries create freedom."],
+    ["Emergency fund first","Before investing: 3–6 months of expenses in boring, accessible savings. 'The prudent man foreseeth the evil, and hideth himself' — Prov 22:3. An emergency fund is that verse in bank form.","Proverbs 22:3"],
+    ["Debt: the reverse tithe","'The borrower is servant to the lender' (Prov 22:7). Attack highest-interest debt first (avalanche) or smallest balance first for momentum (snowball) — pick one and be violent about it."],
+    ["Automate righteousness","Set giving and saving to auto-transfer on payday. Decisions made once beat willpower exercised monthly. You can't overspend money that already left."],
+    ["The weekly money date","15 minutes, same day weekly: categorise spending, check envelopes, adjust. Couples: do it together — money fights dissolve when both hands hold the map."]
+  ],
+  q:[
+    ["In 50/30/20, the 20 goes to:",["wants","needs","savings & debt payoff","giving"],2],
+    ["Luke 14:28 links tower-building to:",["prayer","counting the cost first","hiring builders","waiting"],1],
+    ["When an envelope is empty:",["borrow from savings","that spending stops","use credit","refill it"],1],
+    ["Proverbs 22:7 calls the borrower:",["blessed","wise","servant to the lender","free"],2],
+    ["The 'snowball' method pays off first:",["the biggest debt","the newest debt","the smallest balance","the mortgage"],2]
+  ]},
+{ id:"time", e:"⏰", t:"Redeem the Time", g:"Everyone gets 24. Stewards invest them.",
+  s:[
+    ["The command","'Redeeming the time, because the days are evil' (Eph 5:16). Time is the only currency God issues equally and never re-issues. Spend like it's your inheritance — it is.","Ephesians 5:16, KJV"],
+    ["Eat the frog","Do the hardest, most important task FIRST, before the day dilutes you. Everything after feels lighter, and the vision moves even on chaotic days.","Brian Tracy, Eat That Frog"],
+    ["Time-block, don't to-do","A list says WHAT; a calendar says WHEN. Give tasks appointments: 'Report: 9:00–10:30.' Unscheduled priorities lose to scheduled trivia every time."],
+    ["The 2-minute rule","Anything under 2 minutes — do it NOW (reply, file, wash the cup). Small tasks stored cost more in memory-rent than in doing.","David Allen, Getting Things Done"],
+    ["Batch the shallow","Check messages at set times (e.g., 11:00 & 16:00) instead of every ping. Each interruption costs ~20+ minutes of refocus. Protect deep-work blocks like meetings with a king.","Task-switching research (Gloria Mark et al.)"],
+    ["Number your days","'So teach us to number our days, that we may apply our hearts unto wisdom' (Ps 90:12). Weekly review: What moved the vision? What stole time? What changes Monday?","Psalm 90:12"],
+    ["Sabbath is strategy","Rest isn't the reward for finished work (work is never finished); it's the rhythm that makes work sustainable. God rested on purpose — copy the pattern, guard one day."]
+  ],
+  q:[
+    ["Ephesians 5:16 tells us to ____ the time.",["kill","redeem","count","survive"],1],
+    ["'Eat the frog' means:",["skip breakfast","do the hardest important task first","save the best for last","multitask"],1],
+    ["A time-block differs from a to-do because it says:",["what","why","when","who"],2],
+    ["The 2-minute rule: tasks under 2 minutes should be:",["listed","delegated","done immediately","deleted"],2],
+    ["Each interruption typically costs about:",["2 minutes","5 minutes","20+ minutes","nothing"],2]
+  ]},
+{ id:"network", e:"🤝", t:"Networking with Purpose", g:"Build a village, not a contact list.",
+  s:[
+    ["Give first","'A man's gift maketh room for him, and bringeth him before great men' (Prov 18:16). Lead every new relationship with value — an introduction, an article, help — before you need anything. Givers are remembered; takers are screened.","Proverbs 18:16, KJV"],
+    ["The 3-question opener","Skip 'what do you do.' Ask: What are you building right now? What's the hardest part? Who are you looking for? You'll learn how to help — which is the whole point."],
+    ["The 48-hour rule","Follow up within 48 hours of meeting someone: one short message referencing something specific from the conversation + one small piece of value. This alone puts you ahead of 90% of people."],
+    ["Iron sharpens iron","Curate an inner circle of 3–5 sharpeners you meet consistently (Prov 27:17). Depth with few beats breadth with hundreds — your five closest shape your ceiling."],
+    ["The weak-tie surprise","Research: most opportunities arrive through ACQUAINTANCES, not close friends — they roam different circles. Hack: reconnect with two 'old' contacts monthly with a genuine check-in.","Granovetter, The Strength of Weak Ties (1973)"],
+    ["Keep a garden, not a Rolodex","Simple system: note where you met, what they care about, their kids' milestones. Reference it. People forget favours; nobody forgets being remembered."],
+    ["Networking for the Kingdom","Your network is stewardship: connect people to each other freely (matchmaking of purpose), and every relationship becomes a possible door for someone else. That's Kingdom math."]
+  ],
+  q:[
+    ["Proverbs 18:16 says what makes room for a man?",["his wealth","his gift","his title","his family"],1],
+    ["The strongest opener asks about:",["their salary","the weather","what they're building and struggling with","politics"],2],
+    ["The follow-up window that sets you apart:",["6 months","1 month","48 hours","1 year"],2],
+    ["Most opportunities statistically come through:",["close friends","strangers","acquaintances (weak ties)","family only"],2],
+    ["The 'garden' system means:",["gardening together","recording and referencing what people care about","only meeting outdoors","weekly calls to everyone"],1]
+  ]},
+{ id:"learnfast", e:"📚", t:"Learn Anything Fast", g:"The meta-skill: how to hack every other hack.",
+  s:[
+    ["The Feynman technique","Learn it → explain it in simple words to a child (or a notebook) → find where you stumble → re-study exactly that gap → simplify again. If you can't say it simply, you don't own it yet.","Richard Feynman's method"],
+    ["Spaced repetition","Review at growing intervals: 1 day → 3 days → 1 week → 1 month. Memory strengthens most when recalled just as it starts to fade. Flashcards (Anki) automate this.","Ebbinghaus forgetting curve"],
+    ["Test yourself, don't reread","Retrieval practice (closing the book and recalling) beats rereading by a wide margin in study research. Struggle IS the learning — ease is the illusion of it.","Roediger & Karpicke, testing effect"],
+    ["The first 20 hours","You don't need 10,000 hours to be functional — about 20 focused hours takes you from zero to surprisingly capable in most skills. Deconstruct the skill, learn enough to self-correct, remove barriers, put in the 20.","Josh Kaufman, The First 20 Hours"],
+    ["Teach to keep","'The things that thou hast heard of me… commit thou to faithful men, who shall be able to teach others also' (2 Tim 2:2). Teaching forces organisation, exposes gaps, and doubles the harvest. This whole Life Hacks tab is that verse in action.","2 Timothy 2:2, KJV"],
+    ["Interleave & sleep","Mix related topics in one session (interleaving) rather than blocking one forever — harder in the moment, stickier for life. Then sleep: memory consolidates in the night shift. All-nighters erase what they try to save."],
+    ["Wisdom's price tag","'Wisdom is the principal thing; therefore get wisdom: and with all thy getting get understanding' (Prov 4:7). Skills feed you; understanding of WHY multiplies you."]
+  ],
+  q:[
+    ["The Feynman technique's core move is:",["speed reading","explaining simply and fixing where you stumble","memorising definitions","highlighting"],1],
+    ["Spaced repetition reviews at:",["random times","growing intervals as memory fades","fixed daily times","the end of the year"],1],
+    ["Research says the stronger study method is:",["rereading","highlighting","self-testing (retrieval)","copying notes"],2],
+    ["Kaufman's threshold for functional skill is about:",["10,000 hours","1,000 hours","200 hours","20 focused hours"],3],
+    ["2 Timothy 2:2 commands us to:",["keep knowledge private","commit teaching to faithful people who teach others","study alone","write books"],1]
+  ]}
+];
+
+/* ---------- Hack engine ---------- */
+function hackstats(){ return DB.get("hackstats",[]); }
+function myHackStat(hid){ return hackstats().find(s=>s.hackId===hid && s.by===ME.u); }
+function setHackStat(hid, patch){
+  const all=hackstats();
+  let s=all.find(x=>x.hackId===hid && x.by===ME.u);
+  if(!s){ s={id:hid+":"+ME.u, hackId:hid, by:ME.u, liked:false, passed:false, score:0, ts:Date.now()}; all.push(s); }
+  Object.assign(s, patch, {up:Date.now()});
+  DB.set("hackstats",all); cloud("addHackStat",s);
+  return s;
+}
+let CUR_HACK=null, hackAns=[];
+function renderHacks(){
+  if(!ME) return;
+  const grid=document.getElementById("hacksGrid"); if(!grid) return;
+  const stats=hackstats();
+  grid.innerHTML=HACKS.map(h=>{
+    const likes=stats.filter(s=>s.hackId===h.id && s.liked).length;
+    const mine=myHackStat(h.id);
+    return `<button class="fun-card hack-card" onclick="openHack('${h.id}')">
+      <div class="fc-e">${h.e}</div>
+      <div class="fc-t">${esc(h.t)}</div>
+      <div class="fc-d">${esc(h.g)}</div>
+      <div class="hk-badges">
+        ${likes?`<span class="hb">❤️ ${likes}</span>`:""}
+        ${mine&&mine.passed?`<span class="hb cert">🏅 Hacked ${mine.score}/5</span>`:""}
+      </div>
+      <div class="fc-cta">${mine&&mine.passed?"Review":"Hack it"} →</div>
+    </button>`;
+  }).join("");
+}
+function openHack(id){
+  CUR_HACK=HACKS.find(h=>h.id===id); if(!CUR_HACK) return;
+  hackAns=new Array(CUR_HACK.q.length).fill(null);
+  document.getElementById("hkTitle").textContent=CUR_HACK.e+" "+CUR_HACK.t;
+  const mine=myHackStat(id);
+  document.getElementById("hkLikeBtn").textContent=(mine&&mine.liked)?"❤️":"🤍";
+  document.getElementById("hkBody").innerHTML=`
+    <div class="hk-hero"><div class="he">${CUR_HACK.e}</div><div class="ht">${esc(CUR_HACK.t)}</div><div class="hg">${esc(CUR_HACK.g)}</div></div>
+    ${CUR_HACK.s.map(sec=>`<div class="hk-sec"><h4>${esc(sec[0])}</h4><p>${esc(sec[1])}</p>${sec[2]?`<span class="hk-ref">📖 ${esc(sec[2])}</span>`:""}</div>`).join("")}
+    <div class="hk-quiz">
+      <div class="hk-quiz-head">🎯 Have you hacked it?</div>
+      <div class="hk-quiz-sub">5 questions · 4 correct earns your certificate. You can retake anytime.</div>
+      <div id="hkQuiz">${CUR_HACK.q.map((q,qi)=>`
+        <div class="hq-q"><div class="hq-t">${qi+1}. ${esc(q[0])}</div>
+          ${q[1].map((o,oi)=>`<button class="hq-opt" id="hq-${qi}-${oi}" onclick="pickHQ(${qi},${oi})">${esc(o)}</button>`).join("")}
+        </div>`).join("")}
+      </div>
+      <button class="btn btn-grad hk-submit" onclick="submitHackQuiz()">Check my answers</button>
+      <div id="hkResult"></div>
+    </div>`;
+  document.getElementById("hackScreen").classList.add("on");
+  document.querySelector("#hackScreen .note-inner").scrollTop=0;
+  document.getElementById("hkBody").scrollTop=0;
+}
+function closeHack(){ document.getElementById("hackScreen").classList.remove("on"); CUR_HACK=null; }
+function pickHQ(qi,oi){
+  hackAns[qi]=oi;
+  CUR_HACK.q[qi][1].forEach((_,i)=>{
+    document.getElementById(`hq-${qi}-${i}`).classList.toggle("picked", i===oi);
+  });
+}
+function submitHackQuiz(){
+  if(!CUR_HACK) return;
+  if(hackAns.includes(null)) return toast("Answer all 5 questions first");
+  let score=0;
+  CUR_HACK.q.forEach((q,qi)=>{
+    const correct=q[2], picked=hackAns[qi];
+    q[1].forEach((_,oi)=>{
+      const el=document.getElementById(`hq-${qi}-${oi}`);
+      el.classList.remove("picked");
+      if(oi===correct) el.classList.add("correct");
+      else if(oi===picked) el.classList.add("wrong");
+    });
+    if(picked===correct) score++;
+  });
+  const pass=score>=4;
+  const res=document.getElementById("hkResult");
+  if(pass){
+    setHackStat(CUR_HACK.id,{passed:true,score});
+    res.innerHTML=`<div class="hk-result pass">🏅 ${score}/5 — HACKED! Your certificate is ready.</div>`;
+    showCert(CUR_HACK, score);
+    renderHacks();
+  } else {
+    setHackStat(CUR_HACK.id,{score});
+    res.innerHTML=`<div class="hk-result fail">${score}/5 — so close! Re-read the sections above and try again. "A just man falleth seven times, and riseth up again." (Prov 24:16)</div>`;
+  }
+  if(res.scrollIntoView) try{res.scrollIntoView({behavior:"smooth",block:"center"});}catch(e){}
+}
+let CERT_DATA=null;
+function showCert(hack, score){
+  CERT_DATA={hackId:hack.id, e:hack.e, t:hack.t, score, name:ME.name, date:new Date().toLocaleDateString(undefined,{day:"numeric",month:"long",year:"numeric"})};
+  document.getElementById("certBody").innerHTML=`
+    <div class="c-brand">ForTe Fam · Life Hacks Academy</div>
+    <div class="c-title">Certificate of Hacking</div>
+    <div class="c-cert">This certifies that</div>
+    <div class="c-name">${esc(CERT_DATA.name)}</div>
+    <div class="c-line"></div>
+    <div class="c-body">has studied, quizzed, and officially <b>HACKED</b><br><span class="c-hack">${CERT_DATA.e} ${esc(CERT_DATA.t)}</span></div>
+    <div class="c-score">Score: ${score}/5</div>
+    <div class="c-date">${esc(CERT_DATA.date)} · "Study to shew thyself approved" — 2 Tim 2:15</div>
+    <div class="c-seal">🏅</div>`;
+  openModal("mCert");
+}
+function shareCert(){
+  if(!CERT_DATA) return;
+  const m={id:"m"+Date.now()+Math.random().toString(36).slice(2,6),room:"hall",from:ME.u,kind:"hackcert",
+    text:`🏅 ${ME.name} hacked: ${CERT_DATA.t} (${CERT_DATA.score}/5)`,
+    ts:Date.now(), hcE:CERT_DATA.e, hcT:CERT_DATA.t, hcScore:CERT_DATA.score, hcName:CERT_DATA.name};
+  const all=msgs(); all.push(m); DB.set("msgs",all); cloud("addMsg",m);
+  closeModal("mCert"); closeHack();
+  toast("Certificate shared 🏅"); goTab("chats"); openRoom("hall");
+}
+function toggleHackLike(){
+  if(!CUR_HACK) return;
+  const mine=myHackStat(CUR_HACK.id);
+  const liked=!(mine&&mine.liked);
+  setHackStat(CUR_HACK.id,{liked});
+  document.getElementById("hkLikeBtn").textContent=liked?"❤️":"🤍";
+  toast(liked?"Liked ❤️":"Unliked");
+}
+function shareHack(){
+  if(!CUR_HACK) return;
+  const m={id:"m"+Date.now()+Math.random().toString(36).slice(2,6),room:"hall",from:ME.u,kind:"hack",
+    text:`🎓 Life Hack: ${CUR_HACK.t}`, ts:Date.now(),
+    hkId:CUR_HACK.id, hkE:CUR_HACK.e, hkT:CUR_HACK.t, hkG:CUR_HACK.g};
+  const all=msgs(); all.push(m); DB.set("msgs",all); cloud("addMsg",m);
+  closeHack(); toast("Hack shared with the family 🎓");
+  goTab("chats"); openRoom("hall");
+}
+function funSeg(seg){
+  document.querySelectorAll("#funSegBar button").forEach(b=>b.classList.toggle("active",b.dataset.seg===seg));
+  document.getElementById("segDiags").style.display = seg==="diags"?"":"none";
+  document.getElementById("segHacks").style.display = seg==="hacks"?"":"none";
+  document.getElementById("funSub").textContent = seg==="diags"
+    ? "Quick honest diagnostics — discover where you're strong, where to grow. Be honest. There are no wrong answers."
+    : "The family's Idiot's Guides — practical, memorable, referenced. Read, quiz, earn your certificate. 🏅";
+  if(seg==="hacks") renderHacks(); else renderFunTab();
+}
+
+/* ====================== 💡 MaD — MAKE A DIFFERENCE ====================== */
+function madIdeas(){ return DB.get("madIdeas",[]); }
+function madGuests(){ return DB.get("madGuests",[]); }
+let MAD_FILTER="all", PLEDGE_IDEA=null;
+const MAD_SRC={text:"✍️",article:"📰",community:"🏘️"};
+
+function madName(uid){
+  const u=users()[uid]; if(u) return u.name;
+  if(uid&&uid.startsWith("g_")){
+    const g=madGuests().find(x=>"g_"+String(x.token).slice(0,10)===uid);
+    if(g) return g.name+" (friend)";
+    return "Friend of the family";
+  }
+  return uid||"?";
+}
+function madFilter(f){
+  MAD_FILTER=f;
+  document.querySelectorAll("#madFilters button").forEach(b=>b.classList.toggle("active",b.dataset.f===f));
+  renderMad();
+}
+function renderMad(){
+  if(!ME) return;
+  const el=document.getElementById("madList"); if(!el) return;
+  let list=madIdeas().filter(i=>!i.deleted);
+  if(MAD_FILTER==="promoted") list=list.filter(i=>(i.promotedBy||[]).length>0);
+  if(MAD_FILTER==="mine") list=list.filter(i=>i.by===ME.u);
+  list.sort((a,b)=>{
+    const pa=(a.promotedBy||[]).length>0?1:0, pb=(b.promotedBy||[]).length>0?1:0;
+    if(pb!==pa) return pb-pa;
+    if(MAD_FILTER==="top") return (b.votes||[]).length-(a.votes||[]).length;
+    return (b.up||b.ts)-(a.up||a.ts);
+  });
+  if(ME.guest){
+    el.insertAdjacentHTML?.("beforebegin","");
+  }
+  if(!list.length){
+    el.innerHTML=`<div class="pj-empty"><div class="pe-big">💡</div>The marketplace is open.<br>Post the first idea — a like becomes a life when somebody acts on it.</div>`;
+    return;
+  }
+  el.innerHTML=(ME.guest?`<div class="guest-banner">🌍 Welcome, ${esc(ME.name)}! You've been invited to the family's MaD marketplace. Vote for ideas you believe in and pledge your contribution.</div>`:"")
+  + list.map(i=>{
+    const votes=i.votes||[], voted=votes.includes(ME.u);
+    const promo=i.promotedBy||[], isPromo=promo.length>0, iPromo=promo.includes(ME.u);
+    const pledges=i.pledges||[];
+    const mine=i.by===ME.u;
+    return `<div class="mad-card ${isPromo?'promoted':''}">
+      ${isPromo?`<div class="mad-promo-tag">🚀 PROMOTED</div>`:""}
+      <div class="mad-head">
+        <div class="mad-src">${MAD_SRC[i.src]||"💡"}</div>
+        <div class="mad-title">${esc(i.title)}</div>
+      </div>
+      ${i.detail?`<div class="mad-detail">${esc(i.detail)}</div>`:""}
+      ${i.link?`<a class="mad-link" href="${esc(i.link)}" target="_blank" rel="noopener">🔗 ${esc(i.link.length>52?i.link.slice(0,52)+"…":i.link)}</a>`:""}
+      <div class="mad-meta">by <b>${esc(madName(i.by))}</b> · ${ago(i.ts)}${isPromo?` · championed by ${promo.map(u=>esc(madName(u))).join(", ")}`:""}</div>
+      <div class="mad-bar">
+        <button class="mad-vote ${voted?'voted':''}" onclick="voteIdea('${i.id}')">${voted?"💚":"🤍"} ${votes.length} vote${votes.length===1?"":"s"}</button>
+        <button class="mad-promote ${iPromo?'on':''}" onclick="promoteIdea('${i.id}')">🚀 ${iPromo?"Championing":"Promote"}</button>
+        <button class="mad-pledge-btn" onclick="openPledge('${i.id}')">🤝 I'm in</button>
+        ${!ME.guest?`<button onclick="shareIdea('${i.id}')">📤</button>`:""}
+        ${mine?`<button onclick="deleteIdea('${i.id}')">🗑</button>`:""}
+      </div>
+      ${pledges.length?`<div class="mad-pledges"><div class="mad-pl-head">🤝 ${pledges.length} committed</div>
+        ${pledges.map(p=>`<div class="mad-pl"><i>${({cash:"💰",time:"⏰",skills:"🛠",other:"🎁"})[p.type]||"🎁"}</i><span><b>${esc(madName(p.by))}</b> — ${esc(p.detail||p.type)}</span></div>`).join("")}
+      </div>`:""}
+    </div>`;
+  }).join("");
+}
+function openNewIdea(){
+  document.getElementById("miTitle").value="";
+  document.getElementById("miDetail").value="";
+  document.getElementById("miLink").value="";
+  document.querySelector('input[name="miSrc"][value="text"]').checked=true;
+  openModal("mNewIdea");
+}
+function saveIdea(){
+  const title=document.getElementById("miTitle").value.trim();
+  if(!title) return toast("Give the idea a title");
+  let link=document.getElementById("miLink").value.trim();
+  if(link && !/^https?:\/\//i.test(link)) link="https://"+link;
+  const i={id:"mi"+Date.now()+Math.random().toString(36).slice(2,6), by:ME.u,
+    src:document.querySelector('input[name="miSrc"]:checked').value,
+    title, detail:document.getElementById("miDetail").value.trim(), link,
+    ts:Date.now(), up:Date.now(), votes:[], promotedBy:[], pledges:[]};
+  const all=madIdeas(); all.push(i); DB.set("madIdeas",all); cloud("addMadIdea",i);
+  closeModal("mNewIdea"); toast("Idea posted 💡 Give it life!");
+  renderMad();
+}
+function voteIdea(id){
+  const all=madIdeas(); const i=all.find(x=>x.id===id); if(!i) return;
+  i.votes=i.votes||[];
+  const ix=i.votes.indexOf(ME.u);
+  if(ix>=0) i.votes.splice(ix,1); else i.votes.push(ME.u);
+  i.up=Date.now();
+  DB.set("madIdeas",all); cloud("addMadIdea",i);
+  renderMad();
+}
+function promoteIdea(id){
+  const all=madIdeas(); const i=all.find(x=>x.id===id); if(!i) return;
+  i.promotedBy=i.promotedBy||[];
+  const ix=i.promotedBy.indexOf(ME.u);
+  if(ix>=0){ i.promotedBy.splice(ix,1); toast("Stepped back from championing"); }
+  else { i.promotedBy.push(ME.u); toast("You're championing this idea 🚀"); }
+  i.up=Date.now();
+  DB.set("madIdeas",all); cloud("addMadIdea",i);
+  renderMad();
+}
+function openPledge(id){
+  PLEDGE_IDEA=id;
+  const i=madIdeas().find(x=>x.id===id); if(!i) return;
+  document.getElementById("plIdeaTitle").textContent="💡 "+i.title;
+  document.getElementById("plDetail").value="";
+  document.querySelector('input[name="plType"][value="cash"]').checked=true;
+  openModal("mPledge");
+}
+function savePledge(){
+  const all=madIdeas(); const i=all.find(x=>x.id===PLEDGE_IDEA); if(!i) return;
+  const type=document.querySelector('input[name="plType"]:checked').value;
+  const detail=document.getElementById("plDetail").value.trim();
+  if(!detail) return toast("Say what you're committing");
+  i.pledges=i.pledges||[];
+  i.pledges.push({by:ME.u,type,detail,ts:Date.now()});
+  i.up=Date.now();
+  DB.set("madIdeas",all); cloud("addMadIdea",i);
+  closeModal("mPledge"); toast("Commitment recorded — that's giving life to likes 💚");
+  renderMad();
+}
+function deleteIdea(id){
+  if(!confirm("Delete this idea?")) return;
+  const all=madIdeas(); const i=all.find(x=>x.id===id); if(!i||i.by!==ME.u) return;
+  i.deleted=true; i.up=Date.now();
+  DB.set("madIdeas",all.filter(x=>x.id!==id)); cloud("addMadIdea",i);
+  renderMad(); toast("Idea deleted");
+}
+function shareIdea(id){
+  const i=madIdeas().find(x=>x.id===id); if(!i) return;
+  const m={id:"m"+Date.now()+Math.random().toString(36).slice(2,6),room:"hall",from:ME.u,kind:"mad",
+    text:`💡 MaD idea: ${i.title}`, ts:Date.now(),
+    mdId:i.id, mdTitle:i.title, mdVotes:(i.votes||[]).length, mdPledges:(i.pledges||[]).length,
+    mdPromo:(i.promotedBy||[]).length>0};
+  const all=msgs(); all.push(m); DB.set("msgs",all); cloud("addMsg",m);
+  toast("Shared with the family 💚"); goTab("chats"); openRoom("hall");
+}
+/* Guest links */
+function openGuests(){
+  renderGuestList();
+  openModal("mGuests");
+}
+function renderGuestList(){
+  const el=document.getElementById("mgList");
+  const gs=madGuests().filter(g=>!g.deleted);
+  el.innerHTML=gs.length?gs.map(g=>`<div class="mg-row">
+    <b>🌍 ${esc(g.name)}</b>
+    <button onclick="copyGuestLink('${g.token}')">📋 Copy link</button>
+    <button onclick="removeGuest('${g.token}')">🗑</button>
+  </div>`).join(""):`<div class="vsub" style="margin-top:8px">No guest links yet. Create one above — each friend gets their own personal link.</div>`;
+}
+function addGuest(){
+  const name=document.getElementById("mgName").value.trim();
+  if(!name) return toast("Enter the friend's name");
+  const token=Date.now().toString(36)+Math.random().toString(36).slice(2,10);
+  const g={id:"mg"+token, token, name, addedBy:ME.u, ts:Date.now(), up:Date.now()};
+  const all=madGuests(); all.push(g); DB.set("madGuests",all); cloud("addMadGuest",g);
+  document.getElementById("mgName").value="";
+  renderGuestList();
+  copyGuestLink(token);
+}
+function guestLink(token){
+  return location.origin+location.pathname+"?mad="+token;
+}
+function copyGuestLink(token){
+  const url=guestLink(token);
+  try{ navigator.clipboard.writeText(url); toast("Link copied — send it to your friend 🔗"); }
+  catch(e){ prompt("Copy this link:", url); }
+}
+function removeGuest(token){
+  if(!confirm("Remove this guest's access?")) return;
+  const all=madGuests(); const g=all.find(x=>x.token===token); if(!g) return;
+  g.deleted=true; g.up=Date.now();
+  DB.set("madGuests",all.filter(x=>x.token!==token)); cloud("addMadGuest",g);
+  renderGuestList(); toast("Access removed");
+}
+function guestBoot(token){
+  document.getElementById("login").style.display="none";
+  document.body.dataset.guest="1";
+  app.classList.add("on");
+  ME={u:"g_"+String(token).slice(0,10), name:"Friend", guest:true, color:"#8B5CF6", emoji:"🌍"};
+  const resolve=()=>{
+    const g=madGuests().find(x=>x.token===token && !x.deleted);
+    if(g){ ME.name=g.name; renderMad(); }
+    else if(madGuests().length || madIdeas().length){
+      document.getElementById("madList").innerHTML=`<div class="pj-empty"><div class="pe-big">🔒</div>This invitation link is not valid or was removed.<br>Ask the family member who invited you for a new one.</div>`;
+    }
+  };
+  goTab("mad");
+  renderMad();
+  startSync();
+  try{ pollNow(resolve); setTimeout(resolve, 2500); }catch(e){ resolve(); }
+}
+
 function renderTools(){  toolsGrid.innerHTML=Object.entries(TOOLS).map(([k,t])=>
     `<a class="card toolcard" style="margin:0;max-width:none;border-left-width:5px" href="${t.url}" target="_blank" rel="noopener">
      <div class="ti">${t.e}</div><div><b>${esc(t.n)}</b><span>${esc(t.d)}</span></div></a>`).join("");
@@ -3526,9 +5261,13 @@ function goTab(tab,silent){
   viewTools.classList.toggle("on",tab==="tools");
   document.getElementById("viewGoals").classList.toggle("on",tab==="goals");
   document.getElementById("viewFun").classList.toggle("on",tab==="fun");
+  document.getElementById("viewJournal").classList.toggle("on",tab==="journal");
+  document.getElementById("viewMad").classList.toggle("on",tab==="mad");
   if(tab==="chats" && !silent) document.body.dataset.screen="";
   if(tab==="events")renderEvents(); if(tab==="family")renderFamily();
   if(tab==="goals")renderGoalsTab(); if(tab==="fun")renderFunTab();
+  if(tab==="journal")renderJournalTab();
+  if(tab==="mad")renderMad();
 }
 function openModal(id){ document.getElementById(id).classList.add("on"); }
 function closeModal(id){ document.getElementById(id).classList.remove("on"); }
@@ -3732,20 +5471,41 @@ function mergeCloud(data){
     });
     if(eventsChanged) DB.set("events",evs);
   }
-  // Growth module sync (goals, habits, priorities, checkins, diagResults)
-  let growthChanged=false;
-  ["goals","habits","priorities","checkins","diagResults"].forEach(k=>{
+  // Growth module sync (goals, habits, priorities, checkins, diagResults, prayers, notes, madIdeas, madGuests, hackstats)
+  let growthChanged=false, journalChanged=false, madChanged=false;
+  ["goals","habits","priorities","checkins","diagResults","prayers","notes","madIdeas","madGuests","hackstats"].forEach(k=>{
     if(!data[k]) return;
+    const isJournal=(k==="prayers"||k==="notes");
+    const isMad=(k==="madIdeas"||k==="madGuests");
     const local=DB.get(k,[]);
+    let changed=false;
     data[k].forEach(ci=>{
       const ex=local.find(x=>x.id===ci.id);
-      if(ci.deleted){ const i=local.findIndex(x=>x.id===ci.id); if(i>=0){ local.splice(i,1); growthChanged=true; } return; }
-      if(!ex){ local.push(ci); growthChanged=true; }
-      else { const before=JSON.stringify(ex); Object.assign(ex,ci); if(JSON.stringify(ex)!==before) growthChanged=true; }
+      // newer-wins: never let a stale cloud copy clobber fresher local edits
+      if(ex && ci.up && ex.up && ci.up<=ex.up) return;
+      if(ci.deleted){ const i=local.findIndex(x=>x.id===ci.id); if(i>=0){ local.splice(i,1); changed=true; } return; }
+      if(!ex){ local.push(ci); changed=true; }
+      else { const before=JSON.stringify(ex); Object.assign(ex,ci); if(JSON.stringify(ex)!==before) changed=true; }
     });
-    if(growthChanged) DB.set(k,local);
+    if(changed){ DB.set(k,local); if(isJournal) journalChanged=true; else if(isMad) madChanged=true; else growthChanged=true; }
   });
   if(growthChanged && document.body.dataset.tab==="goals") renderGoalsTab();
+  if(madChanged && document.body.dataset.tab==="mad") renderMad();
+  if(journalChanged){
+    if(document.body.dataset.tab==="journal") renderJournalTab();
+    // live collaboration: refresh the open note if someone else edited it
+    if(NOTE_ID && document.getElementById("noteScreen").classList.contains("on")){
+      const n=notes().find(x=>x.id===NOTE_ID);
+      if(n && n.updatedBy!==ME.u){
+        const nb=document.getElementById("noteBody");
+        if(document.activeElement!==nb && document.activeElement!==document.getElementById("noteTitle")){
+          document.getElementById("noteTitle").value=n.title||"";
+          nb.innerHTML=sanitizeNote(n.html); renderNoteCollab(n);
+        }
+      }
+      if(n && n.deleted){ NOTE_ID=null; document.getElementById("noteScreen").classList.remove("on"); toast("This notepad was deleted"); }
+    }
+  }
   // Only invoke the heavy renderers when something actually changed
   if(msgsChanged||eventsChanged) { lastRender=""; renderMsgs(false); }
   if(msgsChanged||roomsChanged||usersChanged) renderPanel();
@@ -3781,8 +5541,12 @@ try{
     history.replaceState(null,"",location.pathname); // clean the address bar
   }
 }catch(e){}
-const sess=DB.get("session",null);
-if(sess && users()[sess]){ enter(sess); }
+const madToken=(()=>{try{return new URLSearchParams(location.search).get("mad");}catch(e){return null;}})();
+if(madToken){ guestBoot(madToken); }
+else{
+  const sess=DB.get("session",null);
+  if(sess && users()[sess]){ enter(sess); }
+}
 </script>
 </body>
 </html>
