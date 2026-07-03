@@ -1095,6 +1095,40 @@ body[data-guest="1"] #madGuestBtn{display:none}
 .cert .c-body,.cert .c-cert,.cert .c-name{color:#2A2418}
 [data-mode="dark"] .cert .c-body,[data-mode="dark"] .cert .c-cert{color:#EDE6D0}
 [data-mode="dark"] .cert .c-name{color:#FBF6E6}
+
+/* ============================================================
+   MULTI-FAMILY UI — gate, wizard, members, super-admin
+   ============================================================ */
+.login-copy{margin-top:20px;padding-top:14px;border-top:1px solid var(--glass-edge);text-align:center;font-size:11.5px;line-height:1.6;color:var(--muted);font-weight:600}
+.famband{background:linear-gradient(120deg,var(--green-tint),var(--orange-tint));border:1px solid var(--glass-edge);border-radius:12px;padding:9px 13px;font-size:13.5px;margin-bottom:14px;text-align:center}
+.wiz-step{font-size:11.5px;font-weight:900;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:12px}
+.hint{font-size:12.5px;line-height:1.55;color:var(--muted);margin-bottom:12px}
+#famSelect{width:100%}
+/* member rows */
+.mem-row{display:flex;align-items:center;gap:11px;padding:10px 12px;border:1px solid var(--glass-edge);border-radius:13px;background:var(--glass-hi);margin-bottom:8px}
+.mem-av{width:38px;height:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:17px;font-style:normal;flex-shrink:0}
+.mem-info{flex:1;min-width:0;display:flex;flex-direction:column}
+.mem-info b{font-size:14px}
+.mem-info span{font-size:11.5px;color:var(--muted)}
+.mem-reset{padding:6px 11px;border-radius:9px;font-size:11.5px;font-weight:800;background:var(--green-tint);border:1px solid rgba(16,185,129,.35);color:var(--green-deep)}
+[data-mode="dark"] .mem-reset{color:#7CF2C0}
+.mem-del{padding:6px 10px;border-radius:9px;font-size:13px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25)}
+.mem-add-title{font-size:13px;font-weight:900;color:var(--accent);margin:14px 0 8px}
+#addMemberBox{border-top:1px dashed var(--line);padding-top:12px}
+/* super-admin */
+.super-stats{display:flex;gap:10px;margin-top:12px}
+.ss-stat{flex:1;text-align:center;background:linear-gradient(135deg,var(--green-tint),var(--orange-tint));border:1px solid var(--glass-edge);border-radius:14px;padding:12px 8px}
+.ss-stat b{display:block;font-size:24px;font-weight:900;background:linear-gradient(120deg,#047857,#6D28D9);-webkit-background-clip:text;background-clip:text;color:transparent}
+[data-mode="dark"] .ss-stat b{background:linear-gradient(120deg,#34D399,#C4B5FD);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ss-stat span{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.super-fam{background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--glass-edge);border-left:4px solid var(--green-soft);border-radius:14px;padding:13px 15px;margin-bottom:10px;box-shadow:inset 0 1px 0 var(--glass-hi),var(--shadow)}
+.sf-head{display:flex;align-items:baseline;gap:8px;margin-bottom:3px}
+.sf-head b{font-size:15.5px;font-weight:900}
+.sf-id{font-size:11px;color:var(--muted);font-weight:700}
+.sf-meta{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:6px}
+.sf-line{font-size:12.5px;line-height:1.5;margin-top:3px}
+.sf-line i{font-style:normal;font-weight:900;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-right:6px}
+.sf-stats{font-size:12px;color:var(--muted);font-weight:700;margin-top:8px;padding-top:7px;border-top:1px dashed var(--line)}
 </style>
 </head>
 <body data-tab="chats">
@@ -1104,34 +1138,72 @@ body[data-guest="1"] #madGuestBtn{display:none}
   <div class="login-card">
     <div class="brandmark">FF</div>
     <h1>ForTe <span>Fam</span></h1>
-    <div class="tagline">Connecting with each other everywhere we are. One family hall for chats, plans, events and shared tools — built on 100% free services.</div>
+    <div class="tagline" id="loginTagline">Every family, one distraction-free home for chats, plans, prayers, growth and shared ideas — built on 100% free services.</div>
     <div class="stripe" style="margin-bottom:20px"></div>
     <div class="login-err" id="loginErr"></div>
-    <div id="loginForm">
-      <div class="field"><label>Username</label><input id="liUser" placeholder="e.g. inno" autocomplete="username"></div>
-      <div class="field"><label>Password</label><input id="liPass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
-      <button class="btn btn-grad" onclick="doLogin()">Enter the Family Hall</button>
+
+    <!-- STAGE 1: family gate -->
+    <div id="famGate">
+      <div class="field"><label>Your family</label>
+        <select id="famSelect" onchange="onFamSelect()"></select>
+      </div>
+      <button class="btn btn-grad" onclick="famGateContinue()">Continue →</button>
       <div style="height:10px"></div>
-      <button class="btn btn-ghost" onclick="toggleSignup(true)">Create a new family account</button>
+      <button class="btn btn-ghost" onclick="showCreateFamily()">✨ Create a new family</button>
       <div class="login-foot">
-        <div class="vision compact" onclick="openVision()">
+        <div class="vision compact" id="gateVision" onclick="openVision()">
           <div class="vstripe"></div>
-          <b>The Forteh Family Vision</b>
-          <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
-          <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
-          <div class="vline"><i>Verses</i> Proverbs 3:5-6 · Joshua 1:8 · Psalms 37:3-5 · Colossians 3</div>
+          <b id="gateVisionTitle">The Family Vision</b>
+          <div class="vline"><i>Mission</i> <span id="gateMission">—</span></div>
+          <div class="vline"><i>Values</i> <span id="gateValues">—</span></div>
         </div>
-        <div style="margin-top:14px;color:var(--muted);font-size:12px">Need an account? Ask the family admin.</div>
       </div>
     </div>
-    <div id="signupForm" style="display:none">
-      <div class="field"><label>Choose username</label><input id="suUser" placeholder="e.g. forteh21 or auntie-rose"></div>
-      <div class="field"><label>Display name</label><input id="suName" placeholder="e.g. Auntie Rose"></div>
-      <div class="field"><label>Password</label><input id="suPass" type="password" placeholder="Choose a password"></div>
-      <button class="btn btn-grad" onclick="doSignup()">Join the family</button>
+
+    <!-- STAGE 2: member sign-in (within a chosen family) -->
+    <div id="loginForm" style="display:none">
+      <div class="famband" id="loginFamBand">👨‍👩‍👧 <b>—</b></div>
+      <div class="field"><label>Username</label><input id="liUser" placeholder="your username" autocomplete="username"></div>
+      <div class="field"><label>Password / PIN</label><input id="liPass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <button class="btn btn-grad" onclick="doLogin()">Enter the Family Hall</button>
       <div style="height:10px"></div>
-      <button class="btn btn-ghost" onclick="toggleSignup(false)">← Back to sign in</button>
+      <button class="btn btn-ghost" onclick="backToGate()">← Choose a different family</button>
     </div>
+
+    <!-- STAGE 3: create-family wizard -->
+    <div id="createForm" style="display:none">
+      <div id="cfStep1">
+        <div class="wiz-step">Step 1 of 3 · Your family</div>
+        <div class="field"><label>Family name</label><input id="cfFamName" placeholder="e.g. The Bello Family" oninput="cfSlug()"></div>
+        <div class="field"><label>Family ID (auto)</label><input id="cfFamId" placeholder="bello" readonly></div>
+        <div class="hint">This becomes your family's private space. Members you add will share it.</div>
+        <button class="btn btn-grad" onclick="cfNext(1)">Next →</button>
+        <div style="height:10px"></div>
+        <button class="btn btn-ghost" onclick="backToGate()">← Cancel</button>
+      </div>
+      <div id="cfStep2" style="display:none">
+        <div class="wiz-step">Step 2 of 3 · Admin account</div>
+        <div class="hint">You are the family <b>admin</b>. You'll be able to add up to 7 family members.</div>
+        <div class="field"><label>Your name</label><input id="cfAdminName" placeholder="e.g. Samuel Bello"></div>
+        <div class="field"><label>Choose a username</label><input id="cfAdminUser" placeholder="e.g. samuel"></div>
+        <div class="field"><label>Choose a password</label><input id="cfAdminPass" type="password" placeholder="Create a password"></div>
+        <button class="btn btn-grad" onclick="cfNext(2)">Next →</button>
+        <div style="height:10px"></div>
+        <button class="btn btn-ghost" onclick="cfBack(2)">← Back</button>
+      </div>
+      <div id="cfStep3" style="display:none">
+        <div class="wiz-step">Step 3 of 3 · Your family's heart</div>
+        <div class="hint">Every family member's account will carry this Mission, these Values, and these Goals.</div>
+        <div class="field"><label>Family Mission</label><textarea id="cfMission" rows="2" placeholder="What is your family here to do?"></textarea></div>
+        <div class="field"><label>Family Values</label><textarea id="cfValues" rows="2" placeholder="What do you stand for together?"></textarea></div>
+        <div class="field"><label>Family Goals</label><textarea id="cfGoals" rows="2" placeholder="What are you reaching for this year?"></textarea></div>
+        <button class="btn btn-grad" onclick="createFamily()">Create our family 🎉</button>
+        <div style="height:10px"></div>
+        <button class="btn btn-ghost" onclick="cfBack(3)">← Back</button>
+      </div>
+    </div>
+
+    <div class="login-copy">ForTe Fam © Innocent Forteh — Created for Families.<br>A Distraction-Free Zone.</div>
   </div>
 </div>
 
@@ -1168,7 +1240,7 @@ body[data-guest="1"] #madGuestBtn{display:none}
     </div>
     <div class="panel-body" id="panelBody"></div>
     <div class="vision compact panel-vision" onclick="openVision()"><div class="vstripe"></div>
-      <b>The Forteh Family Vision</b>
+      <b class="vis-fam-title">The Forteh Family Vision</b>
       <div class="vline"><i>Verses</i> Pr 3:5-6 · Jos 1:8 · Ps 37:3-5 · Col 3</div></div>
   </div>
 
@@ -1257,9 +1329,9 @@ body[data-guest="1"] #madGuestBtn{display:none}
     <button class="btn btn-grad" style="width:auto;margin-bottom:20px" onclick="openNewEvent()">＋ Create an event</button>
     <div class="grid" id="eventsGrid"></div>
     <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
-      <b>The Forteh Family Vision</b>
-      <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
-      <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
+      <b class="vis-fam-title">The Forteh Family Vision</b>
+      <div class="vline"><i>Mission</i> <span class="vis-fam-mission">Love God · Cherish Family & People · Pursue Integrity & Excellence</span></div>
+      <div class="vline"><i>Values</i> <span class="vis-fam-values">Love for God · Family · Excellence · Integrity</span></div>
       <div class="vline"><i>Verses</i> Proverbs 3:5-6 · Joshua 1:8 · Psalms 37:3-5 · Colossians 3 — tap to read</div></div>
   </div>
   <div class="main view goals-view" id="viewGoals">
@@ -1301,9 +1373,9 @@ body[data-guest="1"] #madGuestBtn{display:none}
       <div id="famAccList" class="g-list"></div>
     </div>
     <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
-      <b>The Forteh Family Vision</b>
-      <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
-      <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
+      <b class="vis-fam-title">The Forteh Family Vision</b>
+      <div class="vline"><i>Mission</i> <span class="vis-fam-mission">Love God · Cherish Family & People · Pursue Integrity & Excellence</span></div>
+      <div class="vline"><i>Values</i> <span class="vis-fam-values">Love for God · Family · Excellence · Integrity</span></div>
     </div>
   </div>
   <div class="main view fun-view" id="viewFun">
@@ -1318,9 +1390,9 @@ body[data-guest="1"] #madGuestBtn{display:none}
     <div id="segDiags"><div class="fun-grid" id="funGrid"></div></div>
     <div id="segHacks" style="display:none"><div class="fun-grid" id="hacksGrid"></div></div>
     <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
-      <b>The Forteh Family Vision</b>
-      <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
-      <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
+      <b class="vis-fam-title">The Forteh Family Vision</b>
+      <div class="vline"><i>Mission</i> <span class="vis-fam-mission">Love God · Cherish Family & People · Pursue Integrity & Excellence</span></div>
+      <div class="vline"><i>Values</i> <span class="vis-fam-values">Love for God · Family · Excellence · Integrity</span></div>
     </div>
   </div>
   <div class="main view journal-view" id="viewJournal">
@@ -1371,18 +1443,18 @@ body[data-guest="1"] #madGuestBtn{display:none}
     <h2>The family</h2><div class="vsub">Everyone in ForTe Fam, wherever they are in the world.</div>
     <div class="grid" id="familyGrid"></div>
     <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
-      <b>The Forteh Family Vision</b>
-      <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
-      <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
+      <b class="vis-fam-title">The Forteh Family Vision</b>
+      <div class="vline"><i>Mission</i> <span class="vis-fam-mission">Love God · Cherish Family & People · Pursue Integrity & Excellence</span></div>
+      <div class="vline"><i>Values</i> <span class="vis-fam-values">Love for God · Family · Excellence · Integrity</span></div>
       <div class="vline"><i>Verses</i> Proverbs 3:5-6 · Joshua 1:8 · Psalms 37:3-5 · Colossians 3 — tap to read</div></div>
   </div>
   <div class="main view" id="viewTools">
     <h2>Free tools hub</h2><div class="vsub">Every tool here is 100% free — opened with your Google account (team21online).</div>
     <div class="grid" id="toolsGrid"></div>
     <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
-      <b>The Forteh Family Vision</b>
-      <div class="vline"><i>Mission</i> Love God · Cherish Family & People · Pursue Integrity & Excellence</div>
-      <div class="vline"><i>Values</i> Love for God · Family · Excellence · Integrity</div>
+      <b class="vis-fam-title">The Forteh Family Vision</b>
+      <div class="vline"><i>Mission</i> <span class="vis-fam-mission">Love God · Cherish Family & People · Pursue Integrity & Excellence</span></div>
+      <div class="vline"><i>Values</i> <span class="vis-fam-values">Love for God · Family · Excellence · Integrity</span></div>
       <div class="vline"><i>Verses</i> Proverbs 3:5-6 · Joshua 1:8 · Psalms 37:3-5 · Colossians 3 — tap to read</div></div>
   </div>
 </div>
@@ -1415,7 +1487,12 @@ body[data-guest="1"] #madGuestBtn{display:none}
   <div class="field" style="margin-top:10px"><label>Change password (optional)</label><input id="setPass" type="password" placeholder="New password"></div>
   <button class="btn btn-grad" onclick="saveSettings()">Save my space</button>
   <div style="height:10px"></div>
+  <button class="btn btn-ghost" id="adminMembersBtn" style="display:none;align-items:center;justify-content:center;gap:8px" onclick="closeModal('mSettings');openMembers()">👨‍👩‍👧 Manage family members</button>
+  <div style="height:10px"></div>
+  <button class="btn btn-ghost" id="superAdminBtn" style="display:none;align-items:center;justify-content:center;gap:8px" onclick="closeModal('mSettings');openSuperAdmin()">🛡️ General Admin — all families</button>
+  <div style="height:10px"></div>
   <button class="btn btn-ghost" onclick="confirmLogout()">Sign out</button>
+  <div style="margin-top:16px;text-align:center;font-size:11px;color:var(--muted)">ForTe Fam © Innocent Forteh — Created for Families.<br>A Distraction-Free Zone.</div>
 </div></div>
 
 <div class="modal-wrap" id="mGroup"><div class="modal">
@@ -1473,13 +1550,42 @@ body[data-guest="1"] #madGuestBtn{display:none}
 
 <div class="modal-wrap" id="mVision"><div class="modal" style="max-width:520px">
   <button class="x" onclick="closeModal('mVision')">✕</button>
-  <h3 style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent">The Forteh Family Vision</h3>
+  <h3 id="visionTitleTxt" style="background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent">The Family Vision</h3>
   <div style="margin-top:14px"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:6px">Mission</div>
-    <div style="font-size:14.5px;line-height:1.55">Love God, Cherish Family and People, Pursue Integrity and Excellence.</div></div>
+    <div id="visionMissionTxt" style="font-size:14.5px;line-height:1.55">—</div></div>
   <div style="margin-top:16px"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:6px">Values</div>
-    <div style="font-size:14.5px;line-height:1.55">Love for God · Family · Excellence · Integrity</div></div>
+    <div id="visionValuesTxt" style="font-size:14.5px;line-height:1.55">—</div></div>
+  <div style="margin-top:16px" id="visionGoalsWrap"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:6px">Goals</div>
+    <div id="visionGoalsTxt" style="font-size:14.5px;line-height:1.55">—</div></div>
   <div style="margin-top:16px"><div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:8px">Family Verses</div>
     <div id="visionVerses"></div></div>
+  <div style="margin-top:18px;padding-top:12px;border-top:1px solid var(--line);text-align:center;font-size:11px;color:var(--muted)">ForTe Fam © Innocent Forteh — Created for Families. A Distraction-Free Zone.</div>
+</div></div>
+
+<!-- Member management (family admin) -->
+<div class="modal-wrap" id="mMembers"><div class="modal" style="max-width:560px">
+  <button class="x" onclick="closeModal('mMembers')">✕</button>
+  <h3>👨‍👩‍👧 Family members</h3>
+  <div class="hint" id="memHint">As the family admin you can add up to 7 members. Each gets their own username and password/PIN.</div>
+  <div id="memberList" style="margin:12px 0"></div>
+  <div id="addMemberBox">
+    <div class="mem-add-title">➕ Add a family member</div>
+    <div class="field"><label>Their name</label><input id="nmName" placeholder="e.g. Grace"></div>
+    <div class="field"><label>Username</label><input id="nmUser" placeholder="e.g. grace"></div>
+    <div class="field"><label>Password / PIN</label><input id="nmPass" placeholder="e.g. a word or 4-6 digit PIN"></div>
+    <button class="btn btn-grad" onclick="addMember()">Add member</button>
+  </div>
+  <div style="margin-top:16px;text-align:center;font-size:11px;color:var(--muted)">ForTe Fam © Innocent Forteh — Created for Families. A Distraction-Free Zone.</div>
+</div></div>
+
+<!-- Super-admin dashboard (inno only) -->
+<div class="modal-wrap" id="mSuperAdmin"><div class="modal modal-wide" style="max-width:720px">
+  <button class="x" onclick="closeModal('mSuperAdmin')">✕</button>
+  <h3>🛡️ General Admin · All Families</h3>
+  <div class="hint">Every family created across ForTe Fam. Visible only to you.</div>
+  <div id="superStats" class="super-stats"></div>
+  <div id="superList" style="margin-top:12px"></div>
+  <div style="margin-top:16px;text-align:center;font-size:11px;color:var(--muted)">ForTe Fam © Innocent Forteh — Created for Families. A Distraction-Free Zone.</div>
 </div></div>
 
 <div class="modal-wrap" id="mBible"><div class="modal" style="max-width:520px">
@@ -1853,7 +1959,15 @@ const CONFIG = {
   SYNC_EVERY_MS: 4000,
   FAMILY_EMAIL: "team21online@gmail.com"
 };
-function syncUrl(){ return CONFIG.SCRIPT_URL || DB.get("scripturl","") || ""; }
+function syncUrl(){ return CONFIG.SCRIPT_URL || GDB.get("scripturl","") || ""; }
+
+/* ---------- MULTI-FAMILY: active family scope ----------
+   Every family's local cache + cloud rows are namespaced by a familyId.
+   The original family is "forteh" so nothing already stored is lost. */
+const DEFAULT_FAM = "forteh";
+function famId(){ return localStorage.getItem("ff_activeFam") || DEFAULT_FAM; }
+function setFamId(f){ localStorage.setItem("ff_activeFam", f); }
+function famKey(raw){ let f=String(raw||"").toLowerCase().replace(/[^a-z0-9]/g,"").slice(0,24); return f; }
 
 /* ---------- seed data ---------- */
 const THEMES = [
@@ -1880,10 +1994,16 @@ const TOOLS = {
   jamb:  {n:"Canva (free)",      d:"Design invites & posters",     e:"🎨", url:"https://www.canva.com/"}
 };
 
-/* ---------- tiny storage layer ---------- */
-const DB = {
+/* ---------- storage layer ----------
+   GDB = global (not family-scoped): scripturl, activeFam, superadmin prefs.
+   DB  = family-scoped: all family data lives under ff_<fam>_<key>. */
+const GDB = {
   get(k,f){ try{const v=localStorage.getItem("ff_"+k);return v?JSON.parse(v):f}catch(e){return f} },
   set(k,v){ localStorage.setItem("ff_"+k,JSON.stringify(v)); }
+};
+const DB = {
+  get(k,f){ try{const v=localStorage.getItem("ff_"+famId()+"_"+k);return v?JSON.parse(v):f}catch(e){return f} },
+  set(k,v){ localStorage.setItem("ff_"+famId()+"_"+k,JSON.stringify(v)); }
 };
 /* ---------- accounts: named family slots 1-8, forteh9-20 spare ---------- */
 const NAMED = {1:["inno","Inno (Admin)"],2:["lin","Lin"],3:["dj","DJ"],4:["an","An"],
@@ -1893,17 +2013,21 @@ function aliased(u){ return ALIAS[u]||u; }
 function seedUsers(){
   let users = DB.get("users",null);
   if(!users){
-    users={};
-    for(let i=1;i<=20;i++){
-      const uname=NAMED[i]?NAMED[i][0]:"forteh"+i;
-      const dname=NAMED[i]?NAMED[i][1]:"Family Member "+i;
-      users[uname]={u:uname,pass:"f0rteh"+String(i).padStart(2,"0"),
-        name:dname,emoji:"🙂",theme:"green",dark:false,
-        color:AV_COLORS[(i-1)%AV_COLORS.length],role:i===1?"Family Admin":"Family",created:Date.now(),lastSeen:0};
+    if(famId()==="forteh"){
+      users={};
+      for(let i=1;i<=20;i++){
+        const uname=NAMED[i]?NAMED[i][0]:"forteh"+i;
+        const dname=NAMED[i]?NAMED[i][1]:"Family Member "+i;
+        users[uname]={u:uname,pass:"f0rteh"+String(i).padStart(2,"0"),
+          name:dname,emoji:"🙂",theme:"green",dark:false,
+          color:AV_COLORS[(i-1)%AV_COLORS.length],role:i===1?"Family Admin":"Family",created:Date.now(),lastSeen:0};
+      }
+      DB.set("users",users); DB.set("seedv",2);
+    } else {
+      DB.set("users",{}); DB.set("seedv",2);
     }
-    DB.set("users",users); DB.set("seedv",2);
   }
-  migrateNames();
+  if(famId()==="forteh") migrateNames();
   return DB.get("users",{});
 }
 function migrateNames(){
@@ -1936,7 +2060,9 @@ function seedRooms(){
   }
   let msgs = DB.get("msgs",null);
   if(!msgs){
-    msgs=[{id:"m0",room:"hall",from:"inno",kind:"text",
+    const fam=(GDB.get("families",{})||{})[famId()];
+    const adminU=fam&&fam.admin?fam.admin:"inno";
+    msgs=[{id:"m0",room:"hall",from:adminU,kind:"text",
       text:"Welcome to ForTe Fam! 🧡💚 This is our Family Hall — everyone lands here. Try the ＋ button or type /help to see what we can do together.",ts:Date.now()-60000}];
     DB.set("msgs",msgs);
   }
@@ -1946,32 +2072,155 @@ function seedRooms(){
 /* ---------- state ---------- */
 let ME=null, ROOM="hall", lastRender="", syncTimer=null;
 
-/* ---------- auth ---------- */
-function toggleSignup(on){ loginForm.style.display=on?"none":"block"; signupForm.style.display=on?"block":"none"; loginErr.style.display="none"; }
+/* ---------- auth + family gate ---------- */
 function loginFail(t){ loginErr.textContent=t; loginErr.style.display="block"; }
+function famList(){ return GDB.get("families",{})||{}; }
+
+function showFamilyGate(){
+  // populate the family dropdown from locally-known families
+  const fams=famList();
+  const ids=Object.keys(fams);
+  const sel=document.getElementById("famSelect");
+  if(!ids.length){
+    // no families known on this device yet — go straight to sign-in on the active fam
+    sel.innerHTML=`<option value="${famId()}">${famId()}</option>`;
+  } else {
+    sel.innerHTML=ids.map(id=>`<option value="${id}" ${id===famId()?"selected":""}>${esc(fams[id].name||id)}</option>`).join("");
+  }
+  document.getElementById("famGate").style.display="block";
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("createForm").style.display="none";
+  loginErr.style.display="none";
+  onFamSelect();
+}
+function onFamSelect(){
+  const id=document.getElementById("famSelect").value;
+  const f=famList()[id];
+  document.getElementById("gateVisionTitle").textContent = f? ("The "+(f.name||id)+" Vision") : "The Family Vision";
+  document.getElementById("gateMission").textContent = f&&f.mission ? f.mission : "—";
+  document.getElementById("gateValues").textContent = f&&f.values ? f.values : "—";
+}
+function famGateContinue(){
+  const id=document.getElementById("famSelect").value;
+  setFamId(id);
+  seedUsers(); seedRooms();
+  const f=famList()[id];
+  document.getElementById("loginFamBand").innerHTML="👨‍👩‍👧 <b>"+esc(f?f.name:id)+"</b>";
+  document.getElementById("famGate").style.display="none";
+  document.getElementById("loginForm").style.display="block";
+  loginErr.style.display="none";
+  liUser.focus();
+}
+function backToGate(){ showFamilyGate(); }
+
 function doLogin(){
   const u=liUser.value.trim().toLowerCase(), p=liPass.value;
   const users=DB.get("users",{});
-  if(!users[u]) return loginFail("We don't know that username yet. Check it, or create a new account.");
+  if(!users[u]) return loginFail("We don't know that username in this family. Check it, or ask your family admin.");
   if(users[u].pass!==p) return loginFail("That password doesn't match. Try again.");
   enter(u);
 }
-function doSignup(){
-  const u=suUser.value.trim().toLowerCase().replace(/\s+/g,"-"), n=suName.value.trim(), p=suPass.value;
-  if(!u||!n||!p) return loginFail("Please fill in username, display name and password.");
-  const users=DB.get("users",{});
-  if(users[u]) return loginFail("That username already exists in the family.");
-  users[u]={u,pass:p,name:n,emoji:"🙂",theme:"green",dark:false,
-    color:AV_COLORS[Object.keys(users).length%AV_COLORS.length],role:"Family",created:Date.now(),lastSeen:0};
-  DB.set("users",users); cloud("upsertUser",users[u]);
-  toast("Welcome to the family, "+n+"!");
-  enter(u);
+
+/* ----- create-family wizard ----- */
+function showCreateFamily(){
+  document.getElementById("famGate").style.display="none";
+  document.getElementById("loginForm").style.display="none";
+  document.getElementById("createForm").style.display="block";
+  ["cfStep1","cfStep2","cfStep3"].forEach((s,i)=>document.getElementById(s).style.display=i===0?"block":"none");
+  ["cfFamName","cfFamId","cfAdminName","cfAdminUser","cfAdminPass","cfMission","cfValues","cfGoals"].forEach(id=>{const el=document.getElementById(id);if(el)el.value="";});
+  loginErr.style.display="none";
 }
+function cfSlug(){
+  const name=document.getElementById("cfFamName").value;
+  let base=famKey(name.replace(/\bfamily\b/ig,"").replace(/\bthe\b/ig,""));
+  if(!base) base="";
+  // ensure uniqueness against known families
+  let id=base, n=2, fams=famList();
+  while(id && fams[id]){ id=base+n; n++; }
+  document.getElementById("cfFamId").value=id;
+}
+function cfNext(step){
+  if(step===1){
+    const name=document.getElementById("cfFamName").value.trim();
+    const id=document.getElementById("cfFamId").value.trim();
+    if(!name) return loginFail("Please give your family a name.");
+    if(!id) return loginFail("Please enter a name with at least one letter or number.");
+    if(id==="forteh"||famList()[id]) return loginFail("That family already exists. Try a slightly different name.");
+    document.getElementById("cfStep1").style.display="none";
+    document.getElementById("cfStep2").style.display="block";
+  } else if(step===2){
+    const nm=document.getElementById("cfAdminName").value.trim();
+    const u=famKey(document.getElementById("cfAdminUser").value.replace(/\s+/g,""));
+    const p=document.getElementById("cfAdminPass").value;
+    if(!nm||!u||!p) return loginFail("Please fill in your name, username and password.");
+    document.getElementById("cfStep2").style.display="none";
+    document.getElementById("cfStep3").style.display="block";
+  }
+  loginErr.style.display="none";
+}
+function cfBack(step){
+  if(step===2){ document.getElementById("cfStep2").style.display="none"; document.getElementById("cfStep1").style.display="block"; }
+  if(step===3){ document.getElementById("cfStep3").style.display="none"; document.getElementById("cfStep2").style.display="block"; }
+  loginErr.style.display="none";
+}
+function createFamily(){
+  const name=document.getElementById("cfFamName").value.trim();
+  const id=document.getElementById("cfFamId").value.trim();
+  const adminName=document.getElementById("cfAdminName").value.trim();
+  const adminUser=famKey(document.getElementById("cfAdminUser").value.replace(/\s+/g,""));
+  const adminPass=document.getElementById("cfAdminPass").value;
+  const mission=document.getElementById("cfMission").value.trim();
+  const values=document.getElementById("cfValues").value.trim();
+  const goals=document.getElementById("cfGoals").value.trim();
+  if(!name||!id||!adminName||!adminUser||!adminPass) return loginFail("Something's missing — please go back and complete every step.");
+
+  const fam={id,name,mission,values,goals,admin:adminUser,created:Date.now()};
+  const fams=famList(); fams[id]=fam; GDB.set("families",fams);
+
+  // switch scope to the new family and seed its admin
+  setFamId(id);
+  const admin={u:adminUser,pass:adminPass,name:adminName,emoji:"👑",theme:"green",dark:false,
+    color:AV_COLORS[0],role:"Family Admin",created:Date.now(),lastSeen:0};
+  DB.set("users",{[adminUser]:admin});
+  DB.set("seedv",2);
+  seedRooms();
+
+  // push family + admin to the cloud under the new fam scope
+  cloud("createFamily",{id,name,mission,values,goals,admin:adminUser,created:fam.created,adminUser:admin},id);
+  cloud("upsertUser",admin,id);
+
+  toast("Welcome, the "+name+"! 🎉");
+  enter(adminUser);
+}
+function activeFamily(){ return (GDB.get("families",{})||{})[famId()] || {id:famId(),name:"Family",mission:"",values:"",goals:""}; }
+function isSuperAdmin(){ return famId()==="forteh" && ME && ME.u==="inno"; }
+function isFamilyAdmin(){ const f=activeFamily(); return ME && (ME.role==="Family Admin" || (f.admin && ME.u===f.admin) || (famId()==="forteh"&&ME.u==="inno")); }
 function enter(u){
   DB.set("session",u); ME=DB.get("users",{})[u];
   login.style.display="none"; app.classList.add("on");
+  applyFamilyBranding();
   applyTheme(); heartbeat(); ensureSavedRoom(); renderAll(); renderStories(); startSync();
+  updateAdminUI();
   openRoom("hall");
+}
+function applyFamilyBranding(){
+  const f=activeFamily();
+  // vision modal
+  const vt=document.getElementById("visionTitleTxt"); if(vt) vt.textContent="The "+(f.name||"Family")+" Vision";
+  const vm=document.getElementById("visionMissionTxt"); if(vm) vm.textContent=f.mission||"—";
+  const vv=document.getElementById("visionValuesTxt"); if(vv) vv.textContent=f.values||"—";
+  const vg=document.getElementById("visionGoalsWrap");
+  if(vg){ vg.style.display=f.goals?"block":"none"; const gt=document.getElementById("visionGoalsTxt"); if(gt) gt.textContent=f.goals||""; }
+  // all inline vision strips
+  document.querySelectorAll(".vis-fam-title").forEach(e=>e.textContent="The "+(f.name||"Family")+" Vision");
+  document.querySelectorAll(".vis-fam-mission").forEach(e=>e.textContent=f.mission||"Love God · Cherish Family & People · Pursue Integrity & Excellence");
+  document.querySelectorAll(".vis-fam-values").forEach(e=>e.textContent=f.values||"Love for God · Family · Excellence · Integrity");
+}
+function updateAdminUI(){
+  const memBtn=document.getElementById("adminMembersBtn");
+  if(memBtn) memBtn.style.display=isFamilyAdmin()?"flex":"none";
+  const superBtn=document.getElementById("superAdminBtn");
+  if(superBtn) superBtn.style.display=isSuperAdmin()?"flex":"none";
 }
 function ensureSavedRoom(){
   const id=ME.u+"_self";
@@ -5198,7 +5447,7 @@ function addGuest(){
   copyGuestLink(token);
 }
 function guestLink(token){
-  return location.origin+location.pathname+"?mad="+token;
+  return location.origin+location.pathname+"?mad="+token+"&fam="+encodeURIComponent(famId());
 }
 function copyGuestLink(token){
   const url=guestLink(token);
@@ -5241,7 +5490,102 @@ function openSettings(){
   setName.value=ME.name; setEmoji.value=ME.emoji; setDark.checked=!!ME.dark; setPass.value="";
   swatches.innerHTML=THEMES.map(t=>`<div class="sw ${ME.theme===t.id?'sel':''}" title="${t.name}" data-id="${t.id}"
     style="background:linear-gradient(135deg,${t.a},${t.s})" onclick="pickTheme('${t.id}',this)"></div>`).join("");
+  updateAdminUI();
   openModal("mSettings");
+}
+
+/* ---------- member management (family admin) ---------- */
+function memberSlots(){ return famId()==="forteh" ? 20 : 8; } // forteh keeps its legacy 20; new families = admin + 7
+function openMembers(){
+  if(!isFamilyAdmin()) return toast("Only the family admin can manage members");
+  renderMembers();
+  openModal("mMembers");
+}
+function renderMembers(){
+  const us=users();
+  const f=activeFamily();
+  const list=Object.values(us).sort((a,b)=>(a.created||0)-(b.created||0));
+  const cap=memberSlots();
+  const nonAdmin=list.filter(u=>u.u!==f.admin && u.u!=="inno").length;
+  document.getElementById("memHint").innerHTML = famId()==="forteh"
+    ? `Your family space. You can add, rename, or reset members here.`
+    : `As the family admin you can add up to <b>7</b> members. Used: <b>${nonAdmin}/7</b>.`;
+  document.getElementById("addMemberBox").style.display = (list.length>=cap) ? "none" : "block";
+  document.getElementById("memberList").innerHTML=list.map(u=>{
+    const isAdmin = u.u===f.admin || (famId()==="forteh"&&u.u==="inno");
+    return `<div class="mem-row">
+      <i class="mem-av" style="background:${u.color||'#059669'}">${esc(u.emoji||u.name[0]||'🙂')}</i>
+      <div class="mem-info"><b>${esc(u.name)}</b><span>@${esc(u.u)}${isAdmin?" · Admin 👑":""}</span></div>
+      ${isAdmin?"":`<button class="mem-reset" onclick="resetMemberPass('${u.u}')">Reset PIN</button>
+      <button class="mem-del" onclick="removeMember('${u.u}')">🗑</button>`}
+    </div>`;
+  }).join("");
+}
+function addMember(){
+  if(!isFamilyAdmin()) return toast("Only the family admin can add members");
+  const name=document.getElementById("nmName").value.trim();
+  const u=famKey(document.getElementById("nmUser").value.replace(/\s+/g,""));
+  const pass=document.getElementById("nmPass").value.trim();
+  if(!name||!u||!pass) return toast("Please fill in name, username and password/PIN");
+  const us=users();
+  if(us[u]) return toast("That username is already taken in this family");
+  if(Object.keys(us).length>=memberSlots()) return toast("You've reached the family member limit");
+  const f=activeFamily();
+  us[u]={u,pass,name,emoji:"🙂",theme:"green",dark:false,
+    color:AV_COLORS[Object.keys(us).length%AV_COLORS.length],role:"Family",
+    mission:f.mission,values:f.values,goals:f.goals,created:Date.now(),lastSeen:0};
+  DB.set("users",us); cloud("upsertUser",us[u]);
+  document.getElementById("nmName").value="";document.getElementById("nmUser").value="";document.getElementById("nmPass").value="";
+  renderMembers(); toast(name+" added to the family 🎉");
+}
+function resetMemberPass(u){
+  const np=prompt("New password / PIN for @"+u+":");
+  if(np===null||!np.trim()) return;
+  const us=users(); if(!us[u]) return;
+  us[u].pass=np.trim(); DB.set("users",us); cloud("upsertUser",us[u]);
+  toast("Password reset for @"+u);
+}
+function removeMember(u){
+  if(!confirm("Remove @"+u+" from the family? Their login will stop working.")) return;
+  const us=users(); if(!us[u]) return;
+  const rec=us[u]; delete us[u]; DB.set("users",us);
+  rec.deleted=true; rec.up=Date.now(); cloud("upsertUser",rec);
+  renderMembers(); toast("@"+u+" removed");
+}
+
+/* ---------- super-admin dashboard (inno on the forteh family) ---------- */
+function openSuperAdmin(){
+  if(!isSuperAdmin()) return toast("This dashboard is for the general admin only");
+  document.getElementById("superList").innerHTML=`<div class="pj-empty"><div class="pe-big">🛡️</div>Loading all families…</div>`;
+  openModal("mSuperAdmin");
+  const url=syncUrl();
+  if(!url){ renderSuperAdmin(Object.values(famList())); return; }
+  const cb="ffAdmin"+Date.now()+Math.floor(Math.random()*999);
+  window[cb]=function(data){ try{ renderSuperAdmin((data&&data.families)||[]); }catch(e){ renderSuperAdmin(Object.values(famList())); } delete window[cb]; s.remove(); };
+  const s=document.createElement("script");
+  s.src=url+(url.includes("?")?"&":"?")+"admin=1&callback="+cb+"&_="+Date.now();
+  s.onerror=function(){ renderSuperAdmin(Object.values(famList())); delete window[cb]; };
+  document.body.appendChild(s);
+}
+function renderSuperAdmin(fams){
+  fams=fams||[];
+  // always include locally-known families not yet in cloud
+  const local=famList();
+  Object.keys(local).forEach(id=>{ if(!fams.find(f=>f.id===id)) fams.push({...local[id],members:"—",msgCount:"—"}); });
+  const totalMembers=fams.reduce((s,f)=>s+(typeof f.members==="number"?f.members:0),0);
+  document.getElementById("superStats").innerHTML=`
+    <div class="ss-stat"><b>${fams.length}</b><span>Families</span></div>
+    <div class="ss-stat"><b>${totalMembers}</b><span>Members</span></div>
+    <div class="ss-stat"><b>${fams.reduce((s,f)=>s+(typeof f.msgCount==="number"?f.msgCount:0),0)}</b><span>Messages</span></div>`;
+  document.getElementById("superList").innerHTML=fams.sort((a,b)=>(b.created||0)-(a.created||0)).map(f=>`
+    <div class="super-fam">
+      <div class="sf-head"><b>${esc(f.name||f.id)}</b><span class="sf-id">#${esc(f.id)}</span></div>
+      <div class="sf-meta">👑 @${esc(f.admin||"—")} · 👨‍👩‍👧 ${f.members} member${f.members===1?"":"s"} · created ${f.created?ago(f.created):"—"}</div>
+      ${f.mission?`<div class="sf-line"><i>Mission</i> ${esc(f.mission)}</div>`:""}
+      ${f.values?`<div class="sf-line"><i>Values</i> ${esc(f.values)}</div>`:""}
+      ${f.goals?`<div class="sf-line"><i>Goals</i> ${esc(f.goals)}</div>`:""}
+      <div class="sf-stats">💬 ${f.msgCount} · 🙏 ${f.prayerCount!==undefined?f.prayerCount:"—"} · 💡 ${f.ideaCount!==undefined?f.ideaCount:"—"}</div>
+    </div>`).join("");
 }
 function pickTheme(id,el){ ME.theme=id; [...swatches.children].forEach(c=>c.classList.remove("sel")); el.classList.add("sel"); applyTheme(); }
 function saveSettings(){
@@ -5287,12 +5631,12 @@ function heartbeat(){
    Writes: fire-and-forget no-cors POST. Reads: JSONP polling.
    If SCRIPT_URL is empty the app runs perfectly in local mode.
    ===================================================================== */
-function cloud(action,payload){
+function cloud(action,payload,famOverride){
   const url=syncUrl(); if(!url) return;
   try{
     fetch(url,{method:"POST",mode:"no-cors",
       headers:{"Content-Type":"text/plain;charset=utf-8"},
-      body:JSON.stringify({action,payload})});
+      body:JSON.stringify({action,payload,fam:famOverride||famId()})});
   }catch(e){}
 }
 let pollNow=function(){};
@@ -5302,12 +5646,13 @@ function startSync(){
   refreshSyncUI();
   if(!url) return;
   if(syncTimer) clearInterval(syncTimer);
-  if(DB.get("bootstrapped","")!==url){
+  const bootKey="bootstrapped_"+famId();
+  if(GDB.get(bootKey,"")!==url){
     const boot={users:Object.values(users()),rooms:rooms(),events:DB.get("events",[]),
       msgs:msgs().filter(m=>!m.dataUrl).slice(-200)};
     cloud("bootstrap",boot);
     msgs().filter(m=>m.dataUrl&&!m.fileId).forEach(m=>cloud("addFileMsg",m));
-    DB.set("bootstrapped",url);
+    GDB.set(bootKey,url);
   }
   pollNow=(onDone)=>{
     const cb="ffSync"+Date.now()+Math.floor(Math.random()*999);
@@ -5322,7 +5667,7 @@ function startSync(){
       SYNC.ok=true; SYNC.lastOk=Date.now(); SYNC.fails=0; refreshSyncUI(); if(onDone)onDone(true,data);
     };
     const s=document.createElement("script");
-    s.src=url+(url.includes("?")?"&":"?")+"action=pull&callback="+cb+"&_="+Date.now();
+    s.src=url+(url.includes("?")?"&":"?")+"action=pull&fam="+encodeURIComponent(famId())+"&callback="+cb+"&_="+Date.now();
     s.onerror=fail;
     document.body.appendChild(s);
   };
@@ -5356,7 +5701,7 @@ function refreshSyncUI(){
 function saveSync(){
   const u=document.getElementById("syncUrl").value.trim();
   if(!u.startsWith("https://script.google.com/")) return toast("That doesn't look like a script.google.com Web App URL");
-  DB.set("scripturl",u); DB.set("bootstrapped","");
+  GDB.set("scripturl",u); GDB.set("bootstrapped_"+famId(),"");
   closeModal("mSync"); startSync(); toast("Family sync connected ✓ Share the family link!");
   setTimeout(()=>openModal("mSync"),600); // show the family link to copy
 }
@@ -5402,6 +5747,13 @@ function runDiag(){
 }
 function mergeCloud(data){
   if(!data) return;
+  // keep the local family record (mission/values/goals/name) fresh across devices
+  if(data.family && data.family.id){
+    const fams=GDB.get("families",{});
+    fams[data.family.id]=Object.assign(fams[data.family.id]||{},data.family);
+    GDB.set("families",fams);
+    if(ME && data.family.id===famId()) applyFamilyBranding();
+  }
   // normalize any old forteh1-8 usernames still living in the cloud Sheet
   if(data.users){ const nu={}; Object.values(data.users).forEach(cu=>{ if(ALIAS[cu.u]) return; nu[cu.u]=cu; }); data.users=nu; }
   if(data.msgs) data.msgs.forEach(m=>{ m.from=aliased(m.from); });
@@ -5412,6 +5764,7 @@ function mergeCloud(data){
   if(data.users){
     const us=users();
     Object.values(data.users).forEach(cu=>{
+      if(cu.deleted){ if(us[cu.u] && cu.u!==ME.u){ delete us[cu.u]; usersChanged=true; } return; }
       if(!us[cu.u]||cu.u!==ME.u){
         const before=JSON.stringify(us[cu.u]||{});
         us[cu.u]=Object.assign(us[cu.u]||{},cu);
@@ -5532,20 +5885,57 @@ function refreshChatPresence(){
 }
 
 /* ---------- boot ---------- */
-seedUsers(); seedRooms();
-// Family link support: opening ?sync=<url> connects this device automatically
+// One-time migration: legacy Forteh data lived under ff_<key>; move to ff_forteh_<key>.
+(function migrateLegacyToForteh(){
+  if(GDB.get("legacyMigrated",false)) return;
+  const legacyKeys=["users","rooms","msgs","events","stories","goals","habits","priorities",
+    "checkins","diagResults","prayers","notes","madIdeas","madGuests","hackstats","reads","session","seedv"];
+  let moved=false;
+  legacyKeys.forEach(k=>{
+    const oldK="ff_"+k, newK="ff_forteh_"+k;
+    const v=localStorage.getItem(oldK);
+    if(v!==null && localStorage.getItem(newK)===null){ localStorage.setItem(newK,v); moved=true; }
+  });
+  // register the Forteh family in the local family list if we have data
+  if(moved||localStorage.getItem("ff_forteh_users")){
+    const fams=GDB.get("families",{});
+    if(!fams["forteh"]){
+      fams["forteh"]={id:"forteh",name:"Forteh",admin:"inno",
+        mission:"Love God · Cherish Family & People · Pursue Integrity & Excellence",
+        values:"Love for God · Family · Excellence · Integrity",
+        goals:"Grow together in faith, character, and impact — a distraction-free family.",
+        created:Date.now()};
+      GDB.set("families",fams);
+    }
+  }
+  GDB.set("legacyMigrated",true);
+})();
+
+// Family link support: ?sync=<url> connects this device; ?fam=<id> selects a family.
 try{
   const qs=new URLSearchParams(location.search).get("sync");
   if(qs && qs.startsWith("https://script.google.com/")){
-    DB.set("scripturl",qs); DB.set("bootstrapped","");
-    history.replaceState(null,"",location.pathname); // clean the address bar
+    GDB.set("scripturl",qs); GDB.set("bootstrapped_"+famId(),"");
+    history.replaceState(null,"",location.pathname);
   }
+  const famParam=new URLSearchParams(location.search).get("fam");
+  if(famParam){ const fk=famKey(famParam); if(fk) setFamId(fk); }
 }catch(e){}
+
 const madToken=(()=>{try{return new URLSearchParams(location.search).get("mad");}catch(e){return null;}})();
-if(madToken){ guestBoot(madToken); }
-else{
-  const sess=DB.get("session",null);
-  if(sess && users()[sess]){ enter(sess); }
+if(madToken){
+  seedUsers(); seedRooms();
+  guestBoot(madToken);
+} else {
+  // Resume an existing session in the active family, else show the family gate.
+  const activeSess=DB.get("session",null);
+  if(activeSess){
+    seedUsers(); seedRooms();
+    if(users()[activeSess]){ enter(activeSess); }
+    else showFamilyGate();
+  } else {
+    showFamilyGate();
+  }
 }
 </script>
 </body>
