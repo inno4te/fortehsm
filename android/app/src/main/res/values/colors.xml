@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="forte_green_deep">#0B4D2A</color>
+    <color name="forte_green_dark">#073820</color>
+    <color name="forte_green_mid">#177A45</color>
+    <color name="forte_orange">#F2772B</color>
+    <color name="forte_paper">#F7FAF6</color>
+    <color name="white">#FFFFFF</color>
+</resources>

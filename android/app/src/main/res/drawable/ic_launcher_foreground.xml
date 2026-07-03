@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- First F -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M30,32 L52,32 L52,40 L38,40 L38,50 L49,50 L49,58 L38,58 L38,78 L30,78 Z" />
+    <!-- Second F -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M58,32 L80,32 L80,40 L66,40 L66,50 L77,50 L77,58 L66,58 L66,78 L58,78 Z" />
+    <!-- Orange brand dot -->
+    <path
+        android:fillColor="#F2772B"
+        android:pathData="M81,76 m-3.6,0 a3.6,3.6 0 1,0 7.2,0 a3.6,3.6 0 1,0 -7.2,0 Z" />
+</vector>

@@ -1,0 +1,44 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.team21.fortefam'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.team21.fortefam'
+        minSdk 26              // Android 8.0 — covers ~95% of phones in 2026; supports adaptive icons
+        targetSdk 34
+        versionCode 1
+        versionName '1.0.0'
+        resourceConfigurations += ['en']
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            // debug-signed for browser-only / sideload distribution
+            signingConfig signingConfigs.debug
+        }
+        debug {
+            applicationIdSuffix ''     // keep the same package id so updates replace cleanly
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    packagingOptions {
+        resources {
+            excludes += ['/META-INF/{AL2.0,LGPL2.1}']
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.webkit:webkit:1.11.0'
+}
