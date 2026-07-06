@@ -16,6 +16,7 @@
   --card:rgba(255,255,255,.92); --glass-hi:rgba(255,255,255,.96); --glass-edge:rgba(255,255,255,.85);
   --accent:var(--green); --accent-soft:var(--green-soft); --accent-tint:var(--green-tint);
   --r:18px; --shadow:0 1px 2px rgba(9,35,25,.05), 0 6px 20px rgba(9,35,25,.08), 0 16px 44px rgba(9,35,25,.07);
+  --solid-bg:linear-gradient(160deg,#F3FDF8 0%,#F0FBFF 45%,#FFF7EF 100%); --modal-bg:#FDFEFD;
   --glow-g:0 0 20px rgba(16,185,129,.22); --glow-o:0 0 20px rgba(255,109,31,.22);
   --grad:linear-gradient(120deg,#059669 0%,#10B981 34%,#06B6D4 62%,#FF6D1F 100%);
   --grad-hot:linear-gradient(120deg,#10B981 0%,#06B6D4 40%,#8B5CF6 70%,#EC4899 100%);
@@ -32,6 +33,7 @@
   --card:rgba(11,26,18,.90); --glass-hi:rgba(30,62,44,.82); --glass-edge:rgba(120,255,190,.20);
   --green-tint:rgba(16,185,129,.18); --orange-tint:rgba(255,140,66,.16);
   --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 26px rgba(0,0,0,.42), 0 18px 52px rgba(0,0,0,.3);
+  --solid-bg:linear-gradient(160deg,#08150E 0%,#0A1A12 55%,#12100B 100%); --modal-bg:#0E2117;
   --mesh:
     radial-gradient(44% 40% at 12% 8%,  rgba(16,185,129,.30) 0%, transparent 70%),
     radial-gradient(38% 42% at 88% 12%, rgba(6,182,212,.22)  0%, transparent 70%),
@@ -491,7 +493,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 .fun-card .fc-cta{font-size:12px;font-weight:800;color:var(--orange);margin-top:6px;text-align:right}
 
 /* ============================ DIAGNOSTIC TAKING ============================ */
-.diag-screen{position:fixed;inset:0;background:var(--paper);z-index:80;display:none;flex-direction:column}
+.diag-screen{position:fixed;inset:0;background:var(--solid-bg);z-index:80;display:none;flex-direction:column}
 .diag-screen.on{display:flex}
 .diag-inner{flex:1;display:flex;flex-direction:column;max-width:640px;width:100%;margin:0 auto;padding:18px 18px 100px;overflow-y:auto}
 .diag-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
@@ -517,7 +519,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 .dr-pct{font-size:48px;font-weight:900;line-height:1;margin:4px 0}
 .dr-tier{font-size:16px;font-weight:800;letter-spacing:.02em}
 .dr-name{font-size:12.5px;opacity:.85;margin-top:4px}
-.dr-msg{font-size:14.5px;line-height:1.55;padding:14px 16px;background:var(--card);border:1.5px solid var(--accent-tint);border-radius:12px;margin-bottom:14px;color:#333}
+.dr-msg{font-size:14.5px;line-height:1.55;padding:14px 16px;background:var(--card);border:1.5px solid var(--accent-tint);border-radius:12px;margin-bottom:14px;color:var(--ink)}
 .dr-grow{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:14px}
 .dr-grow h4{font-size:12px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
 .dr-grow ul{list-style:none;padding:0;margin:0}
@@ -637,9 +639,9 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 .member-card .mav{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:21px;color:#fff;font-weight:800;flex-shrink:0}
 .member-card b{font-size:15px}
 .member-card .role{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-.modal-wrap{position:fixed;inset:0;background:rgba(20,30,24,.45);display:none;align-items:center;justify-content:center;z-index:60;padding:18px;backdrop-filter:blur(3px)}
+.modal-wrap{position:fixed;inset:0;background:rgba(6,14,10,.64);display:none;align-items:center;justify-content:center;z-index:60;padding:18px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 .modal-wrap.on{display:flex}
-.modal{width:100%;max-width:430px;max-height:88vh;overflow-y:auto;background:var(--card);border-radius:22px;padding:26px;position:relative;animation:pop .2s ease}
+.modal{width:100%;max-width:430px;max-height:88vh;overflow-y:auto;background:var(--modal-bg);border:1px solid var(--glass-edge);border-radius:22px;padding:26px;position:relative;animation:pop .2s ease;box-shadow:0 24px 70px rgba(0,0,0,.35)}
 .modal h3{font-size:20px;font-weight:800;margin-bottom:16px}
 .modal .x{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
 .modal .x:hover{background:var(--accent-tint);color:var(--accent)}
@@ -747,7 +749,7 @@ body{
   border:1px solid var(--glass-edge);
   box-shadow:inset 0 1px 0 var(--glass-hi), 0 6px 18px rgba(16,185,129,.16);
 }
-.fun-card,.weekly-mini,.encourage-card,.msg-card,.ev-card,.eventcard,.toolcard,.habit-row,.prio-row,.fam-acc-card,.dr-msg,.dr-grow,.vision{
+.fun-card,.weekly-mini,.msg-card,.ev-card,.eventcard,.toolcard,.habit-row,.prio-row,.fam-acc-card,.dr-msg,.dr-grow,.vision{
   background:var(--card);
   -webkit-backdrop-filter:blur(14px) saturate(1.15);
   backdrop-filter:blur(14px) saturate(1.15);
@@ -897,7 +899,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--green-soft);box-shado
 .note-new::before{display:none}
 .note-new .nn-plus{font-size:30px;line-height:1}
 /* Full-screen note editor */
-.note-screen{position:fixed;inset:0;z-index:80;display:none;flex-direction:column;background:var(--mesh);background-attachment:fixed}
+.note-screen{position:fixed;inset:0;z-index:80;display:none;flex-direction:column;background:var(--solid-bg);background-attachment:fixed}
 .note-screen.on{display:flex}
 .note-inner{flex:1;display:flex;flex-direction:column;max-width:760px;width:100%;margin:0 auto;padding:14px 14px calc(14px + env(safe-area-inset-bottom));min-height:0}
 .note-top{display:flex;align-items:center;gap:9px;margin-bottom:10px}
@@ -950,6 +952,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--green-soft);box-shado
 .mad-logo{font-size:15px;font-weight:900;letter-spacing:.12em;opacity:.92}
 .mad-name{font-size:27px;font-weight:900;margin:4px 0 2px}
 .mad-slogan{font-size:16px;font-weight:800;font-style:italic;color:#FFFDF5;text-shadow:0 1px 4px rgba(0,0,0,.45)}
+.mad-quote{margin-top:12px;padding:11px 14px;border-left:3px solid rgba(255,253,245,.85);background:rgba(0,0,0,.22);border-radius:0 12px 12px 0;font-size:13.5px;line-height:1.55;font-style:italic;color:#FDFBF2;position:relative;z-index:1}
 .mad-sub{font-size:13px;opacity:.9;margin-top:8px;line-height:1.5;max-width:480px}
 .mad-actions-bar{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap}
 .mad-actions-bar .btn{flex:1;min-width:150px}
@@ -1438,6 +1441,7 @@ body[data-guest="1"] #madGuestBtn{display:none}
       <div class="mad-name">Make a Difference</div>
       <div class="mad-slogan">Giving life to likes.</div>
       <div class="mad-sub">Where the family stops scrolling and starts acting — on the issues we feel strongly about.</div>
+      <div class="mad-quote">"Your community doesn't need more spectators — it needs your family's hands. Don't just observe the need. Meet one, together."</div>
     </div>
     <div class="mad-actions-bar">
       <button class="btn btn-grad" onclick="openNewIdea()">＋ Post an idea</button>
@@ -3550,15 +3554,45 @@ function startCall(video){
 }
 
 /* ---------- events ---------- */
-function openNewEvent(){ openModal("mEvent"); }
+function openNewEvent(){
+  // sensible default: tomorrow at 18:00, so the picker is never empty
+  try{
+    if(!document.getElementById("evDate").value){
+      const d=new Date(Date.now()+24*60*60*1000); d.setHours(18,0,0,0);
+      const pad=n=>String(n).padStart(2,"0");
+      document.getElementById("evDate").value=
+        d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"T"+pad(d.getHours())+":"+pad(d.getMinutes());
+    }
+  }catch(e){}
+  openModal("mEvent");
+  setTimeout(()=>{ try{document.getElementById("evTitle").focus();}catch(e){} },80);
+}
 function createEvent(){
-  if(!evTitle.value.trim()||!evDate.value) return toast("Give your event a title and a date");
-  const ev={id:"e"+Date.now(),title:evTitle.value.trim(),date:new Date(evDate.value).getTime(),
-    desc:evDesc.value.trim(),by:ME.u,meet:evMeet.checked?"https://meet.google.com/new":"",rsvp:{}};
-  const evs=DB.get("events",[]); evs.push(ev); DB.set("events",evs); cloud("addEvent",ev);
-  if(evShare.checked) pushMsg({kind:"event",eventId:ev.id});
-  closeModal("mEvent"); evTitle.value=evDesc.value=""; renderEvents();
-  toast("Event created 🎉");
+  try{
+    const titleEl=document.getElementById("evTitle"), dateEl=document.getElementById("evDate"),
+          descEl=document.getElementById("evDesc"), meetEl=document.getElementById("evMeet"),
+          shareEl=document.getElementById("evShare");
+    const title=(titleEl.value||"").trim();
+    if(!title){ toast("Give your event a title"); titleEl.focus(); return; }
+    let when=Date.parse(dateEl.value);
+    if(isNaN(when)){
+      // fall back gracefully: tomorrow 18:00 rather than blocking the user
+      const d=new Date(Date.now()+24*60*60*1000); d.setHours(18,0,0,0); when=d.getTime();
+    }
+    const ev={id:"e"+Date.now()+Math.random().toString(36).slice(2,5),
+      title, date:when, desc:(descEl.value||"").trim(), by:ME.u,
+      meet:meetEl&&meetEl.checked?"https://meet.google.com/new":"", rsvp:{}};
+    const evs=DB.get("events",[]); evs.push(ev); DB.set("events",evs);
+    try{ cloud("addEvent",ev); }catch(e){}
+    // announcing must never block the save
+    if(shareEl&&shareEl.checked){ try{ pushMsg({kind:"event",eventId:ev.id}); }catch(e){} }
+    closeModal("mEvent"); titleEl.value=""; descEl.value=""; dateEl.value="";
+    renderEvents();
+    goTab("events");                       // take the user to see their new event
+    toast("Event created 🎉 — it's on the family calendar");
+  }catch(err){
+    toast("Couldn't create the event — please try again");
+  }
 }
 function rsvp(id,ans){
   const evs=DB.get("events",[]); const ev=evs.find(e=>e.id===id); if(!ev)return;
@@ -4398,6 +4432,102 @@ const DIAGS = [
       [40,"Taking ground back","You've got some healthy fences up. Next: kill non-human notifications and put ONE no-phone hour in your evening. Your attention is your life — spend it on purpose."],
       [70,"The tool serves you","You use the phone; it doesn't use you. That's rare discipline in this generation. Guard it — and model it for the younger ones watching how you live."],
       [90,"Fully present","You've mastered what a whole generation is losing: the ability to be here. Psalm 46:10 — 'Be still, and know.' Your presence is a gift to everyone around you. Keep it."]]
+  },
+  { id:"finance", e:"💰", t:"Money Wisdom Check", d:"Are you a steward or a spender?",
+    q:[
+      ["When money comes in, my first move is:", [["Spend on what I've been wanting",0],["Pay bills, spend the rest",1],["Give, save, then plan the rest",3],["It's gone before I decide",0]]],
+      ["I know how much I spent last month:", [["To the nearest franc/dollar",3],["Roughly",2],["No idea",0],["I avoid looking",0]]],
+      ["When I want something I can't afford, I:", [["Buy it on credit anyway",0],["Borrow from family",1],["Save toward it with a plan",3],["Give up on it",1]]],
+      ["My emergency fund could cover:", [["Nothing — I have none",0],["A week or two",1],["About a month",2],["Three months or more",3]]],
+      ["When someone in need asks for help, I:", [["Give without thinking",2],["Give from what I've planned to give",3],["Rarely have anything to give",1],["Avoid them",0]]],
+      ["Debt in my life is:", [["Growing",0],["Stable but heavy",1],["Shrinking on a plan",3],["Zero or almost zero",3]]],
+      ["I talk about money with my family:", [["Never — it causes fights",0],["Only in a crisis",1],["Openly at regular moments",3],["Only when I need something",1]]],
+      ["If my income doubled tomorrow, my spending would:", [["Double immediately",0],["Rise a lot",1],["Rise a little; saving/giving rise more",3],["Stay exactly the same",2]]]
+    ],
+    tiers:[[0,"Money leads you","No condemnation — most people were never taught this. Start with one move: write down everything you spend for 7 days. Awareness is the first coin of wisdom."],
+      [40,"Learning stewardship","You've got some good instincts. Next: give every franc a name before the month starts — a simple written plan beats a strong memory."],
+      [70,"Faithful steward","You manage what you have with intention. Proverbs 21:20 lives at your house. Now teach one younger person what you know."],
+      [90,"Wise master-steward","Money serves your mission, not the reverse. You're positioned to bless generations. Keep your hands open — rivers stay clean because they flow."]]
+  },
+  { id:"timemaster", e:"⏳", t:"Time Stewardship", d:"Where do your 24 hours actually go?",
+    q:[
+      ["My mornings usually begin with:", [["Scrolling in bed",0],["Rushing out the door",1],["A quiet routine I chose",3],["It varies wildly",1]]],
+      ["I know my top 3 priorities for today:", [["Yes — written down",3],["In my head",2],["I'll figure it out as I go",1],["What priorities?",0]]],
+      ["When someone asks for my time, I:", [["Always say yes",1],["Say yes and resent it",0],["Check it against my priorities first",3],["Usually say no",1]]],
+      ["My most productive hours are spent on:", [["Whatever shouts loudest",0],["Meetings and messages",1],["My most important work",3],["I don't know my productive hours",0]]],
+      ["At day's end I usually feel:", [["Busy but unsure what I did",0],["Tired and behind",1],["Satisfied with real progress",3],["Like the day disappeared",0]]],
+      ["Rest in my week is:", [["A myth",0],["Whatever's left over",1],["Scheduled and protected",3],["Most of my week",1]]],
+      ["I say 'I don't have time' :", [["Daily",0],["Often",1],["Rarely — I say 'it's not a priority' honestly",3],["Never, but I'm always late",1]]],
+      ["Time with the people I love is:", [["Squeezed into leftovers",0],["Weekends if nothing comes up",1],["Blocked in my calendar like a meeting",3],["Constant but distracted",1]]]
+    ],
+    tiers:[[0,"Time is leaking","Your hours are being spent by other people. Reclaim one: choose tomorrow's single most important task tonight, and do it before you open any app."],
+      [40,"Taking the wheel","You're steering some of your time. Next: protect one 'deep hour' daily — phone away, door closed, one task. Watch what a year of those builds."],
+      [70,"Intentional living","You spend time like the treasure it is. Ephesians 5:16 — you're redeeming the time. Guard your rest as fiercely as your work."],
+      [90,"Master of your hours","Rare air. You've learned that time management is really priority management. Now use the margin you've built to lift someone else's load."]]
+  },
+  { id:"gratitude", e:"🌻", t:"Gratitude Meter", d:"Is thankfulness your reflex or a rumor?",
+    q:[
+      ["When I wake up, my first thought is usually:", [["What I dread today",0],["My to-do list",1],["Something I'm thankful for",3],["Nothing — straight to the phone",0]]],
+      ["When something good happens, I:", [["Move on quickly to the next thing",1],["Pause and savor it",3],["Worry it won't last",0],["Tell someone about it gratefully",3]]],
+      ["I thank the people around me:", [["Rarely — they know I appreciate them",0],["On special occasions",1],["Specifically and often",3],["Only when they do something big",1]]],
+      ["When I compare my life to others', I feel:", [["Behind and bitter",0],["Envious sometimes",1],["I've stopped comparing",3],["Grateful for my own lane",3]]],
+      ["In a hard season, I can still name:", [["Nothing good — it's all hard",0],["One or two blessings if pushed",1],["Several things, genuinely",3],["I keep a written list",3]]],
+      ["Complaints vs. thanks in my daily speech:", [["Mostly complaints",0],["About even",1],["Mostly thanks",3],["I've never noticed",1]]],
+      ["When someone serves me (waiter, cleaner, guard), I:", [["Barely notice them",0],["Nod politely",1],["Thank them by name when I can",3],["Sometimes, depends on my mood",1]]],
+      ["Gratitude to God in my week looks like:", [["Grace before meals, maybe",1],["Sunday only",1],["Woven through my days",3],["Honestly absent",0]]]
+    ],
+    tiers:[[0,"Gratitude is sleeping","Wake it gently: tonight, write three specific things from today you're glad happened. Do it for seven nights. Watch your eyes change."],
+      [40,"Warming up","Thankfulness visits you but doesn't live with you yet. Upgrade one habit: thank one person each day, specifically, for something they did."],
+      [70,"Grateful heart","1 Thessalonians 5:18 is becoming your reflex. Gratitude is quietly rewiring you for joy — science and Scripture agree on this one."],
+      [90,"Overflowing","Your thankfulness spills onto everyone near you. That's not naivety — it's spiritual maturity. Keep counting; the blessings multiply when numbered."]]
+  },
+  { id:"familybond", e:"👨‍👩‍👧", t:"Family Bond Strength", d:"How strong are the ties that matter most?",
+    q:[
+      ["I speak to my closest family members:", [["Daily or almost",3],["Weekly",2],["Monthly",1],["Only at events or emergencies",0]]],
+      ["When a family member succeeds, I:", [["Celebrate them loudly",3],["Feel happy quietly",2],["Feel a twinge of rivalry",1],["Barely register it",0]]],
+      ["The last real conversation (not logistics) I had with family was:", [["Today or yesterday",3],["This week",2],["This month",1],["I can't remember",0]]],
+      ["When there's conflict in the family, I:", [["Go silent for months",0],["Wait for them to apologize",1],["Move toward repair, even when it's hard",3],["Pretend nothing happened",1]]],
+      ["I know what my family members are currently struggling with:", [["Yes, for most of them",3],["For one or two",2],["Not really",1],["We don't share struggles",0]]],
+      ["Family traditions (meals, calls, prayers) in my life are:", [["Regular and protected",3],["Occasional",2],["Fading",1],["Gone",0]]],
+      ["When I need help, I call family:", [["First",3],["After I've tried everything",1],["Never — I don't want to burden them",1],["They can't help me",0]]],
+      ["The younger ones in my family would say I:", [["Am present in their lives",3],["Show up sometimes",2],["Am a stranger who shares their name",0],["Only correct them",1]]]
+    ],
+    tiers:[[0,"Threads are thin","Bonds fray in silence and mend with small touches. Send one message today — not logistics, just 'I thought of you.' Start there."],
+      [40,"Rebuilding the bridge","There's real connection to work with. Add one rhythm: a weekly call or voice note to one family member. Rhythm beats intensity."],
+      [70,"Strong household","Your family knows they can count on you. Psalm 133:1 — how good it is. Now be the one who pulls the distant ones back in."],
+      [90,"The family anchor","You're the one who holds the net together — the caller, the gatherer, the peacemaker. It's holy work. Make sure someone is also holding YOU."]]
+  },
+  { id:"health", e:"💪", t:"Body Stewardship", d:"Your body is the only place you have to live.",
+    q:[
+      ["Water vs. sugary drinks in my day:", [["Mostly sugary drinks",0],["About half and half",1],["Mostly water",3],["I forget to drink anything",1]]],
+      ["I move my body (walk, exercise, sport):", [["Rarely",0],["Once or twice a week",1],["Most days, at least 20-30 minutes",3],["Only when forced",0]]],
+      ["My sleep on a normal night:", [["Under 5 hours",0],["5-6 hours",1],["7-8 hours, mostly regular",3],["All over the place",1]]],
+      ["Vegetables and fruit on my plate:", [["Rare visitors",0],["A few times a week",1],["Daily",3],["Only when someone else cooks",1]]],
+      ["When my body signals pain or fatigue, I:", [["Push through and ignore it",1],["Complain but change nothing",0],["Rest or get it checked",3],["Panic",1]]],
+      ["My last health check-up was:", [["Within the year",3],["1-2 years ago",2],["Can't remember",0],["I avoid clinics",0]]],
+      ["Stress in my body shows up as:", [["Constant tension I ignore",0],["Symptoms I'm starting to notice",1],["Something I actively manage (rest, prayer, walks)",3],["I don't connect stress to my body",1]]],
+      ["I treat my body like:", [["A machine that shouldn't complain",1],["An afterthought",0],["A temple on loan to me",3],["A project I'll start Monday",1]]]
+    ],
+    tiers:[[0,"Running on empty","Your body has been carrying you on credit. Start with the cheapest medicine: water and a 15-minute daily walk. Small, boring, mighty."],
+      [40,"Waking up to it","Good instincts, inconsistent habits. Pick ONE: fixed bedtime, daily walk, or water-first mornings. Master it for 30 days before adding another."],
+      [70,"Faithful caretaker","You honor the temple (1 Cor 6:19). Your energy is a resource you're stewarding well — your family gets the best of you, not the rest of you."],
+      [90,"Strong for the mission","Discipline has become health, and health has become capacity. You're built to serve for decades. Teach the young ones — habits are caught."]]
+  },
+  { id:"prayerlife", e:"🙏", t:"Prayer Life Pulse", d:"How's your lifeline to Heaven?",
+    q:[
+      ["My prayer life right now is:", [["On fire — daily and alive",3],["Steady but routine",2],["Emergencies only",1],["Flatlined",0]]],
+      ["When I pray, it's mostly:", [["A list of requests",1],["Thanks, listening, and requests",3],["Repeating memorized words",1],["Hard to focus at all",0]]],
+      ["I pray WITH other people (family, friends):", [["Regularly",3],["Sometimes",2],["Only at church",1],["Never — it's private",1]]],
+      ["When God seems silent, I:", [["Stop praying",0],["Pray less, doubt more",1],["Keep showing up anyway",3],["Get angry and quit for a while",1]]],
+      ["Answered prayers in my life:", [["I've never tracked any",0],["I remember one or two",1],["I could tell you stories",3],["I write them down",3]]],
+      ["My prayers for OTHERS (not my needs) are:", [["Rare",0],["When they ask me",1],["A regular part of my praying",3],["My main kind of praying",3]]],
+      ["Distraction during prayer:", [["Wins every time",0],["Wins often",1],["I fight it with a method (list, walk, journal)",3],["I gave up trying",0]]],
+      ["If Jesus asked 'Could you not watch one hour?', I'd say:", [["Honestly, no",0],["Maybe 10 minutes",1],["I'm building toward it",2],["Yes — and it's the best hour",3]]]
+    ],
+    tiers:[[0,"The line is quiet","God hasn't moved — and the line never closes. Start embarrassingly small: two minutes, morning, just talk. He's been waiting to hear your voice."],
+      [40,"Reconnecting","There's a pulse. Strengthen it with structure: try P-R-A-Y (Pause, Rejoice, Ask, Yield) for a week. Structure isn't unspiritual — it's scaffolding."],
+      [70,"A praying life","Prayer is becoming your first response, not your last resort. Now go further: keep a written record. Watching God answer will set your faith on fire."],
+      [90,"Intercessor","You've found the secret place (Matthew 6:6). Heaven knows your voice. Your family is covered because you kneel — keep the fire on the altar burning."]]
   }
 ];
 
@@ -5154,6 +5284,23 @@ const HACKS = [
     ["Research says the stronger study method is:",["rereading","highlighting","self-testing (retrieval)","copying notes"],2],
     ["Kaufman's threshold for functional skill is about:",["10,000 hours","1,000 hours","200 hours","20 focused hours"],3],
     ["2 Timothy 2:2 commands us to:",["keep knowledge private","commit teaching to faithful people who teach others","study alone","write books"],1]
+  ]},
+{ id:"firstaid", e:"🩹", t:"Family First Aid Basics", g:"The 20 minutes that could save a life in your house.",
+  s:[
+    ["First rule: check, call, care","CHECK the scene is safe and check the person. CALL for emergency help (know your local number — 112 works in many countries and on most mobiles). CARE for them until help arrives. Panic wastes minutes; a plan saves them.","Red Cross 'Check-Call-Care' model"],
+    ["Choking — 5 and 5","If someone can't cough, speak, or breathe: give 5 firm back blows between the shoulder blades with the heel of your hand, then 5 abdominal thrusts (hands just above the navel, quick inward-and-upward pulls). Repeat 5-and-5 until the object clears. For babies: 5 back blows face-down along your forearm, then 5 chest thrusts with two fingers.","Red Cross / Mayo Clinic choking guidance"],
+    ["Serious bleeding — pressure, pressure, pressure","Press hard on the wound with a clean cloth and DON'T lift it to peek — stack more cloth on top if it soaks through. Keep pressing until help arrives. Elevate the limb if you can. Direct pressure stops most bleeding.","Stop the Bleed campaign"],
+    ["Burns — cool water, not ice, not paste","Run cool (not icy) water over a burn for 10-20 minutes. Never apply ice, butter, toothpaste, or oil — they trap heat and infect. Cover loosely with a clean cloth. Blisters bigger than a coin, burns on face/hands, or any child burn → clinic.","WHO burn first-aid guidance"],
+    ["Fever in a child","Undress to light clothing, give fluids often, and use paracetamol per the packet's weight dosing. Danger signs that mean GO NOW: a stiff neck, a rash that doesn't fade under pressure, difficulty breathing, convulsions, or a baby under 3 months with any fever. In malaria zones, any persistent fever deserves a test the same day.","WHO IMCI danger signs"],
+    ["Unconscious but breathing — recovery position","Roll them gently onto their side, top knee bent to prop them, head tilted slightly back so the tongue can't block the airway and fluids can drain. Then stay and keep checking breathing until help comes. This one position prevents countless deaths.","International first-aid consensus (ILCOR)"],
+    ["Build the family kit + drill it","A shoebox works: gauze, plaster/tape, antiseptic, paracetamol (adult + child), ORS sachets, gloves, scissors, a torch, and your emergency numbers taped to the lid. HACK: run a 10-minute family drill twice a year — everyone learns where the kit is, the emergency number, and the choking 5-and-5. Rehearsed hands don't freeze."]
+  ],
+  q:[
+    ["Someone is choking and can't speak. Your first action is:",["Give them water","5 firm back blows between the shoulder blades","Lay them down flat","Wait to see if it clears"],1],
+    ["The right treatment for a burn is:",["Ice directly on it","Butter or toothpaste","Cool running water for 10-20 minutes","Wrap it tightly at once"],2],
+    ["Blood is soaking through the cloth you're pressing on a wound. You should:",["Lift it to check the cut","Replace it with a fresh cloth","Stack more cloth on top and keep pressing","Rinse the wound under water"],2],
+    ["An unconscious person who IS breathing should be:",["Sat upright","Laid flat on their back","Given water","Rolled into the recovery position on their side"],3],
+    ["Which fever sign means go to a clinic immediately:",["Mild warmth after playing","A stiff neck or a rash that doesn't fade when pressed","Sweating after paracetamol","Being tired at bedtime"],1]
   ]}
 ];
 
