@@ -12,26 +12,26 @@
   --green:#059669; --green-soft:#10B981; --green-deep:#065F46; --green-tint:rgba(16,185,129,.14);
   --orange:#FF6D1F; --orange-soft:#FF8C42; --orange-tint:rgba(255,109,31,.13);
   --vivid-cyan:#06B6D4; --vivid-violet:#8B5CF6; --vivid-pink:#EC4899;
-  --paper:rgba(255,255,255,.55); --ink:#08201A; --muted:#3E5A4C; --line:rgba(5,150,105,.18);
-  --card:rgba(255,255,255,.78); --glass-hi:rgba(255,255,255,.86); --glass-edge:rgba(255,255,255,.7);
+  --paper:rgba(255,255,255,.72); --ink:#07231B; --muted:#37543F; --line:rgba(5,150,105,.20);
+  --card:rgba(255,255,255,.92); --glass-hi:rgba(255,255,255,.96); --glass-edge:rgba(255,255,255,.85);
   --accent:var(--green); --accent-soft:var(--green-soft); --accent-tint:var(--green-tint);
-  --r:18px; --shadow:0 8px 32px rgba(6,95,70,.14), 0 2px 8px rgba(6,95,70,.08);
-  --glow-g:0 0 24px rgba(16,185,129,.35); --glow-o:0 0 24px rgba(255,109,31,.35);
+  --r:18px; --shadow:0 1px 2px rgba(9,35,25,.05), 0 6px 20px rgba(9,35,25,.08), 0 16px 44px rgba(9,35,25,.07);
+  --glow-g:0 0 20px rgba(16,185,129,.22); --glow-o:0 0 20px rgba(255,109,31,.22);
   --grad:linear-gradient(120deg,#059669 0%,#10B981 34%,#06B6D4 62%,#FF6D1F 100%);
   --grad-hot:linear-gradient(120deg,#10B981 0%,#06B6D4 40%,#8B5CF6 70%,#EC4899 100%);
   --mesh:
-    radial-gradient(42% 38% at 12% 8%,  rgba(16,185,129,.30) 0%, transparent 70%),
-    radial-gradient(38% 42% at 88% 12%, rgba(6,182,212,.24)  0%, transparent 70%),
-    radial-gradient(46% 40% at 85% 88%, rgba(255,109,31,.26) 0%, transparent 70%),
-    radial-gradient(40% 44% at 10% 90%, rgba(139,92,246,.20) 0%, transparent 70%),
+    radial-gradient(42% 38% at 12% 8%,  rgba(16,185,129,.20) 0%, transparent 70%),
+    radial-gradient(38% 42% at 88% 12%, rgba(6,182,212,.16)  0%, transparent 70%),
+    radial-gradient(46% 40% at 85% 88%, rgba(255,109,31,.17) 0%, transparent 70%),
+    radial-gradient(40% 44% at 10% 90%, rgba(139,92,246,.13) 0%, transparent 70%),
     radial-gradient(30% 30% at 50% 50%, rgba(236,72,153,.10) 0%, transparent 70%),
     linear-gradient(160deg,#EFFEF6 0%,#EAFBFF 45%,#FFF4EA 100%);
 }
 [data-mode="dark"]{
-  --paper:rgba(6,18,12,.58); --ink:#F1FAF4; --muted:#A6C4B4; --line:rgba(16,185,129,.26);
-  --card:rgba(11,26,18,.74); --glass-hi:rgba(30,62,44,.68); --glass-edge:rgba(120,255,190,.16);
+  --paper:rgba(6,18,12,.74); --ink:#F3FBF6; --muted:#B2CFC0; --line:rgba(16,185,129,.30);
+  --card:rgba(11,26,18,.90); --glass-hi:rgba(30,62,44,.82); --glass-edge:rgba(120,255,190,.20);
   --green-tint:rgba(16,185,129,.18); --orange-tint:rgba(255,140,66,.16);
-  --shadow:0 10px 36px rgba(0,0,0,.5), 0 2px 8px rgba(0,0,0,.35);
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 26px rgba(0,0,0,.42), 0 18px 52px rgba(0,0,0,.3);
   --mesh:
     radial-gradient(44% 40% at 12% 8%,  rgba(16,185,129,.30) 0%, transparent 70%),
     radial-gradient(38% 42% at 88% 12%, rgba(6,182,212,.22)  0%, transparent 70%),
@@ -41,8 +41,8 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);overflow:hidden;height:100dvh}
-h1,h2,h3,.display{font-family:'Bricolage Grotesque','Plus Jakarta Sans',sans-serif}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);overflow:hidden;height:100dvh;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+h1,h2,h3,.display{font-family:'Bricolage Grotesque','Plus Jakarta Sans',sans-serif;letter-spacing:-.02em}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,textarea,select{font-family:inherit;font-size:15px;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;outline:none;width:100%}
 input:focus,textarea:focus,select:focus{border-color:var(--accent)}
@@ -481,11 +481,11 @@ input:focus,textarea:focus,select:focus{border-color:var(--accent)}
 /* ============================ FUN TAB ============================ */
 .fun-view{padding:20px 22px 110px;max-width:880px}
 .fun-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:14px 0}
-.fun-card{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:16px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;gap:6px;text-align:left}
+.fun-card{background:var(--card);border:1px solid var(--glass-edge);outline:1px solid var(--line);outline-offset:-1px;border-radius:16px;padding:17px 16px;cursor:pointer;transition:.18s;display:flex;flex-direction:column;gap:6px;text-align:left}
 .fun-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 6px 18px rgba(11,77,42,.1)}
 .fun-card .fc-e{font-size:32px;line-height:1}
-.fun-card .fc-t{font-size:15px;font-weight:800;margin-top:4px}
-.fun-card .fc-d{font-size:12.5px;color:var(--muted);line-height:1.4;min-height:34px}
+.fun-card .fc-t{font-size:15.5px;font-weight:800;margin-top:4px;letter-spacing:-.01em}
+.fun-card .fc-d{font-size:12.5px;color:var(--muted);line-height:1.45;min-height:34px;font-weight:600}
 .fun-card .fc-last{font-size:11px;color:var(--accent);font-weight:700;background:var(--accent-tint);padding:4px 8px;border-radius:8px;display:inline-block;align-self:flex-start;margin-top:4px}
 .fun-card .fc-last.never{background:var(--paper);color:var(--muted)}
 .fun-card .fc-cta{font-size:12px;font-weight:800;color:var(--orange);margin-top:6px;text-align:right}
@@ -749,15 +749,15 @@ body{
 }
 .fun-card,.weekly-mini,.encourage-card,.msg-card,.ev-card,.eventcard,.toolcard,.habit-row,.prio-row,.fam-acc-card,.dr-msg,.dr-grow,.vision{
   background:var(--card);
-  -webkit-backdrop-filter:blur(16px) saturate(1.6);
-  backdrop-filter:blur(16px) saturate(1.6);
+  -webkit-backdrop-filter:blur(14px) saturate(1.15);
+  backdrop-filter:blur(14px) saturate(1.15);
   border:1px solid var(--glass-edge);
   box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow);
 }
 .fun-card:hover,.weekly-mini:hover{
-  transform:translateY(-3px) scale(1.012);
-  box-shadow:inset 0 1px 0 var(--glass-hi), 0 18px 44px rgba(16,185,129,.22), var(--glow-g);
-  border-color:rgba(16,185,129,.4);
+  transform:translateY(-2px);
+  box-shadow:inset 0 1px 0 var(--glass-hi), 0 4px 12px rgba(9,35,25,.08), 0 18px 40px rgba(9,35,25,.12);
+  border-color:rgba(16,185,129,.45);
 }
 input,textarea,select{
   background:var(--glass-hi);
@@ -772,7 +772,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--green-soft);box-shado
 /* Vivid buttons with liquid gradient + glow */
 .btn-grad{
   background:var(--grad);background-size:220% 220%;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 10px 28px rgba(16,185,129,.35), 0 2px 8px rgba(255,109,31,.2);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 6px 18px rgba(16,185,129,.28), 0 2px 6px rgba(9,35,25,.12);
   transition:.25s;border:none;
 }
 .btn-grad:hover{background-position:90% 60%;transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 16px 40px rgba(6,182,212,.4), var(--glow-o)}
@@ -830,14 +830,14 @@ input:focus,textarea:focus,select:focus{border-color:var(--green-soft);box-shado
    PRAYER JOURNAL
    ============================================================ */
 .journal-view{padding:20px 22px 110px;max-width:880px}
-.seg{display:flex;gap:6px;background:var(--card);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--glass-edge);border-radius:16px;padding:5px;margin:14px 0 18px;box-shadow:inset 0 1px 0 var(--glass-hi)}
-.seg button{flex:1;padding:11px 8px;border-radius:12px;font-weight:800;font-size:14px;color:var(--muted);transition:.2s}
-.seg button.active{background:var(--grad);color:#fff;box-shadow:0 6px 18px rgba(16,185,129,.35), inset 0 1px 0 rgba(255,255,255,.3)}
+.seg{display:flex;gap:6px;background:var(--card);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border:1px solid var(--glass-edge);border-radius:16px;padding:5px;margin:14px 0 18px;box-shadow:inset 0 1px 0 var(--glass-hi), 0 2px 10px rgba(9,35,25,.06)}
+.seg button{flex:1;padding:11px 8px;border-radius:12px;font-weight:800;font-size:14px;color:var(--ink);opacity:.72;transition:.2s}
+.seg button.active{background:var(--grad);color:#fff;opacity:1;box-shadow:0 4px 14px rgba(16,185,129,.30), inset 0 1px 0 rgba(255,255,255,.3)}
 .pj-filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
 .pj-filters button{padding:7px 14px;border-radius:999px;font-size:12.5px;font-weight:800;border:1px solid var(--glass-edge);background:var(--card);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--muted);transition:.15s}
 .pj-filters button.active{background:linear-gradient(120deg,var(--green-tint),var(--orange-tint));color:var(--accent);border-color:rgba(16,185,129,.45);box-shadow:var(--glow-g)}
 .pj-card{
-  background:var(--card);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
+  background:var(--card);-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);
   border:1px solid var(--glass-edge);border-left:5px solid var(--green-soft);
   border-radius:16px;padding:15px 17px;margin-bottom:12px;
   box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow);transition:.18s;position:relative;overflow:hidden
@@ -880,7 +880,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--green-soft);box-shado
    ============================================================ */
 .note-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:13px;margin-top:4px}
 .note-card{
-  background:var(--card);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
+  background:var(--card);-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);
   border:1px solid var(--glass-edge);border-radius:16px;padding:15px;cursor:pointer;text-align:left;
   box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow);transition:.18s;
   display:flex;flex-direction:column;gap:7px;min-height:130px;position:relative;overflow:hidden
@@ -954,7 +954,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--green-soft);box-shado
 .mad-actions-bar{display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap}
 .mad-actions-bar .btn{flex:1;min-width:150px}
 .mad-card{
-  background:var(--card);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
+  background:var(--card);-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);
   border:1px solid var(--glass-edge);border-radius:18px;padding:16px 17px;margin-bottom:13px;
   box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow);transition:.18s;position:relative;overflow:hidden
 }
@@ -1004,7 +1004,7 @@ body[data-guest="1"] #madGuestBtn{display:none}
 .hk-hero .ht{font-size:21px;font-weight:900;margin:6px 0 3px}
 .hk-hero .hg{font-size:13px;opacity:.94;line-height:1.5}
 .hk-sec{
-  background:var(--card);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);
+  background:var(--card);-webkit-backdrop-filter:blur(14px) saturate(1.15);backdrop-filter:blur(14px) saturate(1.15);
   border:1px solid var(--glass-edge);border-left:4px solid var(--green-soft);border-radius:14px;
   padding:13px 15px;margin-bottom:10px;box-shadow:inset 0 1px 0 var(--glass-hi), var(--shadow)
 }
@@ -1129,6 +1129,18 @@ body[data-guest="1"] #madGuestBtn{display:none}
 .sf-line{font-size:12.5px;line-height:1.5;margin-top:3px}
 .sf-line i{font-style:normal;font-weight:900;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-right:6px}
 .sf-stats{font-size:12px;color:var(--muted);font-weight:700;margin-top:8px;padding-top:7px;border-top:1px dashed var(--line)}
+
+/* prominent add-members button on the Family tab */
+.fam-add-btn{width:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;margin:2px 0 16px;padding:12px 22px;font-size:14.5px}
+
+/* refined scrollbars */
+*{scrollbar-width:thin;scrollbar-color:rgba(5,150,105,.35) transparent}
+*::-webkit-scrollbar{width:9px;height:9px}
+*::-webkit-scrollbar-track{background:transparent}
+*::-webkit-scrollbar-thumb{background:rgba(5,150,105,.30);border-radius:99px;border:2px solid transparent;background-clip:content-box}
+*::-webkit-scrollbar-thumb:hover{background:rgba(5,150,105,.5);border:2px solid transparent;background-clip:content-box}
+[data-mode="dark"] *{scrollbar-color:rgba(16,185,129,.4) transparent}
+[data-mode="dark"] *::-webkit-scrollbar-thumb{background:rgba(16,185,129,.35);border:2px solid transparent;background-clip:content-box}
 </style>
 </head>
 <body data-tab="chats">
@@ -1441,6 +1453,7 @@ body[data-guest="1"] #madGuestBtn{display:none}
   </div>
   <div class="main view" id="viewFamily">
     <h2>The family</h2><div class="vsub">Everyone in ForTe Fam, wherever they are in the world.</div>
+    <button class="btn btn-grad fam-add-btn" id="famAddBtn" style="display:none" onclick="openMembers()">➕&nbsp; Add family members</button>
     <div class="grid" id="familyGrid"></div>
     <div class="vision vision-strip" onclick="openVision()"><div class="vstripe"></div>
       <b class="vis-fam-title">The Forteh Family Vision</b>
@@ -2191,6 +2204,8 @@ function createFamily(){
 
   toast("Welcome, the "+name+"! 🎉");
   enter(adminUser);
+  // guide the new admin straight to adding their family
+  setTimeout(()=>{ openMembers(); toast("Now add your family members — up to 7 👨‍👩‍👧"); }, 700);
 }
 function activeFamily(){ return (GDB.get("families",{})||{})[famId()] || {id:famId(),name:"Family",mission:"",values:"",goals:""}; }
 function isSuperAdmin(){ return famId()==="forteh" && ME && ME.u==="inno"; }
@@ -2221,6 +2236,8 @@ function updateAdminUI(){
   if(memBtn) memBtn.style.display=isFamilyAdmin()?"flex":"none";
   const superBtn=document.getElementById("superAdminBtn");
   if(superBtn) superBtn.style.display=isSuperAdmin()?"flex":"none";
+  const famBtn=document.getElementById("famAddBtn");
+  if(famBtn) famBtn.style.display=isFamilyAdmin()?"inline-flex":"none";
 }
 function ensureSavedRoom(){
   const id=ME.u+"_self";
