@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
         ws.setUseWideViewPort(false);
         ws.setTextZoom(100);
         // a recognisable UA so server logs can tell native ForTe Fam from a browser
-        ws.setUserAgentString(ws.getUserAgentString() + " ForTeFam/1.0");
+        ws.setUserAgentString(ws.getUserAgentString() + " ForTeFam/1.1");
 
         // Route external links (calls, Google tools, Drive shares) to the system browser
         web.setWebViewClient(new WebViewClient() {
@@ -120,34 +120,25 @@ public class MainActivity extends Activity {
         web.loadUrl("file:///android_asset/www/index.html");
     }
 
-    /** External URLs we always hand off to the system browser. */
+    /** Anything that is not the bundled app (any web page, tel:, mailto:, intent:)
+     *  opens in the phone's own browser/app — so Google sign-in, Docs, Meet, Maps
+     *  and phone calls never get trapped inside the ForTe Fam window. */
     private boolean handleExternal(String url) {
         if (url == null) return false;
-        String[] externalPrefixes = new String[]{
-                "https://meet.jit.si",
-                "https://meet.google.com",
-                "https://docs.google.com",
-                "https://drive.google.com",
-                "https://calendar.google.com",
-                "https://photos.google.com",
-                "https://keep.google.com",
-                "https://maps.google.com",
-                "https://translate.google.com",
-                "https://www.canva.com",
-                "https://script.google.com",   // backend tab if the family wants to inspect it
-                "mailto:", "tel:", "sms:", "geo:"
-        };
-        for (String p : externalPrefixes) {
-            if (url.startsWith(p)) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                } catch (Exception ignored) { }
-                return true;
+        if (url.startsWith("file:///android_asset/") || url.startsWith("about:") || url.startsWith("javascript:")) return false;
+        try {
+            Intent intent;
+            if (url.startsWith("intent:")) {
+                intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+            } else {
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             }
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(this, "No app found to open this link", Toast.LENGTH_SHORT).show();
         }
-        return false;
+        return true;
     }
 
     private void requestRuntimePermissions() {
@@ -155,6 +146,7 @@ public class MainActivity extends Activity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // SDK 33+
             need = new String[]{
                     Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.CAMERA,
                     Manifest.permission.READ_MEDIA_IMAGES,
                     Manifest.permission.READ_MEDIA_AUDIO,
                     Manifest.permission.READ_MEDIA_VIDEO
@@ -162,6 +154,7 @@ public class MainActivity extends Activity {
         } else {
             need = new String[]{
                     Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.CAMERA,
                     Manifest.permission.READ_EXTERNAL_STORAGE
             };
         }

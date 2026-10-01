@@ -9,6 +9,8 @@
     <!-- Voice notes (10s recordings via the WebView MediaRecorder API) -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <!-- Video notes (camera via WebView getUserMedia) -->
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- Photo & file sharing through the WebView file chooser -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"

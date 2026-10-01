@@ -18,6 +18,7 @@ const DEFAULT_FAM = "forteh";  // the original family keeps its existing data
 const SUPER_ADMIN = "inno";    // global admin who can see every family
 
 // Per-family data tabs
+// barter lives in global tabs barter__listings / barter__ledger
 const FAM_SHEETS = ["users","rooms","msgs","events","stories","goals","habits",
   "priorities","checkins","diagResults","prayers","notes","madIdeas","madGuests","hackstats"];
 
@@ -127,12 +128,111 @@ function folder_() {
 
 /** READ — JSONP. ?fam=<id> scopes to one family.
  *  ?admin=1&fam=inn... returns the global family registry for the super-admin. */
+
+/* ====================== BARTER (global, cross-family) ======================
+   Tabs: barter__listings, barter__ledger. Listings expire after 7 days and are
+   moved to the ledger. Same rules as the app's barterReduce(). */
+function bsheet_(ss, name){
+  var tn = "barter__" + name, sh = ss.getSheetByName(tn);
+  if (!sh) { sh = ss.insertSheet(tn); sh.getRange(1,1,1,2).setValues([["key","json"]]); }
+  return sh;
+}
+function bread_(ss, name){
+  var sh = bsheet_(ss, name), last = sh.getLastRow();
+  if (last < 2) return [];
+  return sh.getRange(2,1,last-1,2).getValues().map(function(r){
+    try { var o = JSON.parse(r[1]); o.__k = String(r[0]); return o; } catch(e){ return null; }
+  }).filter(Boolean);
+}
+function bwrite_(ss, name, key, obj){
+  var sh = bsheet_(ss, name), last = sh.getLastRow();
+  if (obj && obj.__k) delete obj.__k;
+  if (last > 1) {
+    var keys = sh.getRange(2,1,last-1,1).getValues();
+    for (var i=0;i<keys.length;i++) if (String(keys[i][0])===String(key)) {
+      if (obj === null) sh.deleteRow(i+2); else sh.getRange(i+2,2).setValue(JSON.stringify(obj));
+      return;
+    }
+  }
+  if (obj !== null) sh.appendRow([key, JSON.stringify(obj)]);
+}
+function bwho_(w){ return w ? (w.fam + ":" + w.u) : ""; }
+function bphoto_(o){
+  if (!o || !o.photo || String(o.photo).indexOf("data:") !== 0) return;
+  try {
+    var parts = String(o.photo).split(",");
+    var blob = Utilities.newBlob(Utilities.base64Decode(parts[1]), "image/jpeg", "barter-" + (o.id||Date.now()) + ".jpg");
+    var f = folder_().createFile(blob);
+    f.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    o.photoId = f.getId();
+  } catch (e) {}
+  delete o.photo;
+}
+function bledger_(L, outcome){
+  var a = L.accepted;
+  return { id:L.id, outcome:outcome, ts:Date.now(), created:L.ts, matchedTs:L.matchedTs||null, doneTs:L.doneTs||null,
+    item:L.title, itemDesc:L.desc||"",
+    owner:{name:L.owner.name, famName:L.owner.famName, fam:L.owner.fam, u:L.owner.u, phone:L.owner.phone},
+    exchangedFor: a ? {title:a.title, desc:a.desc||"", name:a.by.name, famName:a.by.famName, fam:a.by.fam, u:a.by.u, phone:a.by.phone} : null,
+    witness: L.witness || null };
+}
+function bpurge_(ss){
+  var now = Date.now();
+  bread_(ss, "listings").forEach(function(L){
+    if ((L.exp||0) <= now) {
+      var outcome = L.status==="done" ? "exchanged" : (L.status==="matched" ? "matched-not-completed" : "expired-no-deal");
+      bwrite_(ss, "ledger", L.id, bledger_(L, outcome));
+      bwrite_(ss, "listings", L.id, null);
+    }
+  });
+}
+function barterApply_(ss, op, p){
+  var now = Date.now();
+  if (op === "create") {
+    if (!p || !p.id || !p.owner) return "err:bad";
+    p.exp = (p.ts||now) + 7*24*60*60*1000;   // the server sets the 7-day clock
+    p.status = "open"; p.offers = []; bphoto_(p);
+    bwrite_(ss, "listings", p.id, p); return "ok";
+  }
+  var id = p.id || p.listingId, L = null;
+  bread_(ss, "listings").forEach(function(x){ if (x.id === id) L = x; });
+  if (!L) return "err:gone";
+  if (op === "offer") {
+    if (L.status !== "open" || bwho_(L.owner) === bwho_(p.offer.by)) return "err:closed";
+    bphoto_(p.offer);
+    L.offers = (L.offers||[]).filter(function(o){ return bwho_(o.by) !== bwho_(p.offer.by); });
+    L.offers.push(p.offer);
+  } else if (op === "decide") {
+    var o = null; (L.offers||[]).forEach(function(x){ if (x.id === p.offerId) o = x; });
+    if (!o || L.status !== "open") return "err:state";
+    if (p.good) { L.status = "matched"; L.accepted = o; L.matchedTs = now; L.offers = []; }
+    else { L.offers = L.offers.filter(function(x){ return x.id !== p.offerId; }); }
+  } else if (op === "witness") {
+    if (L.status !== "matched") return "err:state"; L.witness = p.witness;
+  } else if (op === "done") {
+    if (L.status !== "matched") return "err:state"; L.status = "done"; L.doneTs = now;
+    bwrite_(ss, "ledger", L.id, bledger_(L, "exchanged"));
+  } else if (op === "calloff") {
+    if (L.status !== "matched") return "err:state"; L.status = "open"; L.accepted = null; L.witness = null; L.matchedTs = null;
+  } else if (op === "withdraw") {
+    bwrite_(ss, "listings", L.id, null); return "ok";
+  } else return "err:op";
+  L.up = now; bwrite_(ss, "listings", L.id, L); return "ok";
+}
+
 function doGet(e) {
   const ss = ss_();
   const cb = (e && e.parameter && e.parameter.callback) || "callback";
   const fam = famId_(e && e.parameter && e.parameter.fam);
 
   // super-admin dashboard feed
+  if (e && e.parameter && e.parameter.barter === "1") {
+    bpurge_(ss);
+    var out = { listings: bread_(ss, "listings").map(function(x){ delete x.__k; return x; }) };
+    if (e.parameter.ledger === "1") out.ledger = bread_(ss, "ledger").map(function(x){ delete x.__k; return x; });
+    return ContentService.createTextOutput(cb + "(" + JSON.stringify(out) + ")")
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
   if (e && e.parameter && e.parameter.admin === "1") {
     const fams = readFamilies_(ss).map(function (f) {
       var users = readAll_(ss, f.id, "users");
@@ -192,6 +292,9 @@ function doPost(e) {
     const ss = ss_();
 
     // ---- family lifecycle ----
+    if (a === "barter") {
+      return ContentService.createTextOutput(barterApply_(ss, p.op, p.p));
+    }
     if (a === "createFamily") {
       // p: {id,name,mission,values,goals,admin,created}
       const newFam = famId_(p.id);
@@ -201,7 +304,7 @@ function doPost(e) {
       }
       upsertFamily_(ss, newFam, {
         id: newFam, name: p.name || newFam, mission: p.mission || "", values: p.values || "",
-        goals: p.goals || "", admin: p.admin || "", created: p.created || Date.now()
+        goals: p.goals || "", verses: p.verses || [], theme: p.theme || "green", admin: p.admin || "", created: p.created || Date.now()
       });
       if (p.adminUser) upsert_(ss, newFam, "users", p.adminUser.u, p.adminUser);
       return ContentService.createTextOutput("ok");
@@ -210,7 +313,7 @@ function doPost(e) {
       const all = readFamilies_(ss);
       for (var j = 0; j < all.length; j++) {
         if (all[j].id === fam) {
-          ["name","mission","values","goals"].forEach(function(k){ if (p[k] !== undefined) all[j][k] = p[k]; });
+          ["name","mission","values","goals","verses","theme"].forEach(function(k){ if (p[k] !== undefined) all[j][k] = p[k]; });
           upsertFamily_(ss, fam, all[j]);
           break;
         }
